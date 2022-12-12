@@ -6,7 +6,8 @@ async function writeNFC(){
             records: [{ recordType: "url", data: "https://themaverse.io/"}]
         });
     } catch {
-        alert("Write failed, Please try again!")
+        var text = document.getElementById('input1').value
+        alert("Write failed, Please try again!"+ text )
     };
 }
 
