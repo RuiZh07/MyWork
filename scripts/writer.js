@@ -33,8 +33,8 @@ async function writeNFC(){
 function check(){
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-
-    if (username === "admin" && password === "admin"){
+    let result = username.includes("@mst.edu")
+    if (result && password === "admin"){
         alert("You have succesfully logged in")
         window.location.replace("./sub.html")
     }else {
