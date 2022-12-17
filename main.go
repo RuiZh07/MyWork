@@ -15,21 +15,26 @@ import (
 )
 
 var tmpl *template.Template
-const signupPage = "templates/signup.html"
+
 
 func main() {
 	
 	http.HandleFunc("/", index)
+	http.HandleFunc("/signupPage", signupPage)
 	http.HandleFunc("/signup", signup)
 	http.ListenAndServe(":8080", nil)
 }
 
 func init() {
-    tmpl = template.Must(template.ParseFiles("templates/*.html"))
+    tmpl = template.Must(template.ParseGlob("templates/*.html"))
 }
 
 func index(reswt http.ResponseWriter, req *http.Request) {
     tmpl.ExecuteTemplate(reswt, "index.html", nil)
+}
+
+func signupPage(w http.ResponseWriter, r *http.Request){
+	tmpl.ExecuteTemplate(w, "signup.html", nil)
 }
 
 func signup(w http.ResponseWriter, r *http.Request){
