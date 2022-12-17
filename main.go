@@ -19,17 +19,35 @@ const signupPage = "templates/signup.html"
 
 func main() {
 	
-	http.HandleFunc("/", foo)
-	
+	http.HandleFunc("/", index)
+	http.HandleFunc("/signup", signup)
 	http.ListenAndServe(":8080", nil)
 }
 
 func init() {
-    tmpl = template.Must(template.ParseFiles("templates/index.html"))
+    tmpl = template.Must(template.ParseFiles("templates/*.html"))
 }
 
-func foo(reswt http.ResponseWriter, req *http.Request) {
+func index(reswt http.ResponseWriter, req *http.Request) {
     tmpl.ExecuteTemplate(reswt, "index.html", nil)
 }
 
+func signup(w http.ResponseWriter, r *http.Request){
+	if r.Method != "POST" {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+	userName := r.FormValue("username")
+	password := r.FormValue("password")
 
+	d := struct{
+		
+		Username string
+		Password string
+	}{
+		Username: userName,
+		Password: password,
+	}
+	
+	tmpl.ExecuteTemplate(w, "sub.html", d)
+}
