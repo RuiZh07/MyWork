@@ -1,4 +1,4 @@
-module NFCTag
+module NFC_Tag_UPoint
 
 go 1.19
 
