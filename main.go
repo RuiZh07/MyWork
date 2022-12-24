@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	
 	"github.com/gofiber/template/html"
 	"github.com/gofiber/fiber/v2"
 	"NFC_Tag_UPoint/controller"
@@ -21,6 +22,8 @@ func main(){
 	app.Get("/", index)
 	app.Get("/signup", controller.LoadSignUp)
 	app.Get("/login", controller.LoadLoginPage)
+	app.Post("/register", controller.HandleRegistration)
+
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <title>User Registration</title>
 </head>
 <body>
-    <h1>Sign up</h1>
-    <form action = '/signup' method="POST" >
-        <label for="fname">Username:</label><br>
-        <input type="text" id=''fname name="username"><br>
-        <label for="fname">Password:</label><br>
-        <input type="password" name="password"><br>
-        
+    <h1>User Registration</h1>
+    <form method="POST" action="/register">
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <br>
+        <label for="university">University:</label><br>
+        <input type="text" id="university" name="university"><br>
+        <br>
         <input type="submit" value="Submit">
     </form>
 </body>

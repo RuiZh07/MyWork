@@ -5,5 +5,6 @@ import(
 )
 
 func LoadLoginPage(c *fiber.Ctx) error {
+	// Render login.html template
 	return c.Render("login", nil)
 }
