@@ -23,10 +23,12 @@ func main(){
 	app.Get("/signup", controller.LoadSignUp)
 	app.Get("/login", controller.LoadLoginPage)
 	app.Post("/register", controller.HandleRegistration)
+	app.Post("/login", controller.HandleLogin)
+
 
 
 	// Start server
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen(":8081"))
 }
 
 func index(c *fiber.Ctx) error {

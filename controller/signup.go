@@ -58,8 +58,6 @@ func HandleRegistration(c *fiber.Ctx) error {
         return err
     }
 
-
-
     c.Redirect("/login")
     return nil
 }
