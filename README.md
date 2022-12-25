@@ -18,9 +18,11 @@ You should see the current design for the page
 
 TODO
 
-- Setup MongoDB to the website
-- Finish sign up function (encrypt pw, choosing university, check email domain)
-- Test log in
+- ~Setup MongoDB to the website~
+- ~Finish sign up function (encrypt pw, choosing university)~
+- ~Test log in~
+- Create university email domain database
+- Let user select it's university and match it's email domain with database. Return error if mismatched
 - Add user verifyChecker to check if redirect the user
 - Personal page within links
 - Assign TagID to NFC tag
