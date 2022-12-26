@@ -86,7 +86,7 @@ func LoadRegister(c *fiber.Ctx) error{
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString("Error querying database")
 	}
-
+    
     return c.Render("signup", universities)
-	// return tmpl.ExecuteTemplate(c.Res(), "register.html", universities)
+	
 }
