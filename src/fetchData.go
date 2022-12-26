@@ -21,7 +21,7 @@ type University struct {
 
 func main() {
 	// Read the JSON file into a byte slice
-	bytes, err := ioutil.ReadFile("universityData.json")
+	bytes, err := ioutil.ReadFile("../src/universityData.json")
 	if err != nil {
 		log.Fatal(err)
 	}
