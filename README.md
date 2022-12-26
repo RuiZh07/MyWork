@@ -5,14 +5,13 @@
 Requirement: Golang 1.19, postgreSQL
 
 to install golang 1.19, you can run <br>
-`sudo apt update
-sudo apt install snapd
-snap install go --classic
-`
+`sudo apt update` <br>
+`sudo apt install snapd` <br>
+`snap install go --classic` <br>
 
 to install postgreSQL <br>
 `sudo apt update` <br>
-`sudo apt install postgresql postgresql-contrib` <br>
+`sudo apt install postgresql postgresql-contrib` <br> <br>
 start server with: 
 `sudo service postgresql start` <br>
 login to postgre server: 
