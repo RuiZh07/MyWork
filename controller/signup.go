@@ -13,7 +13,7 @@ var db *sql.DB
 
 func init() {
     var err error
-    // Install postgresDB in your machine and change the `cyw:cyw` with your `username:password` and change `wacave` with your database name
+    // Install postgresDB in your machine and change the `admin:admin` with your `username:password` and change `wacave` with your database name
     // make sure you create table in your database with following code
     // CREATE TABLE users (
     //     id serial PRIMARY KEY,
@@ -22,7 +22,7 @@ func init() {
     //     university text NOT NULL
     // );
     
-    db, err = sql.Open("postgres", "postgres://cyw:cyw@localhost:5432/wacave?sslmode=disable")
+    db, err = sql.Open("postgres", "postgres://admin:admin@localhost:5432/wacave?sslmode=disable")
     if err != nil {
         log.Fatal(err)
     }

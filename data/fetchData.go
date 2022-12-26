@@ -33,7 +33,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	db, err = sql.Open("postgres", "postgres://cyw:cyw@localhost:5432/wacave?sslmode=disable")
+	db, err = sql.Open("postgres", "postgres://admin:admin@localhost:5432/wacave?sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}

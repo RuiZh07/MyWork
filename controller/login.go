@@ -14,7 +14,7 @@ func HandleLogin(c *fiber.Ctx) error {
     password := c.FormValue("password")
 
     // Connect to the database
-    db, err := sql.Open("postgres", "postgres://cyw:cyw@localhost/wacave?sslmode=disable")
+    db, err := sql.Open("postgres", "postgres://admin:admin@localhost/wacave?sslmode=disable")
     if err != nil {
         return err
     }

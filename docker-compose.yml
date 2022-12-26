@@ -3,8 +3,8 @@ services:
   database:
     image: postgres:latest
     environment:
-      - POSTGRES_USER=cyw
-      - POSTGRES_PASSWORD=cyw
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=wacave
     ports:
       - "5432:5432"
