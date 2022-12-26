@@ -104,7 +104,11 @@ func LoadRegister(c *fiber.Ctx) error{
 	if err != nil {
 		log.Fatal(err)
 	}
+    var uName []string
+    for _, university := range data {
+        uName = append(uName, university.Name)
+    }
 
-    return c.Render("signup",data)
+    return c.Render("signup", uName)
 	
 }

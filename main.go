@@ -12,11 +12,11 @@ import (
 
 func main(){
 
-	log.Println("Waitting for server to boot in 10s")
-	time.Sleep(10 * time.Second)
+	// log.Println("Waitting for server to boot in 10s")
+	// time.Sleep(10 * time.Second)
 
 	// Create table in database
-	createTable()
+	// createTable()
 
 	// Initialize standard go html template engine
 	engine := html.New("./templates", ".html")
