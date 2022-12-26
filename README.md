@@ -4,15 +4,19 @@
 
  To start the server, run command <br>
 `go mod tidy`
+`go run main.go` 
 
- then <br>
-`go run main.go`
-
-The default port is set to `8081`, therefore, open your browser and paste following url into your browser
-`localhost:8081`
+The default port is set to `8080`, therefore, open your browser and paste following url into your browser
+`localhost:8080`
 
 You should see the current design for the page
 
+--------
+
+If you have docker and docker compose installed, you can run with command
+`sudo bash run.sh`
+to start the server without any effort!
+(note: 12/25 the docker has permission issue when writing data to database, don't use it yet until we fix it)
 
 --------
 
