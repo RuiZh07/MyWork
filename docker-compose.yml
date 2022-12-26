@@ -8,6 +8,7 @@ services:
       - POSTGRES_DB=wacave
     ports:
       - "5432:5432"
+    entrypoint: /initDatabase.sh
     restart: always
   web:
     build: .

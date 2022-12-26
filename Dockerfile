@@ -2,12 +2,7 @@ FROM golang:latest
 
 # install PostgreSQL and create a user and database for the app
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib
-RUN service postgresql start && \
-    su postgres -c "psql -c \"CREATE USER admin WITH PASSWORD 'admin';\"" && \
-    su postgres -c "psql -c \"CREATE DATABASE wacave WITH OWNER admin;\"" && \
-    su postgres -c "psql -d wacave -c \"CREATE TABLE users (id serial PRIMARY KEY, email text NOT NULL, password text NOT NULL, university text NOT NULL);\"" && \
-    su postgres -c "psql -d wacave -c \"CREATE TABLE universities (name VARCHAR(255) NOT NULL, domain VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, state VARCHAR(255) NOT NULL);\"" && \
-    su postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE wacave TO admin;\""
+RUN service postgresql start 
 
 # set the working directory for the app
 WORKDIR /app
