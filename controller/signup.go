@@ -6,8 +6,17 @@ import (
     "log"
     "golang.org/x/crypto/bcrypt"
     "github.com/gofiber/fiber/v2"
+    "encoding/json"
+	"io/ioutil"
 )
 
+
+type UniversityData struct {
+	Name     string `json:"School Name"`
+	Email    string `json:"URL"`
+	City     string `json:"City"`
+	Location string `json:"State"`
+}
 
 var db *sql.DB
 
@@ -83,12 +92,19 @@ func getUniversities(db *sql.DB) ([]string, error) {
 
 
 func LoadRegister(c *fiber.Ctx) error{
-	universities, err := getUniversities(db)
+	
+    dataJSON, err := ioutil.ReadFile("data/universityData.json")
+    if err != nil {
+        log.Fatal(err)
+    }
     
+    // Unmarshal the JSON data into a slice of UniversityData structs.
+	var data []UniversityData
+	err = json.Unmarshal(dataJSON, &data)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).SendString("Error querying database")
+		log.Fatal(err)
 	}
-    
-    return c.Render("signup", universities)
+
+    return c.Render("signup",data)
 	
 }

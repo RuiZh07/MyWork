@@ -1,20 +1,14 @@
-version: '3.7'
+version: '3'
 services:
-  database:
-    image: postgres:latest
+  postgres:
+    image: postgres
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=wacave
-    ports:
-      - "5432:5432"
-    entrypoint: /initDatabase.sh
-    restart: always
-  web:
+      POSTGRES_DB: wacave
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+  go-server:
     build: .
-    #entrypoint: ["/bin/sh", "-c", "cd src && go run fetchData.go"]
     ports:
       - "8080:8080"
     depends_on:
-      - database
-    restart: always
+      - postgres
