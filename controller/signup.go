@@ -62,9 +62,31 @@ func HandleRegistration(c *fiber.Ctx) error {
     return nil
 }
 
+func getUniversities(db *sql.DB) ([]string, error) {
+	rows, err := db.Query("SELECT name FROM universities")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var universities []string
+	for rows.Next() {
+		var name string
+		if err := rows.Scan(&name); err != nil {
+			return nil, err
+		}
+		universities = append(universities, name)
+	}
+	return universities, nil
+}
 
 
-func LoadSignUp(c *fiber.Ctx) error{
-	// Render signup.html template
-	return c.Render("signup", nil)
+func LoadRegister(c *fiber.Ctx) error{
+	universities, err := getUniversities(db)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).SendString("Error querying database")
+	}
+
+    return c.Render("signup", universities)
+	// return tmpl.ExecuteTemplate(c.Res(), "register.html", universities)
 }

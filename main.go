@@ -20,7 +20,7 @@ func main(){
 
 	// Routes
 	app.Get("/", index)
-	app.Get("/signup", controller.LoadSignUp)
+	app.Get("/signup", controller.LoadRegister)
 	app.Get("/login", controller.LoadLoginPage)
 	app.Post("/register", controller.HandleRegistration)
 	app.Post("/login", controller.HandleLogin)
