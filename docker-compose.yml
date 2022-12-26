@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  database:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=cyw
+      - POSTGRES_PASSWORD=cyw
+      - POSTGRES_DB=wacave
+    ports:
+      - "5432:5432"
+    restart: always
+  web:
+    build: .
+    #entrypoint: ["/bin/sh", "-c", "cd src && go run fetchData.go"]
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    restart: always

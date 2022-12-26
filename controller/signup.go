@@ -63,6 +63,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 }
 
 func getUniversities(db *sql.DB) ([]string, error) {
+
 	rows, err := db.Query("SELECT name FROM universities")
 	if err != nil {
 		return nil, err
@@ -83,6 +84,7 @@ func getUniversities(db *sql.DB) ([]string, error) {
 
 func LoadRegister(c *fiber.Ctx) error{
 	universities, err := getUniversities(db)
+    
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString("Error querying database")
 	}

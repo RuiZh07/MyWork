@@ -4,28 +4,31 @@ FROM golang:latest
 RUN apt-get update && apt-get install -y postgresql postgresql-contrib
 RUN service postgresql start && \
     su postgres -c "psql -c \"CREATE USER cyw WITH PASSWORD 'cyw';\"" && \
-    su postgres -c "psql -c \"CREATE DATABASE wacave WITH OWNER cyw;\""
+    su postgres -c "psql -c \"CREATE DATABASE wacave WITH OWNER cyw;\"" && \
+    su postgres -c "psql -d wacave -c \"CREATE TABLE users (id serial PRIMARY KEY, email text NOT NULL, password text NOT NULL, university text NOT NULL);\"" && \
+    su postgres -c "psql -d wacave -c \"CREATE TABLE universities (name VARCHAR(255) NOT NULL, domain VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, state VARCHAR(255) NOT NULL);\"" && \
+    su postgres -c "psql -c \"GRANT ALL PRIVILEGES ON DATABASE wacave TO cyw;\""
 
 # set the working directory for the app
 WORKDIR /app
 
-# copy the source code for the app
+# copy the source code and the university data file for the app
 COPY . .
+COPY data/universityData.json .
 
 # build the app
 RUN go build -o main .
 
 # create the tables in the database
-RUN service postgresql start && \
-    su postgres -c "psql -d wacave -c \"CREATE TABLE users (email TEXT PRIMARY KEY, password TEXT, university TEXT);\"" && \
-    su postgres -c "psql -d wacave -c \"CREATE TABLE universities (name TEXT PRIMARY KEY, domain TEXT, city TEXT, state TEXT);\""
+# RUN service postgresql start && \
+#     su postgres -c "psql -d wacave -c \"CREATE TABLE users (id serial PRIMARY KEY, email text NOT NULL, password text NOT NULL, university text NOT NULL);\"" && \
+#     su postgres -c "psql -d wacave -c \"CREATE TABLE universities (name VARCHAR(255) NOT NULL, domain VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, state VARCHAR(255) NOT NULL);\""
 
-# run the fetchData script to populate the universities table
-RUN service postgresql start && go run src/fetchData.go
 
 # expose the port for the app
 EXPOSE 8080
 
-# run the app and the PostgreSQL server
-CMD service postgresql start && ./main
+# && go run src/fetchData.go
 
+# run the app and the PostgreSQL server and run fetchData.go to store all universities data in the database
+CMD service postgresql start && go run data/fetchData.go && ./main

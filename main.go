@@ -28,7 +28,7 @@ func main(){
 
 
 	// Start server
-	log.Fatal(app.Listen(":8081"))
+	log.Fatal(app.Listen(":8080"))
 }
 
 func index(c *fiber.Ctx) error {
