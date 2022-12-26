@@ -2,6 +2,31 @@
  This project aim to provide MS&T a convinient way of sharing personal contact information, such as Linkdin, Snapchat, Instagram, etc.
 <br>
 
+Requirement: Golang 1.19, postgreSQL
+
+to install golang 1.19, you can run <br>
+`sudo apt update
+sudo apt install snapd
+snap install go --classic
+`
+
+to install postgreSQL <br>
+`sudo apt update` <br>
+`sudo apt install postgresql postgresql-contrib` <br>
+start server with: 
+`sudo service postgresql start` <br>
+login to postgre server: 
+`sudo -u postgres psql` <br>
+create user with username "admin" and password "admin": 
+`CREATE USER admin WITH PASSWORD 'admin';` <br>
+create a database named "wacave": 
+`CREATE DATABASE wacave;` <br>
+give admin permission of the database:
+`GRANT ALL PRIVILEGES ON DATABASE wacave TO admin;` <br>
+
+
+
+
  To start the server, run command <br>
 `go mod tidy`
 `go run main.go` 
