@@ -49,8 +49,9 @@ TODO
 - ~Setup MongoDB to the website~
 - ~Finish sign up function (encrypt pw, choosing university)~
 - ~Test log in~
-- Create university email domain database
-- Let user select it's university and match it's email domain with database. Return error if mismatched
+- ~Create university email domain database~
+- ~Let user select it's university and match it's email domain with database. Return error if mismatched~
+- Create user dashboard
 - Add user verifyChecker to check if redirect the user
 - Personal page within links
 - Assign TagID to NFC tag
