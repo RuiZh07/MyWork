@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Select Your University</title>
+</head>
+<body>
+    <h1>Select Your University</h1>
+    <form method="POST" action="/selectU">
+        <label for="university">University:</label><br>
+        <select id="university" name="university">
+            <option value="">Select Your University</option>
+            {{range .}}
+                 <option value="{{.}}">{{.}}</option>
+            {{end}}
+        </select><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

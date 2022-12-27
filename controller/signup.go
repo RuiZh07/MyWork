@@ -8,8 +8,8 @@ import (
     "github.com/gofiber/fiber/v2"
     "encoding/json"
 	"io/ioutil"
+    "strings"
 )
-
 
 type UniversityData struct {
 	Name     string `json:"School Name"`
@@ -19,6 +19,9 @@ type UniversityData struct {
 }
 
 var db *sql.DB
+
+var university string
+var domain string
 
 func init() {
     var err error
@@ -42,7 +45,14 @@ func HandleRegistration(c *fiber.Ctx) error {
     // Get the form values
     email := c.FormValue("email")
     password := c.FormValue("password")
-    university := c.FormValue("university")
+
+    if !strings.Contains(email, ".edu") {
+        return c.Render("signup", fiber.Map{
+            "UniversitySelected": university, 
+            "UniversityDomain": domain,
+            "ErrorMessage": "Email Domain Not Supported",
+        })
+    }
 
     // Hash the password
     hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -58,7 +68,11 @@ func HandleRegistration(c *fiber.Ctx) error {
     }
     if count > 0 {
         // Email is already in use, return an error
-        return c.Status(400).SendString("Email is already in use")
+        return c.Render("signup", fiber.Map{
+            "UniversitySelected": university, 
+            "UniversityDomain": domain,
+            "ErrorMessage": "Email is already in use",
+        })
     }
 
     // Insert the new user into the database
@@ -109,6 +123,19 @@ func LoadRegister(c *fiber.Ctx) error{
         uName = append(uName, university.Name)
     }
 
-    return c.Render("signup", uName)
+    return c.Render("universitySelectRegister", uName)
 	
+}
+
+func HandleUniversitySelection(c *fiber.Ctx) error{
+    university = c.FormValue("university")
+    err := db.QueryRow("SELECT domain FROM universities WHERE name = $1", university).Scan(&domain)
+	if err != nil {
+		return err
+	}
+
+    return c.Render("signup", fiber.Map{
+        "UniversitySelected": university, 
+        "UniversityDomain": domain,
+    })
 }

@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"time"
+	// "time"
 	"database/sql"
 	_ "github.com/lib/pq"
 	"github.com/gofiber/template/html"
@@ -30,6 +30,7 @@ func main(){
 	app.Get("/", index)
 	app.Get("/signup", controller.LoadRegister)
 	app.Get("/login", controller.LoadLoginPage)
+	app.Post("/selectU", controller.HandleUniversitySelection)
 	app.Post("/register", controller.HandleRegistration)
 	app.Post("/login", controller.HandleLogin)
 
