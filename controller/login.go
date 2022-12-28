@@ -44,7 +44,7 @@ func HandleLogin(c *fiber.Ctx) error {
 	}
 
 	// The email and password are correct, log the user in
-	return c.SendString("Logged in successfully")
+	return c.Redirect("dashboard", 301)
 }
 
 func LoadLoginPage(c *fiber.Ctx) error {

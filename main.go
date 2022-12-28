@@ -33,6 +33,7 @@ func main() {
 	app.Post("/selectU", controller.HandleUniversitySelection)
 	app.Post("/register", controller.HandleRegistration)
 	app.Post("/login", controller.HandleLogin)
+	app.Get("/dashboard", controller.LoadDashboard)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))
