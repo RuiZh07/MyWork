@@ -3,14 +3,14 @@ package main
 import (
 	"log"
 	// "time"
-	"database/sql"
-	_ "github.com/lib/pq"
-	"github.com/gofiber/template/html"
-	"github.com/gofiber/fiber/v2"
 	"NFC_Tag_UPoint/controller"
+	"database/sql"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html"
+	_ "github.com/lib/pq"
 )
 
-func main(){
+func main() {
 
 	// log.Println("Waitting for server to boot in 10s")
 	// time.Sleep(10 * time.Second)
@@ -20,7 +20,7 @@ func main(){
 
 	// Initialize standard go html template engine
 	engine := html.New("./templates", ".html")
-	
+
 	// Fiber instance
 	app := fiber.New(fiber.Config{
 		Views: engine,
@@ -34,8 +34,6 @@ func main(){
 	app.Post("/register", controller.HandleRegistration)
 	app.Post("/login", controller.HandleLogin)
 
-
-
 	// Start server
 	log.Fatal(app.Listen(":8080"))
 }
@@ -45,7 +43,7 @@ func index(c *fiber.Ctx) error {
 	return c.Render("index", nil)
 }
 
-func createTable(){
+func createTable() {
 	// Connect to the PostgreSQL server.
 	db, err := sql.Open("postgres", "postgres://admin:admin@localhost:5432/wacave?sslmode=disable")
 	if err != nil {
@@ -79,4 +77,3 @@ func createTable(){
 		log.Fatal(err)
 	}
 }
-
