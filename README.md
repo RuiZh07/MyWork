@@ -52,8 +52,8 @@ TODO
 - ~Create university email domain database~
 - ~Let user select it's university and match it's email domain with database. Return error if mismatched~
 - ~Create user dashboard~
-- Redesign database schema
-- Apply redeisgned shema to database
+- Redesign database schemas 
+- Apply redeisgned shemas to database
 - Add user verifyChecker to check if redirect the user
 - Personal page within links
 - Assign TagID to NFC tag
