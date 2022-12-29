@@ -20,7 +20,6 @@ type UniversityData struct {
 
 var db *sql.DB
 
-var universitySelected string
 var domain string
 
 func init() {
@@ -45,9 +44,17 @@ func HandleRegistration(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
+	// Get university name
+	var university string
+	err := db.QueryRow("SELECT name FROM universities WHERE domain = $1", domain).Scan(&university)
+	if err != nil {
+		return err
+	}
+
 	if !strings.Contains(email, ".edu") {
 
 		return c.Render("signup", fiber.Map{
+			"UniversityName": university,
 			"UniversityDomain": domain,
 			"ErrorMessage":     "Email Domain Not Supported",
 		})
@@ -58,6 +65,13 @@ func HandleRegistration(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
+
+	// // Get university name
+	// var university string
+	// err = db.QueryRow("SELECT university FROM universities WHERE domain = $1", domain).Scan(&university)
+	// if err != nil {
+	// 	return err
+	// }
 
 	// Check if the email is already in use
 	var count int
@@ -74,7 +88,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	}
 
 	// Insert the new user into the database
-	_, err = db.Exec("INSERT INTO users (email, password, university) VALUES ($1, $2, $3)", email, hashedPassword, universitySelected)
+	_, err = db.Exec("INSERT INTO users (email, password, university) VALUES ($1, $2, $3)", email, hashedPassword, university)
 	if err != nil {
 		return err
 	}
@@ -106,13 +120,14 @@ func LoadRegister(c *fiber.Ctx) error {
 }
 
 func HandleUniversitySelection(c *fiber.Ctx) error {
-	universitySelected = c.FormValue("university")
+	universitySelected := c.FormValue("university")
 	err := db.QueryRow("SELECT domain FROM universities WHERE name = $1", universitySelected).Scan(&domain)
 	if err != nil {
 		return err
 	}
 
 	return c.Render("signup", fiber.Map{
+		"UniversityName": universitySelected,
 		"UniversityDomain": domain,
 	})
 
