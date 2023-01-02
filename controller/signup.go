@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"NFC_Tag_UPoint/data"
+	
 	"database/sql"
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
@@ -44,14 +44,25 @@ func HandleRegistration(c *fiber.Ctx) error {
 	// Get the form values
 	email := c.FormValue("email")
 	password := c.FormValue("password")
+	confirmPassword := c.FormValue("confirmPassword")
 
-	data.LoadUniversityData()
+	
 
 	// Get university name
 	var university string
 	err := db.QueryRow("SELECT name FROM universities WHERE domain = $1", domain).Scan(&university)
 	if err != nil {
 		return err
+	}
+
+	if password != confirmPassword{
+		return c.Render("signup", fiber.Map{
+			"Email": email,
+			"UniversityName:": university,
+			"UniversityDomain": domain,
+			"ErrorMessage": "Password doesn't match",
+
+		})
 	}
 
 	if !strings.Contains(email, ".edu") {

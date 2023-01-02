@@ -2,12 +2,13 @@ package main
 
 import (
 	"log"
-	// "time"
+	"NFC_Tag_UPoint/data"
 	"NFC_Tag_UPoint/controller"
 	"database/sql"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html"
 	_ "github.com/lib/pq"
+	"fmt"
 )
 
 func main() {
@@ -17,6 +18,9 @@ func main() {
 
 	// Create table in database
 	createTable()
+
+	// Load University Data into Database
+	data.LoadUniversityData()
 
 	// Initialize standard go html template engine
 	engine := html.New("./templates", ".html")
@@ -78,4 +82,6 @@ func createTable() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("Table created")
 }
