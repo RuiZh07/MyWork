@@ -16,7 +16,7 @@ func main() {
 	// time.Sleep(10 * time.Second)
 
 	// Create table in database
-	// createTable()
+	createTable()
 
 	// Initialize standard go html template engine
 	engine := html.New("./templates", ".html")
@@ -54,11 +54,12 @@ func createTable() {
 
 	// Create the users table.
 	_, err = db.Exec(`
-		CREATE TABLE IF NOT EXISTS users (
-			id SERIAL PRIMARY KEY,
-			username VARCHAR(255) NOT NULL,
-			password VARCHAR(255) NOT NULL
-		)
+	CREATE TABLE IF NOT EXISTS users (
+		    id serial PRIMARY KEY,
+		    email text NOT NULL,
+		    password text NOT NULL,
+		    university text NOT NULL
+		);
 	`)
 	if err != nil {
 		log.Fatal(err)
