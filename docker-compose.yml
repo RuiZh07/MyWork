@@ -1,16 +1,14 @@
-version: '3'
+version: '3.7'
 services:
-  web:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: wacave
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+  go-server:
     build: .
     ports:
       - "8080:8080"
-    environment:
-      - DATABASE_URL=postgres://admin:admin@db:5432/wacave
-  db:
-    build: .
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=wacave
+    depends_on:
+      - postgres

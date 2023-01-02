@@ -9,12 +9,13 @@ import (
 	"github.com/gofiber/template/html"
 	_ "github.com/lib/pq"
 	"fmt"
+	"time"
 )
 
 func main() {
 
 	// log.Println("Waitting for server to boot in 10s")
-	// time.Sleep(10 * time.Second)
+	time.Sleep(10 * time.Second)
 
 	// Create table in database
 	createTable()
