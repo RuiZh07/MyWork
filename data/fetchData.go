@@ -1,4 +1,4 @@
-package main
+package data
 
 import (
 	"database/sql"
@@ -59,13 +59,13 @@ func main() {
 		}
 		if count > 0 {
 			// University is already in database
-			panic("University is already in database: " + university.Name)
+			continue
+		} else{
+			_, err = db.Exec("INSERT INTO universities (name, domain, city, state) VALUES ($1, $2, $3, $4)",
+				university.Name, university.Email, university.City, university.Location)
+			if err != nil {
+				log.Fatal(err)
 		}
-
-		_, err = db.Exec("INSERT INTO universities (name, domain, city, state) VALUES ($1, $2, $3, $4)",
-			university.Name, university.Email, university.City, university.Location)
-		if err != nil {
-			log.Fatal(err)
 		}
 
 	}

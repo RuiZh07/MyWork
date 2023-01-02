@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"strings"
+	"NFC_Tag_UPoint/data"
 )
 
 type UniversityData struct {
