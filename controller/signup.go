@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"NFC_Tag_UPoint/data"
 	"database/sql"
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
@@ -9,7 +10,6 @@ import (
 	"io/ioutil"
 	"log"
 	"strings"
-	"NFC_Tag_UPoint/data"
 )
 
 type UniversityData struct {
@@ -45,7 +45,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
-	data.LoadUniversityData()	
+	data.LoadUniversityData()
 
 	// Get university name
 	var university string
@@ -57,7 +57,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	if !strings.Contains(email, ".edu") {
 
 		return c.Render("signup", fiber.Map{
-			"UniversityName": university,
+			"UniversityName":   university,
 			"UniversityDomain": domain,
 			"ErrorMessage":     "Email Domain Not Supported",
 		})
@@ -133,7 +133,7 @@ func HandleUniversitySelection(c *fiber.Ctx) error {
 	}
 
 	return c.Render("signup", fiber.Map{
-		"UniversityName": universitySelected,
+		"UniversityName":   universitySelected,
 		"UniversityDomain": domain,
 	})
 

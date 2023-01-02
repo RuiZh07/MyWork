@@ -4,7 +4,6 @@ import (
 	// "database/sql"
 	// _ "github.com/lib/pq"
 	"github.com/gofiber/fiber/v2"
-	
 )
 
 // func init() {

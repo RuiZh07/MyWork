@@ -4,10 +4,10 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	_ "github.com/lib/pq"
 	"io/ioutil"
 	"log"
 	"os"
-	_ "github.com/lib/pq"
 )
 
 var db *sql.DB
@@ -20,7 +20,7 @@ type University struct {
 }
 
 func LoadUniversityData() {
-	
+
 	// Read the JSON file into a byte slice
 	bytes, err := ioutil.ReadFile("data/universityData.json")
 	if err != nil {
@@ -61,12 +61,12 @@ func LoadUniversityData() {
 		if count > 0 {
 			// University is already in database
 			continue
-		} else{
+		} else {
 			_, err = db.Exec("INSERT INTO universities (name, domain, city, state) VALUES ($1, $2, $3, $4)",
 				university.Name, university.Email, university.City, university.Location)
 			if err != nil {
 				log.Fatal(err)
-		}
+			}
 		}
 
 	}
