@@ -45,6 +45,8 @@ func HandleRegistration(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
+	data.LoadUniversityData()
+
 	// Get university name
 	var university string
 	err := db.QueryRow("SELECT name FROM universities WHERE domain = $1", domain).Scan(&university)

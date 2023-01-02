@@ -19,7 +19,7 @@ type University struct {
 	Location string `json:"State"`
 }
 
-func main() {
+func LoadUniversityData() {
 	// Read the JSON file into a byte slice
 	bytes, err := ioutil.ReadFile("universityData.json")
 	if err != nil {
