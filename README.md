@@ -46,7 +46,7 @@ to start the server without any effort!
 
 TODO
 
-- ~Setup MongoDB to the website~
+- ~Setup PostgreDB to the website~
 - ~Finish sign up function (encrypt pw, choosing university)~
 - ~Test log in~
 - ~Create university email domain database~

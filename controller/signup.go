@@ -45,7 +45,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
-	data.LoadUniversityData()
+	data.LoadUniversityData()	
 
 	// Get university name
 	var university string
@@ -96,7 +96,10 @@ func HandleRegistration(c *fiber.Ctx) error {
 		return err
 	}
 
-	c.Redirect("/login")
+	c.Render("login", fiber.Map{
+		"SuccessfullyRegistered": "Registered Successfully, Please Login With Your Account",
+	})
+
 	return nil
 }
 

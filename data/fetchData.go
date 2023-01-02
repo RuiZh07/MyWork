@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-
+	"os"
 	_ "github.com/lib/pq"
 )
 
@@ -20,8 +20,9 @@ type University struct {
 }
 
 func LoadUniversityData() {
+	
 	// Read the JSON file into a byte slice
-	bytes, err := ioutil.ReadFile("universityData.json")
+	bytes, err := ioutil.ReadFile("data/universityData.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -70,6 +71,6 @@ func LoadUniversityData() {
 
 	}
 
-	fmt.Println("done")
+	fmt.Println("university data insertion done")
 
 }
