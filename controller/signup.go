@@ -1,7 +1,6 @@
 package controller
 
 import (
-	
 	"database/sql"
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
@@ -46,8 +45,6 @@ func HandleRegistration(c *fiber.Ctx) error {
 	password := c.FormValue("password")
 	confirmPassword := c.FormValue("confirmPassword")
 
-	
-
 	// Get university name
 	var university string
 	err := db.QueryRow("SELECT name FROM universities WHERE domain = $1", domain).Scan(&university)
@@ -55,13 +52,12 @@ func HandleRegistration(c *fiber.Ctx) error {
 		return err
 	}
 
-	if password != confirmPassword{
+	if password != confirmPassword {
 		return c.Render("signup", fiber.Map{
-			"Email": email,
-			"UniversityName:": university,
+			"Email":            email,
+			"UniversityName:":  university,
 			"UniversityDomain": domain,
-			"ErrorMessage": "Password doesn't match",
-
+			"ErrorMessage":     "Password doesn't match",
 		})
 	}
 
