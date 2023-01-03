@@ -112,7 +112,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 
 func LoadRegister(c *fiber.Ctx) error {
 
-	dataJSON, err := ioutil.ReadFile("data/universityData.json")
+	dataJSON, err := ioutil.ReadFile("database/universityData.json")
 	if err != nil {
 		log.Fatal(err)
 	}
