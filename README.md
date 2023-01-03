@@ -4,43 +4,14 @@
 
 Requirement: Golang 1.19, postgreSQL
 
-to install golang 1.19, you can run <br>
-`sudo apt update` <br>
-`sudo apt install snapd` <br>
-`snap install go --classic` <br>
+****Run following command to install all required software for first time***
+*this will start the web server as well*
 
-to install postgreSQL <br>
-`sudo apt update` <br>
-`sudo apt install postgresql postgresql-contrib` <br> <br>
-start server with: 
-`sudo service postgresql start` <br>
-login to postgre server: 
-`sudo -u postgres psql` <br>
-create user with username "admin" and password "admin": 
-`CREATE USER admin WITH PASSWORD 'admin';` <br>
-create a database named "wacave": 
-`CREATE DATABASE wacave;` <br>
-give admin permission of the database:
-`GRANT ALL PRIVILEGES ON DATABASE wacave TO admin;` <br>
+`sudo bash ./setup.sh`
+<br><br>
 
-
-
-
- To start the server, run command <br>
-`go mod tidy`
-`go run main.go` 
-
-The default port is set to `8080`, therefore, open your browser and paste following url into your browser
-`localhost:8080`
-
-You should see the current design for the page
-
---------
-
-~If you have docker and docker compose installed, you can run with command
-`sudo bash run.sh`
-to start the server without any effort!
-(note: 12/25 the docker has permission issue when writing data to database, don't use it yet until we fix it)~
+Run following command to start the server in the future
+`go run main.go`
 
 --------
 
