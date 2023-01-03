@@ -10,7 +10,7 @@ Requirement: Golang 1.19, postgreSQL
 `sudo bash ./setup.sh`
 <br><br>
 
-Run following command to start the server in the future
+Run following command to start the server in the future <br>
 `go run main.go`
 
 --------
