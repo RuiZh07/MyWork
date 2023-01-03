@@ -52,7 +52,18 @@ func HandleRegistration(c *fiber.Ctx) error {
 		return err
 	}
 
+	if password == "" {
+
+		return c.Render("signup", fiber.Map{
+			"UniversityName":   university,
+			"Email": email,
+			"UniversityDomain": domain,
+			"ErrorMessage":     "Password can not be empty",
+		})
+	}
+
 	if password != confirmPassword {
+		
 		return c.Render("signup", fiber.Map{
 			"Email":            email,
 			"UniversityName:":  university,
@@ -92,6 +103,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	if count > 0 {
 		// Email is already in use, return an error
 		return c.Render("signup", fiber.Map{
+			"UniversityName:":  university,
 			"UniversityDomain": domain,
 			"ErrorMessage":     "Email is already in use",
 		})

@@ -10,13 +10,14 @@
 <body>
   <h1>User Login</h1>
 	<form action="/login" method="post">
-      <span style="color: black"> {{.SuccessfullyRegistered}}</span><br><br>
+      <span style="color: black"> {{.SuccessfullyRegistered}}</span><br>
       <label for ="email"> Email </label><br>
       <input type="email" name="email"><br>
       <label for ="password"> Password </label><br>
       <input type="password" name="password"><br>
       <span style="color: red">{{.ErrorMessage}}</span> <br>
-      <input type="submit" value="Log in">
+      <input type="submit" value="Log in"> <br>
+      <a href="/signup" style="color: blue"> Create Account </a>
     </form>
 </body>
 
