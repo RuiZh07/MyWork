@@ -9,7 +9,7 @@ snap install go --classic
 # Install postgreSQL
 echo "Installing postgreSQL"
 sudo apt-get update
-sudo apt install postgresql postgresql-contrib postgresql-client
+sudo apt install postgresql postgresql-contrib postgresql-client -y
 
 # Starting database
 echo "Starting Database"
