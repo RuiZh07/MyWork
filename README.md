@@ -4,7 +4,7 @@
 
 Requirement: Golang 1.19, postgreSQL
 
-***Run following command to install all required software for first time***
+**Run following command to install all required software for first time** <br>
 *this will start the web server as well*
 
 `sudo bash ./setup.sh`
