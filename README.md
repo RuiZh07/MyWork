@@ -37,10 +37,10 @@ You should see the current design for the page
 
 --------
 
-If you have docker and docker compose installed, you can run with command
+~If you have docker and docker compose installed, you can run with command
 `sudo bash run.sh`
 to start the server without any effort!
-(note: 12/25 the docker has permission issue when writing data to database, don't use it yet until we fix it)
+(note: 12/25 the docker has permission issue when writing data to database, don't use it yet until we fix it)~
 
 --------
 
