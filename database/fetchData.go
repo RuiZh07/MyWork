@@ -1,47 +1,17 @@
 package database
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
-	_ "github.com/lib/pq"
 	"io/ioutil"
 	"log"
 )
-
-var db *sql.DB
 
 type University struct {
 	Name     string `json:"School Name"`
 	Email    string `json:"URL"`
 	City     string `json:"City"`
 	Location string `json:"State"`
-}
-
-func init() {
-	var err error
-	// Install postgresDB in your machine and change the `admin:admin` with your `username:password` and change `wacave` with your database name
-	// make sure you create table in your database with following code
-	// CREATE TABLE users (
-	//     id serial PRIMARY KEY,
-	//     email text NOT NULL,
-	//     password text NOT NULL,
-	//     university text NOT NULL
-	// );
-	//
-	// Make sure you create `universities` table in database before you import
-	//
-	// CREATE TABLE universities (
-	// 	name VARCHAR(255) NOT NULL,
-	// 	domain VARCHAR(255) NOT NULL,
-	// 	city VARCHAR(255) NOT NULL,
-	// 	state VARCHAR(255) NOT NULL
-	//   );
-
-	db, err = sql.Open("postgres", "postgres://admin:admin@localhost:5432/wacave?sslmode=disable")
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 func LoadUniversityData() {
@@ -63,7 +33,7 @@ func LoadUniversityData() {
 	for _, university := range universities {
 
 		var count int
-		err = db.QueryRow("SELECT COUNT(*) FROM universities WHERE domain = $1", university.Email).Scan(&count)
+		err = DB.QueryRow("SELECT COUNT(*) FROM universities WHERE domain = $1", university.Email).Scan(&count)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -71,7 +41,7 @@ func LoadUniversityData() {
 			// University is already in database
 			continue
 		} else {
-			_, err = db.Exec("INSERT INTO universities (name, domain, city, state) VALUES ($1, $2, $3, $4)",
+			_, err = DB.Exec("INSERT INTO universities (name, domain, city, state) VALUES ($1, $2, $3, $4)",
 				university.Name, university.Email, university.City, university.Location)
 			if err != nil {
 				log.Fatal(err)
@@ -89,14 +59,14 @@ func CreateTable() {
 	var count int
 
 	// Create the users table if not exist.
-	err := db.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'users'").Scan(&count)
+	err := DB.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'users'").Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	if count == 0 {
 		fmt.Println("Creating users table")
-		_, err = db.Exec(`
+		_, err = DB.Exec(`
 			CREATE TABLE users (
 				id serial PRIMARY KEY,
 				email text NOT NULL,
@@ -111,7 +81,7 @@ func CreateTable() {
 	}
 
 	// Create the universities table.
-	err = db.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'universities'").Scan(&count)
+	err = DB.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'universities'").Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -119,7 +89,7 @@ func CreateTable() {
 	if count == 0 {
 		fmt.Println("Creating university table")
 
-		_, err = db.Exec(`
+		_, err = DB.Exec(`
 			CREATE TABLE universities (
 				id SERIAL PRIMARY KEY,
 				name VARCHAR(255) NOT NULL,

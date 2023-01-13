@@ -1,10 +1,9 @@
 package controller
 
 import (
-	"database/sql"
+	"NFC_Tag_UPoint/database"
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
-	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"log"
@@ -18,26 +17,8 @@ type UniversityData struct {
 	Location string `json:"State"`
 }
 
-var db *sql.DB
-
 var domain string
 
-func init() {
-	var err error
-	// Install postgresDB in your machine and change the `admin:admin` with your `username:password` and change `wacave` with your database name
-	// make sure you create table in your database with following code
-	// CREATE TABLE users (
-	//     id serial PRIMARY KEY,
-	//     email text NOT NULL,
-	//     password text NOT NULL,
-	//     university text NOT NULL
-	// );
-
-	db, err = sql.Open("postgres", "postgres://admin:admin@localhost:5432/wacave?sslmode=disable")
-	if err != nil {
-		log.Fatal(err)
-	}
-}
 
 func HandleRegistration(c *fiber.Ctx) error {
 	// Get the form values
@@ -47,37 +28,17 @@ func HandleRegistration(c *fiber.Ctx) error {
 
 	// Get university name
 	var university string
-	err := db.QueryRow("SELECT name FROM universities WHERE domain = $1", domain).Scan(&university)
+	err := database.DB.QueryRow("SELECT name FROM universities WHERE domain = $1", domain).Scan(&university)
 	if err != nil {
 		return err
 	}
 
-	if password == "" {
-
+	if checkInputValidation(email, password, confirmPassword) != "" {
 		return c.Render("signup", fiber.Map{
-			"UniversityName":   university,
-			"Email": email,
+			"UniversityName": university,
+			"Email": email, 
 			"UniversityDomain": domain,
-			"ErrorMessage":     "Password can not be empty",
-		})
-	}
-
-	if password != confirmPassword {
-		
-		return c.Render("signup", fiber.Map{
-			"Email":            email,
-			"UniversityName:":  university,
-			"UniversityDomain": domain,
-			"ErrorMessage":     "Password doesn't match",
-		})
-	}
-
-	if !strings.Contains(email, ".edu") {
-
-		return c.Render("signup", fiber.Map{
-			"UniversityName":   university,
-			"UniversityDomain": domain,
-			"ErrorMessage":     "Email Domain Not Supported",
+			"ErrorMessage": checkInputValidation(email, password, confirmPassword),
 		})
 	}
 
@@ -87,16 +48,9 @@ func HandleRegistration(c *fiber.Ctx) error {
 		return err
 	}
 
-	// // Get university name
-	// var university string
-	// err = db.QueryRow("SELECT university FROM universities WHERE domain = $1", domain).Scan(&university)
-	// if err != nil {
-	// 	return err
-	// }
-
 	// Check if the email is already in use
 	var count int
-	err = db.QueryRow("SELECT COUNT(*) FROM users WHERE email = $1", email).Scan(&count)
+	err = database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE email = $1", email).Scan(&count)
 	if err != nil {
 		return err
 	}
@@ -110,7 +64,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	}
 
 	// Insert the new user into the database
-	_, err = db.Exec("INSERT INTO users (email, password, university) VALUES ($1, $2, $3)", email, hashedPassword, university)
+	_, err = database.DB.Exec("INSERT INTO users (email, password, university) VALUES ($1, $2, $3)", email, hashedPassword, university)
 	if err != nil {
 		return err
 	}
@@ -146,7 +100,7 @@ func LoadRegister(c *fiber.Ctx) error {
 
 func HandleUniversitySelection(c *fiber.Ctx) error {
 	universitySelected := c.FormValue("university")
-	err := db.QueryRow("SELECT domain FROM universities WHERE name = $1", universitySelected).Scan(&domain)
+	err := database.DB.QueryRow("SELECT domain FROM universities WHERE name = $1", universitySelected).Scan(&domain)
 	if err != nil {
 		return err
 	}
@@ -156,4 +110,26 @@ func HandleUniversitySelection(c *fiber.Ctx) error {
 		"UniversityDomain": domain,
 	})
 
+}
+
+func checkInputValidation(email string, password string, confirmPassword string) string{
+
+	var errMessage string
+
+	if password == "" {
+		errMessage = "Password can't be empty"
+		return errMessage
+	}
+
+	if password != confirmPassword {
+		errMessage = "Password mismatched"
+		return errMessage
+	}
+
+	if !strings.Contains(email, ".edu") {
+		errMessage = "Invalid email"
+		return errMessage
+	}
+	
+	return errMessage
 }
