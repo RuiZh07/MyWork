@@ -1,9 +1,9 @@
 package middleware
 
 import (
+	"github.com/gofiber/fiber/v2"
 	"log"
 	"strings"
-	"github.com/gofiber/fiber/v2"
 )
 
 func setAuth() fiber.Handler {
@@ -13,18 +13,18 @@ func setAuth() fiber.Handler {
 // This is to check if user has session AUTH_KEY in their cookie, redirect
 // user to /user/dashboard if they already signed in
 func noAuth(c *fiber.Ctx) error {
-    sess, err := store.Get(c)
+	sess, err := store.Get(c)
 
-    if err != nil {
-        log.Fatal("Error when getting session info")
-    }
+	if err != nil {
+		log.Fatal("Error when getting session info")
+	}
 
-	if strings.Split(c.Path(), "/")[1] == "auth" && sess.Get(AUTH_KEY) == nil{
+	if strings.Split(c.Path(), "/")[1] == "auth" && sess.Get(AUTH_KEY) == nil {
 		log.Print("No auth key in cookie")
 		return c.Next()
 	}
 
-    return c.Redirect("/user/dashboard")
+	return c.Redirect("/user/dashboard")
 }
 
 func checkAuth() fiber.Handler {

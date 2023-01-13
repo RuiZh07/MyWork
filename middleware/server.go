@@ -2,12 +2,15 @@ package middleware
 
 import (
 	"NFC_Tag_UPoint/controller"
+
 	"github.com/gofiber/fiber/v2"
 	// "github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/session"
-	"github.com/gofiber/template/html"
 	"log"
 	"time"
+
+	"github.com/gofiber/fiber/v2/middleware/limiter"
+	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/gofiber/template/html"
 )
 
 var (
@@ -37,17 +40,22 @@ func Setup() {
 	log.Print("Setting up middleware session")
 
 	// Routes
-	app.Get("/", index)
 	app.Get("/*", routeNotExist)
 
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
 
+	// This is Get request routes for user without authentication
+	NoAuth.Get("/", index)
 	NoAuth.Get("/signup", controller.LoadRegister)
 	NoAuth.Get("/login", controller.LoadLoginPage)
-	NoAuth.Post("/selectU", controller.HandleUniversitySelection)
-	NoAuth.Post("/register", controller.HandleRegistration)
-	NoAuth.Post("/login", HandleLogin)
+
+	NoAuthPost := app.Group("/auth")
+	NoAuthPost.Use(limiter.New())
+	// This is Post request routes for user without authentication
+	NoAuthPost.Post("/selectU", controller.HandleUniversitySelection)
+	NoAuthPost.Post("/register", controller.HandleRegistration)
+	NoAuthPost.Post("/login", HandleLogin)
 
 	admin := app.Group("/user")
 	admin.Use(checkAuth())
