@@ -6,35 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 	"log"
-	// "strings"
 )
-
-// // NewMiddleware() to setup AuthMiddleware
-// func NewMiddleware() fiber.Handler {
-// 	return AuthMiddleware
-// }
-
-// func AuthMiddleware(c *fiber.Ctx) error {
-// 	sess, err := store.Get(c)
-// 	if strings.Split(c.Path(), "/")[1] == "auth" {
-// 		log.Print(c.Path())
-// 		return c.Next()
-// 	}
-
-// 	if err != nil {
-// 		log.Fatal("Err when getting authorized")
-// 	}
-
-// 	if sess.Get(AUTH_KEY) == nil {
-// 		log.Print("No authorized auth_key")
-// 		log.Print(sess.Get(AUTH_KEY))
-// 		log.Print(sess.Get(USER_EMAIL))
-// 	} else {
-// 		c.Redirect("/auth/dashboard")
-// 	}
-
-// 	return c.Next()
-// }
 
 // HandleLogin handles user login requests
 func HandleLogin(c *fiber.Ctx) error {
@@ -82,5 +54,5 @@ func HandleLogin(c *fiber.Ctx) error {
 	}
 
 	// The email and password are correct, log the user in
-	return c.Redirect("dashboard", 301)
+	return c.Redirect("/user/dashboard")
 }

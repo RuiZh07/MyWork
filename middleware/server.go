@@ -38,17 +38,20 @@ func Setup() {
 
 	// Routes
 	app.Get("/", index)
+	app.Get("/*", routeNotExist)
 
-	auth := app.Group("/")
-	auth.Use(setAuth())
+	NoAuth := app.Group("/auth")
+	NoAuth.Use(setAuth())
 
-	auth.Get("/signup", controller.LoadRegister)
-	auth.Get("/login", controller.LoadLoginPage)
-	auth.Post("/selectU", controller.HandleUniversitySelection)
-	auth.Post("/register", controller.HandleRegistration)
-	auth.Post("/login", HandleLogin)
+	NoAuth.Get("/signup", controller.LoadRegister)
+	NoAuth.Get("/login", controller.LoadLoginPage)
+	NoAuth.Post("/selectU", controller.HandleUniversitySelection)
+	NoAuth.Post("/register", controller.HandleRegistration)
+	NoAuth.Post("/login", HandleLogin)
 
-	auth.Get("/dashboard", controller.LoadDashboard)
+	admin := app.Group("/user")
+	admin.Use(checkAuth())
+	admin.Get("/dashboard", controller.LoadDashboard)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))
