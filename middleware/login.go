@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"NFC_Tag_UPoint/database"
+	"NFC_Tag_UPoint/model"
 	"database/sql"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
@@ -38,16 +39,16 @@ func HandleLogin(c *fiber.Ctx) error {
 	}
 
 	log.Print("Get session info")
-	sess, sessErr := store.Get(c)
+	sess, sessErr := model.Store.Get(c)
 	if sessErr != nil {
 		log.Fatal("Error when getting session info")
 	}
 
-	sess.Set(AUTH_KEY, true)
-	sess.Set(USER_EMAIL, email)
+	sess.Set(model.AUTH_KEY, true)
+	sess.Set(model.USER_EMAIL, email)
 
 	log.Print("Session email")
-	log.Print(sess.Get(USER_EMAIL))
+	log.Print(sess.Get(model.USER_EMAIL))
 	sessErr = sess.Save()
 	if sessErr != nil {
 		log.Fatal("Error when saving session info")

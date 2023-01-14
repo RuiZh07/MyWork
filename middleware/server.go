@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"NFC_Tag_UPoint/controller"
-
+	"NFC_Tag_UPoint/model"
 	"github.com/gofiber/fiber/v2"
 	// "github.com/gofiber/fiber/v2/middleware/cors"
 	"log"
@@ -11,12 +11,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/template/html"
-)
-
-var (
-	store      *session.Store
-	AUTH_KEY   string = "authenticated"
-	USER_EMAIL string = "user_email"
 )
 
 func Setup() {
@@ -31,7 +25,7 @@ func Setup() {
 
 	// Setup session cookie
 	log.Print("Setting up session cookie")
-	store = session.New(session.Config{
+	model.Store = session.New(session.Config{
 		CookieHTTPOnly: true,
 		Expiration:     time.Hour * 24,
 	})
@@ -40,16 +34,18 @@ func Setup() {
 	log.Print("Setting up middleware session")
 
 	// Routes
-	app.Get("/*", routeNotExist)
+	// app.Get("/*", routeNotExist)
+	
 
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
 
 	// This is Get request routes for user without authentication
-	NoAuth.Get("/", index)
+	app.Get("/", index)
 	NoAuth.Get("/signup", controller.LoadRegister)
 	NoAuth.Get("/login", controller.LoadLoginPage)
 
+	//Setup NoAuthPost to limit the request reducing server load
 	NoAuthPost := app.Group("/auth")
 	NoAuthPost.Use(limiter.New())
 	// This is Post request routes for user without authentication
@@ -60,6 +56,13 @@ func Setup() {
 	admin := app.Group("/user")
 	admin.Use(checkAuth())
 	admin.Get("/dashboard", controller.LoadDashboard)
+
+	// Todo
+	// Complete each of the get request setup
+	admin.Get("/profile_page", controller.LoadProfilePage)
+	admin.Get("/manage_tag", controller.ManageTag)
+	admin.Get("/request_tag", controller.RequestTag)
+	admin.Get("/setting", controller.UserSetting)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

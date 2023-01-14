@@ -3,26 +3,35 @@
 <head>
   <title>User Profile</title>
   <style>
+     .button {
+        background-color: #1c87c9;
+        border: none;
+        color: white;
+        padding: 20px 34px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+      
     .button-container {
-      display: flex;
-      flex-direction: column;
-    }
-    button {
-      width: 100%;
-      margin-bottom: 10px;
-    }
+        display: flex;
+        flex-direction: column;
+      }
   </style>
 </head>
 <body>
   <div>
     <img src="user_profile_photo.jpg" alt="User profile photo">
-    {{/* <h4> {{.UniversityName}} </h4> */}}
+    <h3> {{.UserEmail}} </h3>
   </div>
   <div class="button-container">
-    <button>Profile Page</button>
-    <button>Manage Tag</button>
-    <button>Request Tag</button>
-    <button>Settings</button>
+    <a href="/user/profile_page" class="button" >Profile Page</a>
+    <a href="/user/manage_tag" class="button">Manage Tag</a>
+    <a href="/user/request_tag" class="button">Request Tage</a>
+    <a href="/user/setting" class="button">Setting</a>
   </div>
 </body>
 </html>
