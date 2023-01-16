@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title>Create Profile</title>
+</head>
+<body>
+    <form method="POST" action="/user/createProfilfe">
+
+        <label for="mediaID-1">Social Media 1</label><br>
+        <select id="socialMedia-1" name="socialMedia-1">
+            <option value="">Select The Platform</option>
+            {{range .}}
+                 <option value="{{.}}">{{.}}</option>
+            {{end}}
+        </select>
+        <input type="text" id="mediaID-1" name="mediaID-1"> <br><br>
+
+        <label for="mediaID-2">Social Media 2</label><br>
+        <select id="socialMedia-2" name="socialMedia-2">
+            <option value="">Select The Platform</option>
+            {{range .}}
+                 <option value="{{.}}">{{.}}</option>
+            {{end}}
+        </select>
+        <input type="text" id="mediaID-2" name="mediaID-2"> <br><br>
+
+
+        <label for="mediaID-3">Social Media 3</label><br>
+        <select id="socialMedia-3" name="socialMedia-3">
+            <option value="">Select The Platform</option>
+            {{range .}}
+                 <option value="{{.}}">{{.}}</option>
+            {{end}}
+        </select>
+        <input type="text" id="mediaID-3" name="mediaID-3"> <br><br>
+
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

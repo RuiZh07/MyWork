@@ -1,9 +1,10 @@
 package controller
 
 import (
+	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
+	"fmt"
 	"log"
-
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -13,14 +14,22 @@ func LoadDashboard(c *fiber.Ctx) error {
 		log.Fatal("Error when getting session info in dashboard")
 	}
 	userEmail := sess.Get(model.USER_EMAIL)
+	var userName string
+	var userUniversity string
+	err = database.DB.QueryRow("SELECT name, university FROM users WHERE email = $1", userEmail).Scan(&userName, &userUniversity)
+	if err != nil{
+		fmt.Print("Error when getting user name and university from database (dashboard.go)")
+		log.Fatal(err)
+	}
 
 	return c.Render("dashboard", fiber.Map{
-		"UserEmail": userEmail,
+		"UserName": userName,
+		"UserUniversity": userUniversity,
 	})
 }
 
 func LoadProfilePage(c *fiber.Ctx) error {
-	return nil
+	return c.Render("profileListNoProfile",nil)
 }
 
 func ManageTag(c *fiber.Ctx) error {

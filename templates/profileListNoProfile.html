@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
-  <title>User Profile</title>
-  <style>
+    <title>Profile Page</title>
+      <style>
      .button {
         background-color: #1c87c9;
         border: none;
@@ -31,16 +31,8 @@
   </style>
 </head>
 <body>
-  <div>
-    <img src="user_profile_photo.jpg" alt="User profile photo">
-    <h3> {{.UserName}} </h3>
-    <h4> {{.UserUniversity}} </h4>
-  </div>
   <div class="button-container">
-    <a href="/user/profilePage" class="button" >Profile Page</a>
-    <a href="/user/manageTag" class="button">Manage Tag</a>
-    <a href="/user/requesTag" class="button">Request Tage</a>
-    <a href="/user/setting" class="button">Setting</a>
+    <a href="/user/createNewProfile" class="button">Create New Profile</a>
   </div>
 </body>
 </html>

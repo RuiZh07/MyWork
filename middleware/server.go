@@ -59,10 +59,11 @@ func Setup() {
 
 	// Todo
 	// Complete each of the get request setup
-	admin.Get("/profile_page", controller.LoadProfilePage)
-	admin.Get("/manage_tag", controller.ManageTag)
-	admin.Get("/request_tag", controller.RequestTag)
+	admin.Get("/profilePage", controller.LoadProfilePage)
+	admin.Get("/manageTag", controller.ManageTag)
+	admin.Get("/requestTag", controller.RequestTag)
 	admin.Get("/setting", controller.UserSetting)
+	admin.Get("/createNewProfile", controller.LoadCreateNewProfile)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

@@ -54,6 +54,15 @@ func LoadUniversityData() {
 
 }
 
+func DropTable(){
+	_, err := DB.Exec(
+		`DROP TABLE users;`,
+	)
+	if err != nil{
+		log.Fatal(err)
+	}
+}
+
 func CreateTable() {
 
 	var count int
@@ -69,6 +78,7 @@ func CreateTable() {
 		_, err = DB.Exec(`
 			CREATE TABLE users (
 				id serial PRIMARY KEY,
+				name text NOT NULL,
 				email text NOT NULL,
 				password text NOT NULL,
 				university text NOT NULL

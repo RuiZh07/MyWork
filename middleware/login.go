@@ -20,7 +20,7 @@ func HandleLogin(c *fiber.Ctx) error {
 	err := database.DB.QueryRow("SELECT password FROM users WHERE email = $1", email).Scan(&hashedPassword)
 	if err == sql.ErrNoRows {
 		// No user with that email was found
-		return c.Render("login", fiber.Map{"ErrorMessage": "Invalid email"})
+		return c.Render("login", fiber.Map{"ErrorMessage": "No account associated with email: " + email})
 	}
 	if err != nil {
 		return err
