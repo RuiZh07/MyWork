@@ -2,25 +2,17 @@ package controller
 
 import (
 	"NFC_Tag_UPoint/database"
+	"NFC_Tag_UPoint/model"
 	"encoding/json"
 	"fmt"
+	"github.com/gofiber/fiber/v2"
+	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"log"
 	"strings"
-
-	"github.com/gofiber/fiber/v2"
-	"golang.org/x/crypto/bcrypt"
 )
 
-type UniversityData struct {
-	Name     string `json:"School Name"`
-	Email    string `json:"URL"`
-	City     string `json:"City"`
-	Location string `json:"State"`
-}
-
 var domain string
-
 
 func HandleRegistration(c *fiber.Ctx) error {
 	// Get the form values
@@ -36,27 +28,26 @@ func HandleRegistration(c *fiber.Ctx) error {
 		log.Fatal(err)
 	}
 
-	var universities []database.University
+	var universities []model.UniversityData
 	err = json.Unmarshal(bytes, &universities)
-	if err != nil{
+	if err != nil {
 		fmt.Print("Error when loading university from json")
 		log.Fatal(err)
 	}
 	for _, universityInfo := range universities {
-		if universityInfo.Email == domain{
+		if universityInfo.Email == domain {
 			university = universityInfo.Name
 		}
 	}
 
-
 	// Check register input if its valid
 	if checkInputValidation(userName, email, password, confirmPassword) != "" {
 		return c.Render("signup", fiber.Map{
-			"Name": userName,
-			"UniversityName": university,
-			"Email": email, 
+			"Name":             userName,
+			"UniversityName":   university,
+			"Email":            email,
 			"UniversityDomain": domain,
-			"ErrorMessage": checkInputValidation(userName, email, password, confirmPassword),
+			"ErrorMessage":     checkInputValidation(userName, email, password, confirmPassword),
 		})
 	}
 
@@ -75,9 +66,9 @@ func HandleRegistration(c *fiber.Ctx) error {
 	if count > 0 {
 		// Email is already in use, return an error
 		return c.Render("signup", fiber.Map{
-			"Name": userName,
-			"UniversityName":  university,
-			"Email": email, 
+			"Name":             userName,
+			"UniversityName":   university,
+			"Email":            email,
 			"UniversityDomain": domain,
 			"ErrorMessage":     "Email is already in use",
 		})
@@ -104,7 +95,7 @@ func LoadRegister(c *fiber.Ctx) error {
 	}
 
 	// Unmarshal the JSON data into a slice of UniversityData structs.
-	var data []UniversityData
+	var data []model.UniversityData
 	err = json.Unmarshal(dataJSON, &data)
 	if err != nil {
 		log.Fatal(err)
@@ -125,14 +116,14 @@ func HandleUniversitySelection(c *fiber.Ctx) error {
 		log.Fatal(err)
 	}
 
-	var universities []database.University
+	var universities []model.UniversityData
 	err = json.Unmarshal(bytes, &universities)
-	if err != nil{
+	if err != nil {
 		fmt.Print("Error when loading university from json")
 		log.Fatal(err)
 	}
 	for _, universityInfo := range universities {
-		if universityInfo.Name == universitySelected{
+		if universityInfo.Name == universitySelected {
 			domain = universityInfo.Email
 		}
 	}
@@ -144,11 +135,11 @@ func HandleUniversitySelection(c *fiber.Ctx) error {
 
 }
 
-func checkInputValidation(userName string, email string, password string, confirmPassword string) string{
+func checkInputValidation(userName string, email string, password string, confirmPassword string) string {
 
 	var errMessage string
 
-	if userName ==""{
+	if userName == "" {
 		errMessage = "Name can't be empty"
 		return errMessage
 	}
@@ -167,6 +158,6 @@ func checkInputValidation(userName string, email string, password string, confir
 		errMessage = "Invalid email"
 		return errMessage
 	}
-	
+
 	return errMessage
 }

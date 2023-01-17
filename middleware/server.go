@@ -35,7 +35,6 @@ func Setup() {
 
 	// Routes
 	// app.Get("/*", routeNotExist)
-	
 
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())

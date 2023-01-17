@@ -1,18 +1,12 @@
 package database
 
 import (
+	"NFC_Tag_UPoint/model"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 )
-
-type University struct {
-	Name     string `json:"School Name"`
-	Email    string `json:"URL"`
-	City     string `json:"City"`
-	Location string `json:"State"`
-}
 
 func LoadUniversityData() {
 
@@ -23,7 +17,7 @@ func LoadUniversityData() {
 	}
 
 	// Unmarshal the JSON data into a slice of University structs
-	var universities []University
+	var universities []model.UniversityData
 	err = json.Unmarshal(bytes, &universities)
 	if err != nil {
 		log.Fatal(err)
@@ -54,15 +48,7 @@ func LoadUniversityData() {
 
 }
 
-func DropTable(){
-	_, err := DB.Exec(
-		`DROP TABLE users;`,
-	)
-	if err != nil{
-		log.Fatal(err)
-	}
-}
-
+// This function is to create table for database
 func CreateTable() {
 
 	var count int
