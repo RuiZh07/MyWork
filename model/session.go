@@ -7,4 +7,5 @@ var (
 	Store      *session.Store
 	AUTH_KEY   string = "authenticated"
 	USER_EMAIL string = "user_email"
+	USER_ID string = "user_id"
 )

@@ -31,10 +31,6 @@ func LoadDashboard(c *fiber.Ctx) error {
 	})
 }
 
-func LoadProfilePage(c *fiber.Ctx) error {
-	return c.Render("profileListNoProfile", nil)
-}
-
 func ManageTag(c *fiber.Ctx) error {
 	return nil
 }

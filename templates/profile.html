@@ -32,7 +32,12 @@
 </head>
 <body>
   <div class="button-container">
-    <a href="/user/createNewProfile" class="button">Create New Profile</a>
+    {{range .ProfilePages}}
+        <a href="{{.}}" class="button">Profile {{.}}</a>
+    {{end}}
+    {{if .ShowCreateProfileButton}}
+        <a href="/user/createNewProfile" class="button">Create New Profile</a>
+    {{end}}
   </div>
 </body>
 </html>

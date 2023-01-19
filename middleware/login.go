@@ -4,9 +4,10 @@ import (
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
 	"database/sql"
+	"log"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
-	"log"
 )
 
 // HandleLogin handles user login requests
@@ -17,7 +18,8 @@ func HandleLogin(c *fiber.Ctx) error {
 
 	// Query the user's record from the database
 	var hashedPassword string
-	err := database.DB.QueryRow("SELECT password FROM users WHERE email = $1", email).Scan(&hashedPassword)
+	var userID int
+	err := database.DB.QueryRow("SELECT password, user_id FROM users WHERE email = $1", email).Scan(&hashedPassword, &userID)
 	if err == sql.ErrNoRows {
 		// No user with that email was found
 		return c.Render("login", fiber.Map{"ErrorMessage": "No account associated with email: " + email})
@@ -44,6 +46,8 @@ func HandleLogin(c *fiber.Ctx) error {
 		log.Fatal("Error when getting session info")
 	}
 
+	userIDStr := fmt.Sprintf("%d", userID)
+	sess.Set(model.USER_ID, userIDStr)
 	sess.Set(model.AUTH_KEY, true)
 	sess.Set(model.USER_EMAIL, email)
 

@@ -63,7 +63,7 @@ func CreateTable() {
 		fmt.Println("Creating users table")
 		_, err = DB.Exec(`
 			CREATE TABLE users (
-				id serial PRIMARY KEY,
+				user_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 				name text NOT NULL,
 				email text NOT NULL,
 				password text NOT NULL,
@@ -87,12 +87,47 @@ func CreateTable() {
 
 		_, err = DB.Exec(`
 			CREATE TABLE universities (
-				id SERIAL PRIMARY KEY,
+				university_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 				name VARCHAR(255) NOT NULL,
 				domain VARCHAR(255) NOT NULL,
 				city VARCHAR(255) NOT NULL,
 				state VARCHAR(255) NOT NULL
-			)
+			);
+		`)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	err = DB.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'profilePage'").Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if count == 0 {
+		fmt.Println("Creating profile page table")
+
+		_, err = DB.Exec(`
+			CREATE TABLE profilePage (
+				id SERIAL PRIMARY KEY,
+				user_id INT
+					FOREIGN KEY REFERENCES users(id),
+				university_id INT
+					FOREIGN KEY REFERENCES universities(id),
+				page_name text NOT NULL,
+				activation BOOLEAN NOT NULL,
+				link1 text,
+				link2 text,
+				link3 text,
+				link4 text,
+				link5 text,
+				link6 text,
+				link7 text,
+				link8 text,
+				link9 text,
+				link10 text,
+			);
 		`)
 
 		if err != nil {

@@ -25,7 +25,7 @@ TODO
 - ~Create user dashboard~
 - Redesign database schemas 
 - Apply redeisgned shemas to database
-- Add user verifyChecker to check if redirect the user
+- ~Add user verifyChecker to check if redirect the user~
 - Personal page within links
 - Assign TagID to NFC tag
 - Function to link TagID to user's page
