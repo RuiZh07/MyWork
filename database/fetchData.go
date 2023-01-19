@@ -109,24 +109,21 @@ func CreateTable() {
 		fmt.Println("Creating profile page table")
 
 		_, err = DB.Exec(`
-			CREATE TABLE profilePage (
-				id SERIAL PRIMARY KEY,
-				user_id INT
-					FOREIGN KEY REFERENCES users(id),
-				university_id INT
-					FOREIGN KEY REFERENCES universities(id),
-				page_name text NOT NULL,
+			CREATE TABLE profiles (
+				profile_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+				user_id INTEGER NOT NULL,
+				name TEXT NOT NULL,
 				activation BOOLEAN NOT NULL,
-				link1 text,
-				link2 text,
-				link3 text,
-				link4 text,
-				link5 text,
-				link6 text,
-				link7 text,
-				link8 text,
-				link9 text,
-				link10 text,
+				link1 TEXT,
+				link2 TEXT,
+				link3 TEXT,
+				link4 TEXT,
+				link5 TEXT,
+				link6 TEXT,
+				link7 TEXT,
+				link8 TEXT,
+				link9 TEXT,
+				link10 TEXT
 			);
 		`)
 
