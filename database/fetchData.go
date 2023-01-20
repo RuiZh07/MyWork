@@ -112,6 +112,7 @@ func CreateTable() {
 			CREATE TABLE profiles (
 				profile_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 				user_id INTEGER NOT NULL,
+				user_email TEXT NOT NULL,
 				name TEXT NOT NULL,
 				activation BOOLEAN NOT NULL,
 				link1 TEXT,

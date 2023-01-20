@@ -68,7 +68,7 @@ func Setup() {
 	adminPost := app.Group("/user")
 	adminPost.Use(limiter.New())
 	//This is Post req routes for authenticated user
-	// adminPost.Post("/createProfile", controller.CreateNewProfile)
+	adminPost.Post("/createProfile", controller.CreateNewProfile)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

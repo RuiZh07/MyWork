@@ -43,10 +43,78 @@ func LoadCreateNewProfile(c *fiber.Ctx) error {
 	return c.Render("createProfile", mediaName)
 }
 
-//	Todo
-// func CreateNewProfile(c *fiber.Ctx) error{
 
-// }
+func CreateNewProfile(c *fiber.Ctx) error{
+
+	var mediaPlatform [] string
+	var mediaAccountID [] string
+	var mediaLink [] string
+	itemIndex := 1
+	idIndex := 1
+
+	// get the input item
+	for i := 0; i <= 10; i++{
+		item := fmt.Sprintf("platform-%d", itemIndex)
+		if c.FormValue(item) != ""{
+			mediaPlatform = append(mediaPlatform, c.FormValue(item))
+		}
+		id := fmt.Sprintf("mediaID-%d", idIndex)
+		if c.FormValue(id) != ""{
+			mediaAccountID = append(mediaAccountID, c.FormValue(id))
+		}
+		itemIndex++
+		idIndex++
+	}
+	
+
+	fmt.Print(mediaPlatform)
+	fmt.Print(mediaAccountID)
+
+	profileName := c.FormValue("profileName")
+
+	dataJson, err := ioutil.ReadFile("database/platformLinks.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Unmarshal JSON into a map of media platforms to URLs
+	var mediaURLs map[string]string
+	json.Unmarshal(dataJson, &mediaURLs)
+	fmt.Println(mediaURLs)
+
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	userEmail := sess.Get(model.USER_EMAIL)
+	userID := sess.Get(model.USER_ID)
+
+	
+	// ISSUE, NOT IMPORTING TO MEDIALINK
+	for index, account := range mediaAccountID{
+		fmt.Println(mediaPlatform[index])
+		if url, ok := mediaURLs[mediaPlatform[index]]; ok{
+			link := url + account
+			mediaLink = append(mediaLink, link)
+		}
+	}
+	
+	//Fix the insert statement to avoid duplicate the row,
+	// TODO: update the json file for social media into only 1
+	for index, link := range mediaLink{
+		column := fmt.Sprintf("link%d", index+1)
+		_, err = database.DB.Exec((fmt.Sprintf("INSERT INTO profiles (user_id, user_email, name, activation, %s) VALUES ($1, $2, $3, $4, $5)", column)),
+			userID, userEmail, profileName, true, link)
+		
+		if err != nil{
+			log.Fatal(err)
+		}
+	}
+
+	return c.Redirect("/user/profilePage")
+
+}
 
 func canCreateNewProfile(c *fiber.Ctx) bool {
 
