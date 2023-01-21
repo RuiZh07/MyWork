@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"database/sql"
 	"io/ioutil"
 
 	"github.com/gofiber/fiber/v2"
@@ -8,8 +9,8 @@ import (
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
 	"encoding/json"
-	"log"
 	"fmt"
+	"log"
 )
 
 func LoadProfilePage(c *fiber.Ctx) error {
@@ -67,9 +68,6 @@ func CreateNewProfile(c *fiber.Ctx) error{
 	}
 	
 
-	fmt.Print(mediaPlatform)
-	fmt.Print(mediaAccountID)
-
 	profileName := c.FormValue("profileName")
 
 	dataJson, err := ioutil.ReadFile("database/platformLinks.json")
@@ -80,7 +78,7 @@ func CreateNewProfile(c *fiber.Ctx) error{
 	// Unmarshal JSON into a map of media platforms to URLs
 	var mediaURLs map[string]string
 	json.Unmarshal(dataJson, &mediaURLs)
-	fmt.Println(mediaURLs)
+	
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
@@ -100,12 +98,39 @@ func CreateNewProfile(c *fiber.Ctx) error{
 		}
 	}
 	
-	//Fix the insert statement to avoid duplicate the row,
+	//Create the profile row if not exist, if user has same profile name then do nothing
+	// profile ID
+	var profileID int
+	err = database.DB.QueryRow("SELECT user_id FROM profiles WHERE user_id = $1 AND name = $2", userID, profileName).Scan(&profileID)
+	switch {
+	// If no row exist, then create new profile
+	case err == sql.ErrNoRows:
+
+		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)",userID, userEmail, profileName, false)
+
+		if err != nil{
+			log.Fatal(err)
+		}
+	
+	case err != nil:
+		log.Fatal(err)
+	
+	default:
+		log.Print("Inserted new profile row into table")
+		
+	}
+	// _, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id, name) DO NOTHING",
+	// userID, userEmail, profileName, false)
+	// if err != nil{
+	// 	log.Fatal(err)
+	// }
+
 	// TODO: update the json file for social media into only 1
 	for index, link := range mediaLink{
 		column := fmt.Sprintf("link%d", index+1)
-		_, err = database.DB.Exec((fmt.Sprintf("INSERT INTO profiles (user_id, user_email, name, activation, %s) VALUES ($1, $2, $3, $4, $5)", column)),
-			userID, userEmail, profileName, true, link)
+		_, err = database.DB.Exec((fmt.Sprintf("UPDATE profiles SET %s = $1 WHERE user_id = $2 AND name = $3", column)), link, userID, profileName)
+		// _, err = database.DB.Exec((fmt.Sprintf("INSERT INTO profiles (user_id, user_email, name, activation, %s) VALUES ($1, $2, $3, $4, $5)", column)),
+		// 	userID, userEmail, profileName, true, link)
 		
 		if err != nil{
 			log.Fatal(err)
