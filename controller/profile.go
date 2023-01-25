@@ -3,7 +3,9 @@ package controller
 import (
 	"database/sql"
 	"io/ioutil"
-
+	"strconv"
+	"strings"
+	"reflect"
 	"github.com/gofiber/fiber/v2"
 	// "NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/database"
@@ -14,7 +16,7 @@ import (
 )
 
 func LoadProfilePage(c *fiber.Ctx) error {
-	profile := model.ProfileData{
+	profile := model.ProfileMenu{
 		ShowCreateProfileButton: canCreateNewProfile(c),
 		ProfilePages: profilePages(c),
 	}
@@ -89,7 +91,6 @@ func CreateNewProfile(c *fiber.Ctx) error{
 	userID := sess.Get(model.USER_ID)
 
 	
-	// ISSUE, NOT IMPORTING TO MEDIALINK
 	for index, account := range mediaAccountID{
 		fmt.Println(mediaPlatform[index])
 		if url, ok := mediaURLs[mediaPlatform[index]]; ok{
@@ -99,7 +100,6 @@ func CreateNewProfile(c *fiber.Ctx) error{
 	}
 	
 	//Create the profile row if not exist, if user has same profile name then do nothing
-	// profile ID
 	var profileID int
 	err = database.DB.QueryRow("SELECT user_id FROM profiles WHERE user_id = $1 AND name = $2", userID, profileName).Scan(&profileID)
 	switch {
@@ -119,19 +119,13 @@ func CreateNewProfile(c *fiber.Ctx) error{
 		log.Print("Inserted new profile row into table")
 		
 	}
-	// _, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id, name) DO NOTHING",
-	// userID, userEmail, profileName, false)
-	// if err != nil{
-	// 	log.Fatal(err)
-	// }
+	
 
 	// TODO: update the json file for social media into only 1
 	for index, link := range mediaLink{
 		column := fmt.Sprintf("link%d", index+1)
 		_, err = database.DB.Exec((fmt.Sprintf("UPDATE profiles SET %s = $1 WHERE user_id = $2 AND name = $3", column)), link, userID, profileName)
-		// _, err = database.DB.Exec((fmt.Sprintf("INSERT INTO profiles (user_id, user_email, name, activation, %s) VALUES ($1, $2, $3, $4, $5)", column)),
-		// 	userID, userEmail, profileName, true, link)
-		
+	
 		if err != nil{
 			log.Fatal(err)
 		}
@@ -197,4 +191,46 @@ func profilePages(c *fiber.Ctx) []string {
 	}
 
 	return profileNames
+}
+
+func DisplayProfile(c *fiber.Ctx) error{
+
+	//Get URL path
+	path := c.Path()
+	// Splitting URL with "/"
+	segments := strings.Split(path, "/")
+	// Get the last segment in URL
+	profileName := segments[len(segments)-1]
+
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	userEmail := sess.Get(model.USER_EMAIL)
+	userID := sess.Get(model.USER_ID)
+
+	var profile model.Profile
+
+	err = database.DB.QueryRow(`SELECT * FROM profiles WHERE user_id = $1 and user_email = $2 and name = $3`, userID, userEmail, profileName).Scan(&profile.ProfileID, &profile.UserID, &profile.UserEmail, &profile.Name, &profile.Activation, &profile.Link1, &profile.Link2, &profile.Link3, 
+		&profile.Link4, &profile.Link5, &profile.Link6, &profile.Link7, &profile.Link8, &profile.Link9, &profile.Link10)
+	
+	if err != nil{
+		log.Fatal(err)
+	}
+	var linkArray []string
+	for i := 1; i <= 10; i++ {
+		link := reflect.ValueOf(profile).FieldByName("Link" + strconv.Itoa(i))
+		if link.FieldByName("Valid").Bool() && link.FieldByName("String").String() != "" {
+			linkArray = append(linkArray, link.FieldByName("String").String())
+		}
+	}
+
+	
+	profileInfo := model.ProfileData{
+		ProfileName: profileName,
+		ProfileLinks: linkArray,
+	}
+
+	return c.Render("displayProfile", profileInfo)
 }

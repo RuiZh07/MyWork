@@ -62,13 +62,14 @@ func Setup() {
 	admin.Get("/manageTag", controller.ManageTag)
 	admin.Get("/requestTag", controller.RequestTag)
 	admin.Get("/setting", controller.UserSetting)
-	admin.Get("/createNewProfile", controller.LoadCreateNewProfile)
+	admin.Get("/profile/createNewProfile", controller.LoadCreateNewProfile)
+	admin.Get("/profile/:id", controller.DisplayProfile)
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
 	adminPost.Use(limiter.New())
 	//This is Post req routes for authenticated user
-	adminPost.Post("/createProfile", controller.CreateNewProfile)
+	adminPost.Post("/profile/createProfile", controller.CreateNewProfile)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

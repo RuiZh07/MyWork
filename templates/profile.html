@@ -33,10 +33,10 @@
 <body>
   <div class="button-container">
     {{range .ProfilePages}}
-        <a href="{{.}}" class="button">{{.}}</a>
+        <a href="/user/profile/{{.}}" class="button">{{.}}</a>
     {{end}}
     {{if .ShowCreateProfileButton}}
-        <a href="/user/createNewProfile" class="button">Create New Profile</a>
+        <a href="/user/profile/createNewProfile" class="button">Create New Profile</a>
     {{end}}
   </div>
 </body>
