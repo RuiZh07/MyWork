@@ -25,7 +25,9 @@ TODO
 - ~Create user dashboard~
 - Redesign database schemas 
 - Apply redeisgned shemas to database
-- Add user verifyChecker to check if redirect the user
+- ~Add user verifyChecker to check if redirect the user~
+- ~Ability to create new profile pages with links~
+- Update the json files of social media
 - Personal page within links
 - Assign TagID to NFC tag
 - Function to link TagID to user's page

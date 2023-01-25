@@ -2,10 +2,12 @@ package middleware
 
 import (
 	"NFC_Tag_UPoint/database"
+	"NFC_Tag_UPoint/model"
 	"database/sql"
+	"log"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
-	"log"
 )
 
 // HandleLogin handles user login requests
@@ -16,10 +18,11 @@ func HandleLogin(c *fiber.Ctx) error {
 
 	// Query the user's record from the database
 	var hashedPassword string
-	err := database.DB.QueryRow("SELECT password FROM users WHERE email = $1", email).Scan(&hashedPassword)
+	var userID int
+	err := database.DB.QueryRow("SELECT password, user_id FROM users WHERE email = $1", email).Scan(&hashedPassword, &userID)
 	if err == sql.ErrNoRows {
 		// No user with that email was found
-		return c.Render("login", fiber.Map{"ErrorMessage": "Invalid email"})
+		return c.Render("login", fiber.Map{"ErrorMessage": "No account associated with email: " + email})
 	}
 	if err != nil {
 		return err
@@ -38,16 +41,18 @@ func HandleLogin(c *fiber.Ctx) error {
 	}
 
 	log.Print("Get session info")
-	sess, sessErr := store.Get(c)
+	sess, sessErr := model.Store.Get(c)
 	if sessErr != nil {
 		log.Fatal("Error when getting session info")
 	}
 
-	sess.Set(AUTH_KEY, true)
-	sess.Set(USER_EMAIL, email)
+	userIDStr := fmt.Sprintf("%d", userID)
+	sess.Set(model.USER_ID, userIDStr)
+	sess.Set(model.AUTH_KEY, true)
+	sess.Set(model.USER_EMAIL, email)
 
 	log.Print("Session email")
-	log.Print(sess.Get(USER_EMAIL))
+	log.Print(sess.Get(model.USER_EMAIL))
 	sessErr = sess.Save()
 	if sessErr != nil {
 		log.Fatal("Error when saving session info")

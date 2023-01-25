@@ -1,18 +1,12 @@
 package database
 
 import (
+	"NFC_Tag_UPoint/model"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 )
-
-type University struct {
-	Name     string `json:"School Name"`
-	Email    string `json:"URL"`
-	City     string `json:"City"`
-	Location string `json:"State"`
-}
 
 func LoadUniversityData() {
 
@@ -23,7 +17,7 @@ func LoadUniversityData() {
 	}
 
 	// Unmarshal the JSON data into a slice of University structs
-	var universities []University
+	var universities []model.UniversityData
 	err = json.Unmarshal(bytes, &universities)
 	if err != nil {
 		log.Fatal(err)
@@ -54,6 +48,7 @@ func LoadUniversityData() {
 
 }
 
+// This function is to create table for database
 func CreateTable() {
 
 	var count int
@@ -68,7 +63,8 @@ func CreateTable() {
 		fmt.Println("Creating users table")
 		_, err = DB.Exec(`
 			CREATE TABLE users (
-				id serial PRIMARY KEY,
+				user_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+				name text NOT NULL,
 				email text NOT NULL,
 				password text NOT NULL,
 				university text NOT NULL
@@ -91,12 +87,45 @@ func CreateTable() {
 
 		_, err = DB.Exec(`
 			CREATE TABLE universities (
-				id SERIAL PRIMARY KEY,
+				university_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 				name VARCHAR(255) NOT NULL,
 				domain VARCHAR(255) NOT NULL,
 				city VARCHAR(255) NOT NULL,
 				state VARCHAR(255) NOT NULL
-			)
+			);
+		`)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	err = DB.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'profilePage'").Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if count == 0 {
+		fmt.Println("Creating profile page table")
+
+		_, err = DB.Exec(`
+			CREATE TABLE profiles (
+				profile_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+				user_id INTEGER NOT NULL,
+				user_email TEXT NOT NULL,
+				name TEXT NOT NULL,
+				activation BOOLEAN NOT NULL,
+				link1 TEXT,
+				link2 TEXT,
+				link3 TEXT,
+				link4 TEXT,
+				link5 TEXT,
+				link6 TEXT,
+				link7 TEXT,
+				link8 TEXT,
+				link9 TEXT,
+				link10 TEXT
+			);
 		`)
 
 		if err != nil {

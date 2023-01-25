@@ -1,0 +1,12 @@
+[
+ {"MediaName": "Email", "URL":""},
+ {"MediaName": "Phone", "URL":""},
+ {"MediaName": "Twitter", "URL":"https://twitter.com/"},
+ {"MediaName": "Facebook", "URL":"https://facebook.com/"},
+ {"MediaName": "Github", "URL":"https://github.com/"},
+ {"MediaName": "Linkedin", "URL":"https://linkedin.com/in/"},
+ {"MediaName": "Youtube", "URL":"https://youtube.com/"},
+ {"MediaName": "Snap", "URL":"https://snapchat.com/add/"},
+ {"MediaName": "Instagram", "URL":"https://instagram.com/"},
+ {"MediaName": "Tiktok", "URL":"https://tiktok.com/"}
+]
