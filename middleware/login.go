@@ -4,10 +4,10 @@ import (
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
 	"database/sql"
-	"log"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 )
 
 // HandleLogin handles user login requests

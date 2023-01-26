@@ -2,9 +2,8 @@ package controller
 
 import (
 	"NFC_Tag_UPoint/model"
-	"log"
-
 	"github.com/gofiber/fiber/v2"
+	"log"
 )
 
 func Logout(c *fiber.Ctx) error {
@@ -16,10 +15,5 @@ func Logout(c *fiber.Ctx) error {
 
 	sess.Destroy()
 
-	if sess.Get(model.AUTH_KEY) == nil {
-		log.Println("empty AUTH_KEY")
-	}
-	
-	log.Print("User log out")
 	return c.Redirect("/")
 }

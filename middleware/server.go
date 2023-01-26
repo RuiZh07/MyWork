@@ -35,13 +35,12 @@ func Setup() {
 
 	// Routes
 	app.Get("/", index)
-	
 
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
 
 	// This is Get request routes for user without authentication
-	
+
 	NoAuth.Get("/signup", controller.LoadRegister)
 	NoAuth.Get("/login", controller.LoadLoginPage)
 

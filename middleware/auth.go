@@ -46,7 +46,7 @@ func auth(c *fiber.Ctx) error {
 		if strings.Split(c.Path(), "/")[1] != "auth" {
 			c.Redirect("/auth/login")
 		}
-	}else{
+	} else {
 		c.Next()
 	}
 
