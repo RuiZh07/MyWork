@@ -2,11 +2,11 @@ package controller
 
 import (
 	"database/sql"
+	"github.com/gofiber/fiber/v2"
 	"io/ioutil"
+	"reflect"
 	"strconv"
 	"strings"
-	"reflect"
-	"github.com/gofiber/fiber/v2"
 	// "NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
@@ -18,11 +18,10 @@ import (
 func LoadProfilePage(c *fiber.Ctx) error {
 	profile := model.ProfileMenu{
 		ShowCreateProfileButton: canCreateNewProfile(c),
-		ProfilePages: profilePages(c),
+		ProfilePages:            profilePages(c),
 	}
 	return c.Render("profile", profile)
 }
-
 
 func LoadCreateNewProfile(c *fiber.Ctx) error {
 	// Get social media platform name from the json file
@@ -46,29 +45,27 @@ func LoadCreateNewProfile(c *fiber.Ctx) error {
 	return c.Render("createProfile", mediaName)
 }
 
+func CreateNewProfile(c *fiber.Ctx) error {
 
-func CreateNewProfile(c *fiber.Ctx) error{
+	var mediaPlatform []string
+	var mediaAccountID []string
 
-	var mediaPlatform [] string
-	var mediaAccountID [] string
-	var mediaLink [] string
 	itemIndex := 1
 	idIndex := 1
 
 	// get the input item
-	for i := 0; i <= 10; i++{
+	for i := 0; i <= 10; i++ {
 		item := fmt.Sprintf("platform-%d", itemIndex)
-		if c.FormValue(item) != ""{
+		if c.FormValue(item) != "" {
 			mediaPlatform = append(mediaPlatform, c.FormValue(item))
 		}
 		id := fmt.Sprintf("mediaID-%d", idIndex)
-		if c.FormValue(id) != ""{
+		if c.FormValue(id) != "" {
 			mediaAccountID = append(mediaAccountID, c.FormValue(id))
 		}
 		itemIndex++
 		idIndex++
 	}
-	
 
 	profileName := c.FormValue("profileName")
 
@@ -80,7 +77,6 @@ func CreateNewProfile(c *fiber.Ctx) error{
 	// Unmarshal JSON into a map of media platforms to URLs
 	var mediaURLs map[string]string
 	json.Unmarshal(dataJson, &mediaURLs)
-	
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
@@ -90,15 +86,20 @@ func CreateNewProfile(c *fiber.Ctx) error{
 	userEmail := sess.Get(model.USER_EMAIL)
 	userID := sess.Get(model.USER_ID)
 
-	
-	for index, account := range mediaAccountID{
-		fmt.Println(mediaPlatform[index])
-		if url, ok := mediaURLs[mediaPlatform[index]]; ok{
-			link := url + account
-			mediaLink = append(mediaLink, link)
+	var mediaLink []string
+	for index, account := range mediaAccountID {
+		if url, ok := mediaURLs[mediaPlatform[index]]; ok {
+
+			if !strings.Contains(account, ".com") {
+				link := url + account
+				mediaLink = append(mediaLink, link)
+			} else {
+				mediaLink = append(mediaLink, account)
+			}
+
 		}
 	}
-	
+
 	//Create the profile row if not exist, if user has same profile name then do nothing
 	var profileID int
 	err = database.DB.QueryRow("SELECT user_id FROM profiles WHERE user_id = $1 AND name = $2", userID, profileName).Scan(&profileID)
@@ -106,27 +107,26 @@ func CreateNewProfile(c *fiber.Ctx) error{
 	// If no row exist, then create new profile
 	case err == sql.ErrNoRows:
 
-		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)",userID, userEmail, profileName, false)
+		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)", userID, userEmail, profileName, false)
 
-		if err != nil{
+		if err != nil {
 			log.Fatal(err)
 		}
-	
+
 	case err != nil:
 		log.Fatal(err)
-	
+
 	default:
 		log.Print("Inserted new profile row into table")
-		
+
 	}
-	
 
 	// TODO: update the json file for social media into only 1
-	for index, link := range mediaLink{
+	for index, link := range mediaLink {
 		column := fmt.Sprintf("link%d", index+1)
 		_, err = database.DB.Exec((fmt.Sprintf("UPDATE profiles SET %s = $1 WHERE user_id = $2 AND name = $3", column)), link, userID, profileName)
-	
-		if err != nil{
+
+		if err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -138,24 +138,22 @@ func CreateNewProfile(c *fiber.Ctx) error{
 func canCreateNewProfile(c *fiber.Ctx) bool {
 
 	var count int
-	var userID int
 
 	sess, err := model.Store.Get(c)
-	if err != nil{
+	if err != nil {
 		fmt.Print("Error when getting session data (profile.go/canCreateNewProfile() ) ")
 		log.Fatal(err)
 	}
-	userIDStr := sess.Get(model.USER_ID).(string)
-	fmt.Sscanf(userIDStr, "%d", &userID)
+	userID := sess.Get(model.USER_ID)
 
 	err = database.DB.QueryRow("SELECT COUNT(*) FROM profiles WHERE user_id = $1", userID).Scan(&count)
 
-	if err != nil{
+	if err != nil {
 		fmt.Print("Error when getting data from db (profile.go/canCreateNewProfile() ) ")
 		log.Fatal(err)
 	}
 
-	if count < 3{
+	if count < 3 {
 		return true
 	}
 
@@ -164,27 +162,24 @@ func canCreateNewProfile(c *fiber.Ctx) bool {
 
 func profilePages(c *fiber.Ctx) []string {
 
-	var userID int
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		fmt.Print("Error when getting session data (profile.go/profilePage() ) ")
 		log.Fatal(err)
 	}
 
-	userIDStr := sess.Get(model.USER_ID).(string)
-	fmt.Sscanf(userIDStr, "%d", &userID)
+	userID := sess.Get(model.USER_ID)
 
-	
 	row, errs := database.DB.Query("SELECT name FROM profiles WHERE user_id = $1", userID)
-	if errs != nil{
+	if errs != nil {
 		fmt.Print("Error when getting data from db (profile.go/profilePage() ) ")
 		log.Fatal(errs)
 	}
 
-	var profileNames [] string
+	var profileNames []string
 	for row.Next() {
 		var name string
-		if err = row.Scan(&name); err != nil{
+		if err = row.Scan(&name); err != nil {
 			log.Fatal(err)
 		}
 		profileNames = append(profileNames, name)
@@ -193,7 +188,7 @@ func profilePages(c *fiber.Ctx) []string {
 	return profileNames
 }
 
-func DisplayProfile(c *fiber.Ctx) error{
+func DisplayProfile(c *fiber.Ctx) error {
 
 	//Get URL path
 	path := c.Path()
@@ -212,10 +207,10 @@ func DisplayProfile(c *fiber.Ctx) error{
 
 	var profile model.Profile
 
-	err = database.DB.QueryRow(`SELECT * FROM profiles WHERE user_id = $1 and user_email = $2 and name = $3`, userID, userEmail, profileName).Scan(&profile.ProfileID, &profile.UserID, &profile.UserEmail, &profile.Name, &profile.Activation, &profile.Link1, &profile.Link2, &profile.Link3, 
+	err = database.DB.QueryRow(`SELECT * FROM profiles WHERE user_id = $1 and user_email = $2 and name = $3`, userID, userEmail, profileName).Scan(&profile.ProfileID, &profile.UserID, &profile.UserEmail, &profile.Name, &profile.Activation, &profile.Link1, &profile.Link2, &profile.Link3,
 		&profile.Link4, &profile.Link5, &profile.Link6, &profile.Link7, &profile.Link8, &profile.Link9, &profile.Link10)
-	
-	if err != nil{
+
+	if err != nil {
 		log.Fatal(err)
 	}
 	var linkArray []string
@@ -226,11 +221,29 @@ func DisplayProfile(c *fiber.Ctx) error{
 		}
 	}
 
-	
 	profileInfo := model.ProfileData{
-		ProfileName: profileName,
+		ProfileName:  profileName,
 		ProfileLinks: linkArray,
 	}
 
 	return c.Render("displayProfile", profileInfo)
+}
+
+func DeleteProfile(c *fiber.Ctx) error {
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	userEmail := sess.Get(model.USER_EMAIL)
+	userID := sess.Get(model.USER_ID)
+	profileName := c.FormValue("profileName")
+
+	_, err = database.DB.Exec("DELETE FROM profiles WHERE user_id = $1 and user_email = $2 and name = $3", userID, userEmail, profileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return c.Redirect("/user/profilePage")
+
 }

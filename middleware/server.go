@@ -34,13 +34,13 @@ func Setup() {
 	log.Print("Setting up middleware session")
 
 	// Routes
-	// app.Get("/*", routeNotExist)
+	app.Get("/", index)
 
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
 
 	// This is Get request routes for user without authentication
-	app.Get("/", index)
+
 	NoAuth.Get("/signup", controller.LoadRegister)
 	NoAuth.Get("/login", controller.LoadLoginPage)
 
@@ -67,9 +67,13 @@ func Setup() {
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
-	adminPost.Use(limiter.New())
+	adminPost.Use(limiter.New(limiter.Config{
+		Max: 20,
+	}))
 	//This is Post req routes for authenticated user
 	adminPost.Post("/profile/createProfile", controller.CreateNewProfile)
+	adminPost.Post("/profile/deleteProfile", controller.DeleteProfile)
+	admin.Post("/logout", controller.Logout)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

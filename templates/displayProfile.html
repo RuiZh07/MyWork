@@ -9,5 +9,9 @@
         <a href="{{.}}" >{{.}}</a>
     {{end}}
 
+    <form action="/user/profile/deleteProfile" method="post">
+     <input type="hidden" name="profileName" value="{{.ProfileName}}">
+      <input type="submit" value="Delete Profile">
+    </form>
 </body>
 </html>
