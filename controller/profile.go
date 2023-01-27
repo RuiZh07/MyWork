@@ -49,7 +49,7 @@ func CreateNewProfile(c *fiber.Ctx) error {
 
 	var mediaPlatform []string
 	var mediaAccountID []string
-	var mediaLink []string
+
 	itemIndex := 1
 	idIndex := 1
 
@@ -86,9 +86,11 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	userEmail := sess.Get(model.USER_EMAIL)
 	userID := sess.Get(model.USER_ID)
 
+	var mediaLink []string
 	for index, account := range mediaAccountID {
 		if url, ok := mediaURLs[mediaPlatform[index]]; ok {
-			if !strings.Contains(".com", account) {
+
+			if !strings.Contains(account, ".com") {
 				link := url + account
 				mediaLink = append(mediaLink, link)
 			} else {
