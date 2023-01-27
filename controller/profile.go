@@ -87,10 +87,14 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	userID := sess.Get(model.USER_ID)
 
 	for index, account := range mediaAccountID {
-		fmt.Println(mediaPlatform[index])
 		if url, ok := mediaURLs[mediaPlatform[index]]; ok {
-			link := url + account
-			mediaLink = append(mediaLink, link)
+			if !strings.Contains(".com", account) {
+				link := url + account
+				mediaLink = append(mediaLink, link)
+			} else {
+				mediaLink = append(mediaLink, account)
+			}
+
 		}
 	}
 
@@ -132,15 +136,13 @@ func CreateNewProfile(c *fiber.Ctx) error {
 func canCreateNewProfile(c *fiber.Ctx) bool {
 
 	var count int
-	var userID int
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		fmt.Print("Error when getting session data (profile.go/canCreateNewProfile() ) ")
 		log.Fatal(err)
 	}
-	userIDStr := sess.Get(model.USER_ID).(string)
-	fmt.Sscanf(userIDStr, "%d", &userID)
+	userID := sess.Get(model.USER_ID)
 
 	err = database.DB.QueryRow("SELECT COUNT(*) FROM profiles WHERE user_id = $1", userID).Scan(&count)
 
@@ -158,15 +160,13 @@ func canCreateNewProfile(c *fiber.Ctx) bool {
 
 func profilePages(c *fiber.Ctx) []string {
 
-	var userID int
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		fmt.Print("Error when getting session data (profile.go/profilePage() ) ")
 		log.Fatal(err)
 	}
 
-	userIDStr := sess.Get(model.USER_ID).(string)
-	fmt.Sscanf(userIDStr, "%d", &userID)
+	userID := sess.Get(model.USER_ID)
 
 	row, errs := database.DB.Query("SELECT name FROM profiles WHERE user_id = $1", userID)
 	if errs != nil {
@@ -225,4 +225,23 @@ func DisplayProfile(c *fiber.Ctx) error {
 	}
 
 	return c.Render("displayProfile", profileInfo)
+}
+
+func DeleteProfile(c *fiber.Ctx) error {
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	userEmail := sess.Get(model.USER_EMAIL)
+	userID := sess.Get(model.USER_ID)
+	profileName := c.FormValue("profileName")
+
+	_, err = database.DB.Exec("DELETE FROM profiles WHERE user_id = $1 and user_email = $2 and name = $3", userID, userEmail, profileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return c.Redirect("/user/profilePage")
+
 }

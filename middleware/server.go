@@ -67,9 +67,12 @@ func Setup() {
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
-	adminPost.Use(limiter.New())
+	adminPost.Use(limiter.New(limiter.Config{
+		Max: 20,
+	}))
 	//This is Post req routes for authenticated user
 	adminPost.Post("/profile/createProfile", controller.CreateNewProfile)
+	adminPost.Post("/profile/deleteProfile", controller.DeleteProfile)
 	admin.Post("/logout", controller.Logout)
 
 	// Start server
