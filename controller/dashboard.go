@@ -39,6 +39,3 @@ func RequestTag(c *fiber.Ctx) error {
 	return nil
 }
 
-func UserSetting(c *fiber.Ctx) error {
-	return nil
-}

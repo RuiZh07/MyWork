@@ -7,7 +7,6 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
-	// "NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
 	"encoding/json"
@@ -20,7 +19,7 @@ func LoadProfilePage(c *fiber.Ctx) error {
 		ShowCreateProfileButton: canCreateNewProfile(c),
 		ProfilePages:            profilePages(c),
 	}
-	return c.Render("profile", profile)
+	return c.Render("profilePage", profile)
 }
 
 func LoadCreateNewProfile(c *fiber.Ctx) error {
