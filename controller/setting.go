@@ -15,6 +15,6 @@ func LoadChangeUsername(c *fiber.Ctx) error{
 }
 
 func LoadChangePassword(c *fiber.Ctx) error {
-	return nil
+	return c.Render("changePassword", nil)
 }
 
