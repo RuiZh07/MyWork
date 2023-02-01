@@ -61,19 +61,31 @@ func Setup() {
 	admin.Get("/profilePage", controller.LoadProfilePage)
 	admin.Get("/manageTag", controller.ManageTag)
 	admin.Get("/requestTag", controller.RequestTag)
-	admin.Get("/setting", controller.UserSetting)
-	admin.Get("/profile/createNewProfile", controller.LoadCreateNewProfile)
-	admin.Get("/profile/:id", controller.DisplayProfile)
+	admin.Get("/setting", controller.LoadSettingPage)
+
+	// Profile
+	profile := admin.Group("/profile")
+	profile.Get("/createNewProfile", controller.LoadCreateNewProfile)
+	profile.Get("/:id", controller.DisplayProfile)
+
+	// Setting
+	setting := admin.Group("/setting")
+	setting.Get("/changeUsername", controller.LoadChangeUsername)
+	setting.Get("/changePassword", controller.LoadChangePassword)
+	
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
 	adminPost.Use(limiter.New(limiter.Config{
 		Max: 20,
 	}))
-	//This is Post req routes for authenticated user
-	adminPost.Post("/profile/createProfile", controller.CreateNewProfile)
-	adminPost.Post("/profile/deleteProfile", controller.DeleteProfile)
+
 	admin.Post("/logout", controller.Logout)
+	
+	profilePost := adminPost.Group("/profile")
+	profilePost.Post("/createProfile", controller.CreateNewProfile)
+	profilePost.Post("/deleteProfile", controller.DeleteProfile)
+	
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

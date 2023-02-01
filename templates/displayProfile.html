@@ -4,9 +4,11 @@
     <title>{{.ProfileName}}</title>
 </head>
 <body>
+    <a href= "/user/profilePage" > Return </a>
+    <h1>{{.ProfileName}}</h1> <br>
 
     {{range .ProfileLinks}}
-        <a href="{{.}}" >{{.}}</a>
+        <a href="{{.}}" >{{.}}</a><br>
     {{end}}
 
     <form action="/user/profile/deleteProfile" method="post">
