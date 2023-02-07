@@ -8,6 +8,7 @@ import (
 	"log"
 )
 
+// NOT USED
 func LoadUniversityData() {
 
 	// Read the JSON file into a byte slice

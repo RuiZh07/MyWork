@@ -28,13 +28,24 @@
         justify-content:center; /* center the container vertically */
 
       }
+      .profile-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center; /* aligns the items horizontally */
+          width: 50%; /* width of the container is 50% of the screen */
+          margin: 0 auto; /* center the container horizontally */
+          justify-content:center; /* center the container vertically */
+          margin-top: 50px;
+        }
+
+
   </style>
 </head>
 <body>
-  <div>
-    <img src="user_profile_photo.jpg" alt="User profile photo">
-    <h3> {{.UserName}} </h3>
-    <h4> {{.UserUniversity}} </h4>
+  <div class="profile-container">
+    <img src="{{.ProfilePicture}}" alt="User profile photo" width="50", height="50"> 
+     <h3 style="margin-top: 20px;"> {{.UserName}} </h3>
+    <h4 style="margin-top: 20px;"> {{.UserUniversity}} </h4>
   </div>
   <div class="button-container">
     <a href="/user/profilePage" class="button" >Profile Page</a>

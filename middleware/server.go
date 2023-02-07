@@ -63,6 +63,9 @@ func Setup() {
 	admin.Get("/requestTag", controller.RequestTag)
 	admin.Get("/setting", controller.LoadSettingPage)
 
+	// Avatar
+	admin.Get("/avatar/:filename", controller.ServeAvatar)
+
 	// Profile
 	profile := admin.Group("/profile")
 	profile.Get("/createNewProfile", controller.LoadCreateNewProfile)
