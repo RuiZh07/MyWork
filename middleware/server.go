@@ -75,7 +75,10 @@ func Setup() {
 	setting := admin.Group("/setting")
 	setting.Get("/changeUsername", controller.LoadChangeUsername)
 	setting.Get("/changePassword", controller.LoadChangePassword)
+	setting.Get("/changePicture", controller.LoadChangePicture)
+	setting.Get("/avatar/:filename", controller.ServeAvatar)
 	
+	setting.Post("/uploadImage", controller.UpdateImage)
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
