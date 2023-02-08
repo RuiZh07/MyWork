@@ -11,6 +11,7 @@
     <img src="{{.ProfilePicture}}" alt="User profile photo" width="50", height="50"> 
     <form action="/user/setting/uploadImage" method="post" enctype="multipart/form-data">
       <input type="file" id="newImage" name="newImage"><br>
+      <span style="color: red"> {{.ErrorMessage}}</span><br><br>
       <input type="submit" value="Submit">
     </form>
     

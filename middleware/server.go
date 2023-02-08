@@ -77,7 +77,7 @@ func Setup() {
 	setting.Get("/changePassword", controller.LoadChangePassword)
 	setting.Get("/changePicture", controller.LoadChangePicture)
 	setting.Get("/avatar/:filename", controller.ServeAvatar)
-	
+
 	setting.Post("/uploadImage", controller.UpdateImage)
 
 	//Setup adminPost to limit the request reducing server load
@@ -87,11 +87,10 @@ func Setup() {
 	}))
 
 	admin.Post("/logout", controller.Logout)
-	
+
 	profilePost := adminPost.Group("/profile")
 	profilePost.Post("/createProfile", controller.CreateNewProfile)
 	profilePost.Post("/deleteProfile", controller.DeleteProfile)
-	
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

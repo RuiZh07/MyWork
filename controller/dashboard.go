@@ -8,7 +8,6 @@ import (
 	"log"
 	"os"
 	"strings"
-
 )
 
 func LoadDashboard(c *fiber.Ctx) error {
@@ -18,28 +17,27 @@ func LoadDashboard(c *fiber.Ctx) error {
 	}
 
 	userEmail := sess.Get(model.USER_EMAIL)
-	userID := sess.Get(model.USER_ID)
 	var userName string
 	var userUniversity string
+	var profilePicture string
 
 	// Get user name and university from database based on user's email
-	err = database.DB.QueryRow("SELECT name, university FROM users WHERE email = $1", userEmail).Scan(&userName, &userUniversity)
+	err = database.DB.QueryRow("SELECT name, university, COALESCE(profilePicture, '') FROM users WHERE email = $1", userEmail).Scan(&userName, &userUniversity, &profilePicture)
 	if err != nil {
 		fmt.Print("Error when getting user name and university from database (dashboard.go)")
 		log.Fatal(err)
 	}
 
 	// Check if the user has uploaded their own profile picture
-	var profilePicture string
-	_, err = os.Stat("avatar/" + userID.(string) + ".png")
+
+	_, err = os.Stat("avatar/" + profilePicture)
 	if err == nil {
 		// If the user has uploaded their own profile picture, use it
-		profilePicture = "avatar/" + userID.(string) + ".png"
+		profilePicture = "avatar/" + profilePicture
 	} else {
 		// If the user hasn't uploaded their own profile picture, use the default one
 		profilePicture = "avatar/user.png"
 	}
-
 
 	return c.Render("dashboard", fiber.Map{
 		"ProfilePicture": profilePicture,
@@ -65,4 +63,3 @@ func ManageTag(c *fiber.Ctx) error {
 func RequestTag(c *fiber.Ctx) error {
 	return nil
 }
-

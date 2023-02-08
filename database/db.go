@@ -2,14 +2,14 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	_ "github.com/lib/pq"
 	"log"
-	"fmt"
 )
 
 var DB *sql.DB
 
-func Setup(){
+func Setup() {
 	dsn := "postgres://admin:admin@localhost:5432/wacave?sslmode=disable"
 	var err error
 	DB, err = sql.Open("postgres", dsn)
@@ -33,7 +33,8 @@ func Setup(){
 				name text NOT NULL,
 				email text NOT NULL,
 				password text NOT NULL,
-				university text NOT NULL
+				university text NOT NULL,
+				profilePicture text
 			);
 		`)
 
