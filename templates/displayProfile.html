@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html> 
-<head>
+<html>
+  <head>
     <title>{{.ProfileName}}</title>
-</head>
-<body>
-    <a href= "/user/profilePage" > Return </a>
-    <h1>{{.ProfileName}}</h1> <br>
-
+  </head>
+  <body>
+    <a href="/user/profilePage"> Return </a>
+    <h1>{{.ProfileName}}</h1>
+    <br>
     {{range .ProfileLinks}}
-        <a href="{{.}}" >{{.}}</a><br>
+    <a href="{{.}}">{{.}}</a>
+    <br>
     {{end}}
-
     <form action="/user/profile/deleteProfile" method="post">
-     <input type="hidden" name="profileName" value="{{.ProfileName}}">
+      <input type="hidden" name="profileName" value="{{.ProfileName}}">
       <input type="submit" value="Delete Profile">
     </form>
-</body>
+  </body>
 </html>

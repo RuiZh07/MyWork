@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html> 
-<head>
+<html>
+  <head>
     <title>Settings</title>
     <style>
-     .button {
+      .button {
         background-color: #1c87c9;
         border: none;
         color: white;
@@ -14,33 +14,36 @@
         cursor: pointer;
         margin-top: 10px;
         margin-bottom: 10px;
-        width: 100%; /* Make the width of each button the same */
-        height: 50px; /* Make the height of each button the same */
-        line-height:50px; /* align the text vertically to the center */
+        width: 100%;
+        /* Make the width of each button the same */
+        height: 50px;
+        /* Make the height of each button the same */
+        line-height: 50px;
+        /* align the text vertically to the center */
       }
-      
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* aligns the items horizontally */
-            width: 50%; /* width of the container is 50% of the screen */
-            margin: 0 auto; /* center the container horizontally */
-            justify-content:center; /* center the container vertically */
 
-        }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* aligns the items horizontally */
+        width: 50%;
+        /* width of the container is 50% of the screen */
+        margin: 0 auto;
+        /* center the container horizontally */
+        justify-content: center;
+        /* center the container vertically */
+      }
     </style>
-</head>
-
-
-<body>
-    
+  </head>
+  <body>
     <h1>Settings</h1>
-    <a href= "/user/dashboard" > Return </a>
-    <div class = "button-container">
-        {{/* <a href="/user/setting/changeUsername" class="button">Change Username</a> 
-        <a href="/user/setting/changePassword" class="button">Change Password</a>
-        <a href="/user/setting/changePicture" class="button">Change Profile Picture</a> */}}
-        <a href="/user/setting/editInfo" class="button">Edit Personal Info</a>
+    <a href="/user/dashboard"> Return </a>
+    <div class="button-container">
+      {{/* <a href="/user/setting/changeUsername" class="button">Change Username</a>
+			<a href="/user/setting/changePassword" class="button">Change Password</a>
+			<a href="/user/setting/changePicture" class="button">Change Profile Picture</a> */}}
+      <a href="/user/setting/editInfo" class="button">Edit Personal Info</a>
     </div>
-</body>
+  </body>
 </html>

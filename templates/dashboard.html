@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>User Profile</title>
-  <style>
-     .button {
+  <head>
+    <title>User Profile</title>
+    <style>
+      .button {
         background-color: #1c87c9;
         border: none;
         color: white;
@@ -14,47 +14,56 @@
         cursor: pointer;
         margin-top: 10px;
         margin-bottom: 10px;
-        width: 100%; /* Make the width of each button the same */
-        height: 50px; /* Make the height of each button the same */
-        line-height:50px; /* align the text vertically to the center */
+        width: 100%;
+        /* Make the width of each button the same */
+        height: 50px;
+        /* Make the height of each button the same */
+        line-height: 50px;
+        /* align the text vertically to the center */
       }
-      
-    .button-container {
+
+      .button-container {
         display: flex;
         flex-direction: column;
-        align-items: center; /* aligns the items horizontally */
-        width: 50%; /* width of the container is 50% of the screen */
-        margin: 0 auto; /* center the container horizontally */
-        justify-content:center; /* center the container vertically */
-
+        align-items: center;
+        /* aligns the items horizontally */
+        width: 50%;
+        /* width of the container is 50% of the screen */
+        margin: 0 auto;
+        /* center the container horizontally */
+        justify-content: center;
+        /* center the container vertically */
       }
+
       .profile-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center; /* aligns the items horizontally */
-          width: 50%; /* width of the container is 50% of the screen */
-          margin: 0 auto; /* center the container horizontally */
-          justify-content:center; /* center the container vertically */
-          margin-top: 50px;
-        }
-
-
-  </style>
-</head>
-<body>
-  <div class="profile-container">
-    <img src="{{.ProfilePicture}}" alt="User profile photo" width="50", height="50"> 
-     <h3 style="margin-top: 20px;"> {{.UserName}} </h3>
-    <h4 style="margin-top: 20px;"> {{.UserUniversity}} </h4>
-  </div>
-  <div class="button-container">
-    <a href="/user/profilePage" class="button" >Profile Page</a>
-    <a href="/user/manageTag" class="button">Manage Tag</a>
-    <a href="/user/requesTag" class="button">Request Tage</a>
-    <a href="/user/setting" class="button">Setting</a>
-    <form action="/user/logout" method="post">
-      <input type="submit" value="Logout">
-    </form>
-  </div>
-</body>
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* aligns the items horizontally */
+        width: 50%;
+        /* width of the container is 50% of the screen */
+        margin: 0 auto;
+        /* center the container horizontally */
+        justify-content: center;
+        /* center the container vertically */
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="profile-container">
+      <img src="{{.ProfilePicture}}" alt="User profile photo" width="50" , height="50">
+      <h3 style="margin-top: 20px;"> {{.UserName}} </h3>
+      <h4 style="margin-top: 20px;"> {{.UserUniversity}} </h4>
+    </div>
+    <div class="button-container">
+      <a href="/user/profilePage" class="button">Profile Page</a>
+      <a href="/user/manageTag" class="button">Manage Tag</a>
+      <a href="/user/requesTag" class="button">Request Tage</a>
+      <a href="/user/setting" class="button">Setting</a>
+      <form action="/user/logout" method="post">
+        <input type="submit" value="Logout">
+      </form>
+    </div>
+  </body>
 </html>
