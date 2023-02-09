@@ -3,88 +3,110 @@ package controller
 import (
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
+	"github.com/gofiber/fiber/v2"
+	"github.com/nfnt/resize"
+	"golang.org/x/crypto/bcrypt"
 	"image"
 	"image/jpeg"
 	"image/png"
 	"log"
 	"os"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/nfnt/resize"
 )
 
 // Render setting.html template
 func LoadSettingPage(c *fiber.Ctx) error {
-	// sess, err := model.Store.Get(c)
-	// if err != nil {
-	// 	log.Fatal("Error when getting session info in dashboard")
-	// }
-
-	// userEmail := sess.Get(model.USER_EMAIL)
-	// userID := sess.Get(model.USER_ID)
-	// var userName string
-
-	// // Get user name and university from database based on user's email
-	// err = database.DB.QueryRow("SELECT name FROM users WHERE email = $1", userEmail).Scan(&userName)
-	// if err != nil {
-	// 	log.Print("Error when getting user name and university from database (dashboard.go)")
-	// 	log.Fatal(err)
-	// }
-
-	// // Check if the user has uploaded their own profile picture
-	// var profilePicture string
-	// _, err = os.Stat("avatar/" + userID.(string) + ".png")
-	// if err == nil {
-	// 	// If the user has uploaded their own profile picture, use it
-	// 	profilePicture = "avatar/" + userID.(string) + ".png"
-	// } else {
-	// 	// If the user hasn't uploaded their own profile picture, use the default one
-	// 	profilePicture = "avatar/user.png"
-	// }
-
-	// return c.Render("setting", fiber.Map{
-	// 	"ProfilePicture": profilePicture,
-	// 	"userName": userName,
-	// })
 	return c.Render("setting", nil)
 }
 
-func LoadChangePicture(c *fiber.Ctx) error {
-
+// This function is to load edit personal info page from GET request
+func LoadEditInfo(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		log.Fatal("Error when getting session info in dashboard")
 	}
 
-	userEmail := sess.Get(model.USER_EMAIL)
 	userID := sess.Get(model.USER_ID)
 	var userName string
-
-	// Get user name and university from database based on user's email
-	err = database.DB.QueryRow("SELECT name FROM users WHERE email = $1", userEmail).Scan(&userName)
-	if err != nil {
-		log.Print("Error when getting user name and university from database (dashboard.go)")
-		log.Fatal(err)
-	}
-
-	// Check if the user has uploaded their own profile picture
+	var userUniversity string
 	var profilePicture string
-	_, err = os.Stat("avatar/" + userID.(string) + ".png")
-	if err == nil {
-		// If the user has uploaded their own profile picture, use it
-		profilePicture = "avatar/" + userID.(string) + ".png"
-	} else {
-		// If the user hasn't uploaded their own profile picture, use the default one
-		profilePicture = "avatar/user.png"
-	}
 
-	return c.Render("changePicture", fiber.Map{
+	// Get user's name, university, profile picture from the database
+	err = database.DB.QueryRow("SELECT name, university, profilePicture FROM users WHERE user_id = $1", userID).Scan(&userName, &userUniversity, &profilePicture)
+	if err != nil {
+		log.Print("Error from db, LoadEditInfo")
+		log.Print(err)
+	}
+	// Access to user's profile picture in the filesystem
+	profilePicture = "avatar/" + profilePicture
+
+	return c.Render("editPersonalInfo", fiber.Map{
 		"ProfilePicture": profilePicture,
+		"University":     userUniversity,
+		"userName":       userName,
 	})
 }
 
-func UpdateImage(c *fiber.Ctx) error {
+// This function is to update user's information from POST request
+func EditPersonalInfo(c *fiber.Ctx) error {
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal("Error when getting session info in dashboard")
+	}
 
+	userID := sess.Get(model.USER_ID)
+	var userName string
+	var userUniversity string
+	var profilePicture string
+
+	// Get user's name, university, profile picture from the database
+	err = database.DB.QueryRow("SELECT name, university, profilePicture FROM users WHERE user_id = $1", userID).Scan(&userName, &userUniversity, &profilePicture)
+	if err != nil {
+		log.Print("Error from db, LoadEditInfo")
+		log.Print(err)
+	}
+	// Access to user's profile picture in the filesystem
+	profilePicture = "avatar/" + profilePicture
+
+	// Update the new profile Picture
+	fileFormateError := changeImage(c)
+	if fileFormateError != "" {
+		return c.Render("editPersonalInfo", fiber.Map{
+			"FileFormateErrorMessage": fileFormateError,
+			"ProfilePicture":          profilePicture,
+			"University":              userUniversity,
+			"userName":                userName,
+		})
+	}
+
+	// Update user name
+	userNameError := changeUsername(c)
+	if userNameError != "" {
+		return c.Render("editPersonalInfo", fiber.Map{
+			"ErrorMessage":   userNameError,
+			"ProfilePicture": profilePicture,
+			"University":     userUniversity,
+			"userName":       userName,
+		})
+	}
+
+	// Update Password
+	passwordError := changePassword(c)
+	if passwordError != "" {
+		return c.Render("editPersonalInfo", fiber.Map{
+			"ErrorMessage":   passwordError,
+			"ProfilePicture": profilePicture,
+			"University":     userUniversity,
+			"userName":       userName,
+		})
+	}
+
+	return c.Redirect("/user/setting")
+}
+
+// This function allow user to upload new profile picture,
+// If the file isn't supported, return an error message
+// else, save the image and update user's profile picture
+func changeImage(c *fiber.Ctx) string {
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		log.Fatal("Error when getting session info in dashboard")
@@ -95,6 +117,11 @@ func UpdateImage(c *fiber.Ctx) error {
 	userEmail := sess.Get(model.USER_EMAIL)
 
 	file, err := c.FormFile("newImage")
+
+	// check If user doesn't upload new image
+	if file == nil {
+		return ""
+	}
 	if err != nil {
 		log.Print(err)
 	}
@@ -114,10 +141,7 @@ func UpdateImage(c *fiber.Ctx) error {
 	// Check if the format is supported
 	format := file.Header.Get("Content-Type")
 	if format != "image/jpeg" && format != "image/png" && format != "image/jpg" {
-		return c.Render("changePicture", fiber.Map{
-			"ProfilePicture": "avatar/" + profilePicture,
-			"ErrorMessage":   "Not Supported File Type!",
-		})
+		return "Not Supported File Formate"
 	}
 
 	// Decode the image
@@ -189,13 +213,66 @@ func UpdateImage(c *fiber.Ctx) error {
 		break
 	}
 
-	return c.Redirect("/user/setting")
+	return ""
 }
 
-func LoadChangeUsername(c *fiber.Ctx) error {
-	return c.Render("changeUsername", nil)
+func changeUsername(c *fiber.Ctx) string {
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal("Error when getting session info in dashboard")
+	}
+	userID := sess.Get(model.USER_ID)
+
+	userName := c.FormValue("userName")
+	_, err = database.DB.Exec("UPDATE users SET name = $1 WHERE user_id = $2", userName, userID)
+	if err != nil {
+		log.Print(err)
+		log.Print("Error when changing user name, changeUsername()")
+		return "error when changing username"
+	}
+
+	return ""
+
 }
 
-func LoadChangePassword(c *fiber.Ctx) error {
-	return c.Render("changePassword", nil)
+func changePassword(c *fiber.Ctx) string {
+
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal("Error when getting session info in dashboard")
+	}
+
+	userID := sess.Get(model.USER_ID)
+	newPassword := c.FormValue("newPassword")
+	confirmPassword := c.FormValue("confirmPassword")
+
+	// Check if user wants to update password
+	// If not, return nothing
+	if newPassword == "" || confirmPassword == "" {
+		return ""
+	}
+
+	if newPassword == "" {
+		return "Password can't be empty"
+	}
+
+	if newPassword != confirmPassword {
+		return "Password mismatched"
+	}
+
+	// Hash the password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
+	if err != nil {
+		log.Print("Error when hasing password")
+		return "err when hashing password"
+	}
+
+	_, err = database.DB.Exec("UPDATE users SET password = $1 WHERE user_id = $2", hashedPassword, userID)
+	if err != nil {
+		log.Print(err)
+		log.Print("Error when changing user name, changeUsername()")
+		return "error when changing username"
+	}
+
+	return ""
 }
