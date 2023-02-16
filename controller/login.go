@@ -1,4 +1,4 @@
-package middleware
+package controller
 
 import (
 	"NFC_Tag_UPoint/database"
@@ -9,6 +9,11 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"log"
 )
+
+func LoadLoginPage(c *fiber.Ctx) error {
+	// Render login.html template
+	return c.Render("login", nil)
+}
 
 // HandleLogin handles user login requests
 func HandleLogin(c *fiber.Ctx) error {

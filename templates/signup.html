@@ -1,23 +1,39 @@
 <html>
-<head>
+  <head>
     <title>User Registration</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>User Registration</h1>
     <form method="POST" action="/auth/register">
-        <span style="color: black"> {{.UniversityName}} </span> <br><br>
-        <label for="userName">Name:</label><br>
-        <input type="text" id="userName" name="userName" value={{.Name}}><br><br>
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" value={{.Email}}><br>
-        <span style="color: grey"> Please use example@{{.UniversityDomain}} to sign up your account</span><br>
-        <br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <label for="confirmPassword">Confirm Password:</label><br>
-        <input type="password" id="confirmPassword" name="confirmPassword"><br><br>
-        <span style="color: red"> {{.ErrorMessage}}</span><br><br>
-        <input type="submit" value="Submit">
+      <span style="color: black"> {{.UniversityName}} </span>
+      <br>
+      <br>
+      <label for="userName">Name:</label>
+      <br>
+      <input type="text" id="userName" name="userName" value={{.Name}}>
+      <br>
+      <br>
+      <label for="email">Email:</label>
+      <br>
+      <input type="text" id="email" name="email" value={{.Email}}>
+      <br>
+      <span style="color: grey"> Please use example@{{.UniversityDomain}} to sign up your account</span>
+      <br>
+      <br>
+      <label for="password">Password:</label>
+      <br>
+      <input type="password" id="password" name="password">
+      <br>
+      <br>
+      <label for="confirmPassword">Confirm Password:</label>
+      <br>
+      <input type="password" id="confirmPassword" name="confirmPassword">
+      <br>
+      <br>
+      <span style="color: red"> {{.ErrorMessage}}</span>
+      <br>
+      <br>
+      <input type="submit" value="Submit">
     </form>
-</body>
+  </body>
 </html>

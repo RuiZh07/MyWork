@@ -50,7 +50,7 @@ func Setup() {
 	// This is Post request routes for user without authentication
 	NoAuthPost.Post("/selectU", controller.HandleUniversitySelection)
 	NoAuthPost.Post("/register", controller.HandleRegistration)
-	NoAuthPost.Post("/login", HandleLogin)
+	NoAuthPost.Post("/login", controller.HandleLogin)
 
 	admin := app.Group("/user")
 	admin.Use(checkAuth())
@@ -73,9 +73,10 @@ func Setup() {
 
 	// Setting
 	setting := admin.Group("/setting")
-	setting.Get("/changeUsername", controller.LoadChangeUsername)
-	setting.Get("/changePassword", controller.LoadChangePassword)
-	
+	setting.Get("/editInfo", controller.LoadEditInfo)
+	setting.Get("/avatar/:filename", controller.ServeAvatar)
+
+	setting.Post("/editInfo", controller.EditPersonalInfo)
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
@@ -84,11 +85,10 @@ func Setup() {
 	}))
 
 	admin.Post("/logout", controller.Logout)
-	
+
 	profilePost := adminPost.Group("/profile")
 	profilePost.Post("/createProfile", controller.CreateNewProfile)
 	profilePost.Post("/deleteProfile", controller.DeleteProfile)
-	
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

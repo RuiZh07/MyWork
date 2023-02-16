@@ -20,6 +20,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 	confirmPassword := c.FormValue("confirmPassword")
+	defultProfilePicture := "user.png"
 
 	// Get university name from /database/universityData.json
 	var university string
@@ -75,7 +76,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	}
 
 	// Insert the new user into the database
-	_, err = database.DB.Exec("INSERT INTO users (name, email, password, university) VALUES ($1, $2, $3, $4)", userName, email, hashedPassword, university)
+	_, err = database.DB.Exec("INSERT INTO users (name, email, password, university, profilePicture) VALUES ($1, $2, $3, $4, $5)", userName, email, hashedPassword, university, defultProfilePicture)
 	if err != nil {
 		return err
 	}

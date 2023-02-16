@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Personal Info</title>
+  </head>
+  <body>
+    <h1> Edit Personal Info </h1>
+    <a href="/user/setting"> Return </a>
+    <form method="POST" action="/user/setting/editInfo" enctype="multipart/form-data">
+      <img src="{{.ProfilePicture}}" alt="User profile photo" width="50" , height="50">
+      <br>
+      <input type="file" id="newImage" name="newImage">
+      <br>
+      <span style="color: red"> {{.FileFormateErrorMessage}}</span>
+      <br>
+      <br>
+      <span style="color: black"> {{.University}}</span>
+      <br>
+      <br>
+      <label for="userName"> Username: </label>
+      <br>
+      <input type="text" id="userName" name="userName" value={{.userName}}>
+      <br>
+      <br>
+      <label for="newPassword">New Password </label>
+      <br>
+      <input type="password" id="newPassword" name="newPassword">
+      <br>
+      <br>
+      <label for="confirmPassword">Confirm Password </label>
+      <br>
+      <input type="password" id="confirmPassword" name="confirmPassword">
+      <br>
+      <br>
+      <span style="color: red"> {{.ErrorMessage}}</span>
+      <br>
+      <br>
+      <input type="submit" value="Update">
+    </form>
+  </body>

@@ -1,17 +1,17 @@
 package controller
 
 import (
+	"NFC_Tag_UPoint/database"
+	"NFC_Tag_UPoint/model"
 	"database/sql"
+	"encoding/json"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"io/ioutil"
+	"log"
 	"reflect"
 	"strconv"
 	"strings"
-	"NFC_Tag_UPoint/database"
-	"NFC_Tag_UPoint/model"
-	"encoding/json"
-	"fmt"
-	"log"
 )
 
 func LoadProfilePage(c *fiber.Ctx) error {

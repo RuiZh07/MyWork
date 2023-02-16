@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html> 
-<head>
+<html>
+  <head>
     <title>Profile Page</title>
-      <style>
-     .button {
+    <style>
+      .button {
         background-color: #1c87c9;
         border: none;
         color: white;
@@ -14,31 +14,37 @@
         cursor: pointer;
         margin-top: 10px;
         margin-bottom: 10px;
-        width: 100%; /* Make the width of each button the same */
-        height: 50px; /* Make the height of each button the same */
-        line-height:50px; /* align the text vertically to the center */
+        width: 100%;
+        /* Make the width of each button the same */
+        height: 50px;
+        /* Make the height of each button the same */
+        line-height: 50px;
+        /* align the text vertically to the center */
       }
-      
-    .button-container {
+
+      .button-container {
         display: flex;
         flex-direction: column;
-        align-items: center; /* aligns the items horizontally */
-        width: 50%; /* width of the container is 50% of the screen */
-        margin: 0 auto; /* center the container horizontally */
-        justify-content:center; /* center the container vertically */
-
+        align-items: center;
+        /* aligns the items horizontally */
+        width: 50%;
+        /* width of the container is 50% of the screen */
+        margin: 0 auto;
+        /* center the container horizontally */
+        justify-content: center;
+        /* center the container vertically */
       }
-  </style>
-</head>
-<body>
-  <a href= "/user/dashboard" > Return </a>
-  <div class="button-container">
-    {{range .ProfilePages}}
-        <a href="/user/profile/{{.}}" class="button">{{.}}</a>
-    {{end}}
-    {{if .ShowCreateProfileButton}}
-        <a href="/user/profile/createNewProfile" class="button">Create New Profile</a>
-    {{end}}
-  </div>
-</body>
+    </style>
+  </head>
+  <body>
+    <a href="/user/dashboard"> Return </a>
+    <div class="button-container">
+      {{range .ProfilePages}}
+      <a href="/user/profile/{{.}}" class="button">{{.}}</a>
+      {{end}}
+      {{if .ShowCreateProfileButton}}
+      <a href="/user/profile/createNewProfile" class="button">Create New Profile</a>
+      {{end}}
+    </div>
+  </body>
 </html>

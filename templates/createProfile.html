@@ -1,108 +1,126 @@
 <!DOCTYPE html>
-<html> 
-<head>
+<html>
+  <head>
     <title>Create Profile</title>
-</head>
-<body>
-    <a href= "/user/profilePage" > Return </a>
+  </head>
+  <body>
+    <a href="/user/profilePage"> Return </a>
     <form method="POST" action="/user/profile/createProfile">
-        
-        <label for="profileName"> Profile Name </label>
-        <input type="text" id="profileName" name="profileName"> <br><br>
-        
-        <label for="mediaID-1">Social Media 1</label><br>
-        <select id="platform-1" name="platform-1">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-1" name="mediaID-1"> <br><br>
-
-        <label for="mediaID-2">Social Media 2</label><br>
-        <select id="platform-2" name="platform-2">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-2" name="mediaID-2"> <br><br>
-
-
-        <label for="mediaID-3">Social Media 3</label><br>
-        <select id="platform-3" name="platform-3">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-3" name="mediaID-3"> <br><br>
-
-        <label for="mediaID-4">Social Media 4</label><br>
-        <select id="platform-4" name="platform-4">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-4" name="mediaID-4"> <br><br>
-
-        <label for="mediaID-5">Social Media 5</label><br>
-        <select id="platform-5" name="platform-5">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-5" name="mediaID-5"> <br><br>
-
-        <label for="mediaID-6">Social Media 6</label><br>
-        <select id="platform-6" name="platform-6">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-6" name="mediaID-6"> <br><br>
-
-        <label for="mediaID-7">Social Media 7</label><br>
-        <select id="platform-7" name="platform-7">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-7" name="mediaID-7"> <br><br>
-
-        <label for="mediaID-8">Social Media 8</label><br>
-        <select id="platform-8" name="platform-8">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-8" name="mediaID-8"> <br><br>
-
-        <label for="mediaID-9">Social Media 9</label><br>
-        <select id="platform-9" name="platform-9">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-9" name="mediaID-9"> <br><br>
-
-        <label for="mediaID-10">Social Media 10</label><br>
-        <select id="platform-10" name="platform-10">
-            <option value="">Select The Platform</option>
-            {{range .}}
-                 <option value="{{.}}">{{.}}</option>
-            {{end}}
-        </select>
-        <input type="text" id="mediaID-10" name="mediaID-10"> <br><br>
-
-        
-        <input type="submit" value="Submit">
+      <label for="profileName"> Profile Name </label>
+      <input type="text" id="profileName" name="profileName">
+      <br>
+      <br>
+      <label for="mediaID-1">Social Media 1</label>
+      <br>
+      <select id="platform-1" name="platform-1">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-1" name="mediaID-1">
+      <br>
+      <br>
+      <label for="mediaID-2">Social Media 2</label>
+      <br>
+      <select id="platform-2" name="platform-2">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-2" name="mediaID-2">
+      <br>
+      <br>
+      <label for="mediaID-3">Social Media 3</label>
+      <br>
+      <select id="platform-3" name="platform-3">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-3" name="mediaID-3">
+      <br>
+      <br>
+      <label for="mediaID-4">Social Media 4</label>
+      <br>
+      <select id="platform-4" name="platform-4">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-4" name="mediaID-4">
+      <br>
+      <br>
+      <label for="mediaID-5">Social Media 5</label>
+      <br>
+      <select id="platform-5" name="platform-5">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-5" name="mediaID-5">
+      <br>
+      <br>
+      <label for="mediaID-6">Social Media 6</label>
+      <br>
+      <select id="platform-6" name="platform-6">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-6" name="mediaID-6">
+      <br>
+      <br>
+      <label for="mediaID-7">Social Media 7</label>
+      <br>
+      <select id="platform-7" name="platform-7">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-7" name="mediaID-7">
+      <br>
+      <br>
+      <label for="mediaID-8">Social Media 8</label>
+      <br>
+      <select id="platform-8" name="platform-8">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-8" name="mediaID-8">
+      <br>
+      <br>
+      <label for="mediaID-9">Social Media 9</label>
+      <br>
+      <select id="platform-9" name="platform-9">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-9" name="mediaID-9">
+      <br>
+      <br>
+      <label for="mediaID-10">Social Media 10</label>
+      <br>
+      <select id="platform-10" name="platform-10">
+        <option value="">Select The Platform</option>
+        {{range .}}
+        <option value="{{.}}">{{.}}</option>
+        {{end}}
+      </select>
+      <input type="text" id="mediaID-10" name="mediaID-10">
+      <br>
+      <br>
+      <input type="submit" value="Submit">
     </form>
-</body>
+  </body>
 </html>
