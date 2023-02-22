@@ -4,6 +4,7 @@ import(
 )
 
 type ProfileMenu struct {
+    profileLink string
 	ShowCreateProfileButton bool
 	ProfilePages            []string
 }
@@ -29,4 +30,11 @@ type Profile struct {
     Link8        sql.NullString `db:"link8"`
     Link9        sql.NullString `db:"link9"`
     Link10       sql.NullString `db:"link10"`
+}
+
+type ProfileForNFC struct {
+    UserName string
+    UserProfilePicture string
+    UserUniversity string
+    ProfileLinks []string
 }

@@ -34,13 +34,34 @@ func Setup() {
 				email text NOT NULL,
 				password text NOT NULL,
 				university text NOT NULL,
-				profilePicture text
+				profilePicture text,
+				profileLink text,
 			);
 		`)
 
 		if err != nil {
 			log.Fatal(err)
 		}
+	}
+
+	// Create the nfcTag table if not exist
+	err = DB.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'nfcTag'").Scan(&count)
+	if err != nil{
+		log.Fatal(err)
+	}
+
+	if count == 0{
+		fmt.Println("Creating nfcTag table")
+		
+		_, err = DB.Exec(`
+			CREATE TABLE nfcTag (
+				nfc_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+				name text,
+				tagHash VARCHAR(255),
+				user_email text,
+				activated BOOLEAN NOT NULL
+			);
+		`)
 	}
 
 	// Create the universities table.

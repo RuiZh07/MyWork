@@ -14,12 +14,33 @@ import (
 	"strings"
 )
 
+// This function is used to load the profile page
+// if the user has a profile link then it will load the profile page
+// otherwise it will redirect to the create profile link page
 func LoadProfilePage(c *fiber.Ctx) error {
-	profile := model.ProfileMenu{
-		ShowCreateProfileButton: canCreateNewProfile(c),
-		ProfilePages:            profilePages(c),
+
+	// Get the user id from the session
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
 	}
-	return c.Render("profilePage", profile)
+	var count int
+
+	// Check if user already has user profile link
+	err = database.DB.QueryRow("SELECT profile_link FROM users WHERE user_id = $1", sess.Get(model.USER_ID)).Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if count > 0 {
+		profile := model.ProfileMenu{
+			ShowCreateProfileButton: canCreateNewProfile(c),
+			ProfilePages:            profilePages(c),
+		}
+		return c.Render("profilePage",profile)
+	}
+
+	// If user doesn't have profile link, redirect to create profile link page
+	return c.Redirect("/user/createProfileLink")
 }
 
 func LoadCreateNewProfile(c *fiber.Ctx) error {
@@ -65,9 +86,9 @@ func CreateNewProfile(c *fiber.Ctx) error {
 		itemIndex++
 		idIndex++
 	}
-
 	profileName := c.FormValue("profileName")
 
+	// Get the media platform URL from the json file
 	dataJson, err := ioutil.ReadFile("database/platformLinks.json")
 	if err != nil {
 		log.Fatal(err)
@@ -245,4 +266,39 @@ func DeleteProfile(c *fiber.Ctx) error {
 
 	return c.Redirect("/user/profilePage")
 
+}
+
+func LoadCreateNewProfileLink(c *fiber.Ctx) error {
+	return c.Render("createProfileLink", nil)
+}
+
+// create profile link for user's profile page
+func CreateProfileLink(c *fiber.Ctx) error{
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var count int
+	userEmail := sess.Get(model.USER_EMAIL)
+	userID := sess.Get(model.USER_ID)
+	profileLink := c.FormValue("profileLink")
+
+	err = database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE profile_link = $1", profileLink).Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if count > 0 {
+		return c.Render("createProfileLink", fiber.Map{
+			"LinkMessage": "Cannot create link, link already exist",
+		})
+	}
+
+	_, err = database.DB.Exec("UPDATE users SET profile_link = $1 WHERE user_id = $2 and user_email = $3", profileLink, userID, userEmail)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	
+	return c.Redirect("/user/profilePage")
 }

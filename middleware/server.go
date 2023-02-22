@@ -59,6 +59,7 @@ func Setup() {
 	// Todo
 	// Complete each of the get request setup
 	admin.Get("/profilePage", controller.LoadProfilePage)
+	admin.Get("/createProfileLink", controller.LoadCreateNewProfileLink)
 	admin.Get("/manageTag", controller.ManageTag)
 	admin.Get("/requestTag", controller.RequestTag)
 	admin.Get("/setting", controller.LoadSettingPage)
@@ -89,6 +90,7 @@ func Setup() {
 	profilePost := adminPost.Group("/profile")
 	profilePost.Post("/createProfile", controller.CreateNewProfile)
 	profilePost.Post("/deleteProfile", controller.DeleteProfile)
+	profilePost.Post("/setProfileLink", controller.CreateProfileLink)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

@@ -6,8 +6,9 @@
   <body>
     <a href="/user/profilePage"> Return </a>
     <form method="POST" action="/user/profile/createProfile">
-      <label for="profileName"> Profile Name </label>
-      <input type="text" id="profileName" name="profileName">
+      <span style="color: black"> {{.ProfileLink}} </span>
+      <span style="color: black"> {{.ProfileName}} </span>
+      <input type="hidden" name="profileName" value="{{.ProfileName}}">
       <br>
       <br>
       <label for="mediaID-1">Social Media 1</label>
