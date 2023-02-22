@@ -24,23 +24,23 @@ func LoadProfilePage(c *fiber.Ctx) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var count int
+	var profileLink sql.NullString
 
 	// Check if user already has user profile link
-	err = database.DB.QueryRow("SELECT profile_link FROM users WHERE user_id = $1", sess.Get(model.USER_ID)).Scan(&count)
+	err = database.DB.QueryRow("SELECT profileLink FROM users WHERE user_id = $1", sess.Get(model.USER_ID)).Scan(&profileLink)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if count > 0 {
-		profile := model.ProfileMenu{
-			ShowCreateProfileButton: canCreateNewProfile(c),
-			ProfilePages:            profilePages(c),
-		}
-		return c.Render("profilePage",profile)
+
+	if !profileLink.Valid {
+		return c.Redirect("/user/createProfileLink")
 	}
 
-	// If user doesn't have profile link, redirect to create profile link page
-	return c.Redirect("/user/createProfileLink")
+	profile := model.ProfileMenu{
+		ShowCreateProfileButton: canCreateNewProfile(c),
+		ProfilePages:            profilePages(c),
+	}
+	return c.Render("profilePage", profile)
 }
 
 func LoadCreateNewProfile(c *fiber.Ctx) error {
@@ -273,7 +273,7 @@ func LoadCreateNewProfileLink(c *fiber.Ctx) error {
 }
 
 // create profile link for user's profile page
-func CreateProfileLink(c *fiber.Ctx) error{
+func CreateProfileLink(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		log.Fatal(err)
@@ -284,7 +284,7 @@ func CreateProfileLink(c *fiber.Ctx) error{
 	userID := sess.Get(model.USER_ID)
 	profileLink := c.FormValue("profileLink")
 
-	err = database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE profile_link = $1", profileLink).Scan(&count)
+	err = database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE profileLink = $1", profileLink).Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -294,11 +294,10 @@ func CreateProfileLink(c *fiber.Ctx) error{
 		})
 	}
 
-	_, err = database.DB.Exec("UPDATE users SET profile_link = $1 WHERE user_id = $2 and user_email = $3", profileLink, userID, userEmail)
+	_, err = database.DB.Exec("UPDATE users SET profileLink = $1 WHERE user_id = $2 and email = $3", profileLink, userID, userEmail)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	
 	return c.Redirect("/user/profilePage")
 }

@@ -4,8 +4,8 @@ import (
 	"NFC_Tag_UPoint/database"
 	//"NFC_Tag_UPoint/model"
 	"fmt"
-	"log"
 	"github.com/gofiber/fiber/v2"
+	"log"
 )
 
 /*
@@ -31,11 +31,12 @@ func LoadNFCPage(c *fiber.Ctx) error {
 }
 
 /*
-	This function is to verify if the NFC tag is activated from the database
-	Parameters:
-		- c: fiber context
-	Return:
-		- activated: boolean
+This function is to verify if the NFC tag is activated from the database
+Parameters:
+  - c: fiber context
+
+Return:
+  - activated: boolean
 */
 func checkActivate(c *fiber.Ctx) bool {
 	// Get the tag hash from the URL
@@ -53,16 +54,16 @@ func checkActivate(c *fiber.Ctx) bool {
 }
 
 /*
-	This function is to get the profile page of the NFC tag
-	Parameters:
-		- c: fiber context
-		- tagHash: string
-		- activated: boolean
-		- profile: model.Profile
-		- profileInfo: model.ProfileData
+This function is to get the profile page of the NFC tag
+Parameters:
+  - c: fiber context
+  - tagHash: string
+  - activated: boolean
+  - profile: model.Profile
+  - profileInfo: model.ProfileData
 
-	Return:
-		- profileInfo: model.ProfileData
+Return:
+  - profileInfo: model.ProfileData
 */
 func reditrecActivatedTag(c *fiber.Ctx) error {
 	// Get the tag hash from the URL
@@ -87,15 +88,14 @@ func reditrecActivatedTag(c *fiber.Ctx) error {
 	return c.Redirect("/profile/" + profileLink)
 }
 
-
-
 /*
-	This function is to activate the NFC tag
-	Parameters:
-		- c: fiber context
-		- tagHash: string
-	Return:
-		- error: error message
+This function is to activate the NFC tag
+Parameters:
+  - c: fiber context
+  - tagHash: string
+
+Return:
+  - error: error message
 */
 func ActivateNFC(c *fiber.Ctx) error {
 	// Get the tag hash from the URL
@@ -118,7 +118,7 @@ func ActivateNFC(c *fiber.Ctx) error {
 	}
 
 	// Activate the NFC tag
-	_, err = database.DB.Exec("UPDATE nfcTag SET activated = $1 and user_email = $2 WHERE tagHash = $3", true, userEmail ,tagHash)
+	_, err = database.DB.Exec("UPDATE nfcTag SET activated = $1 and user_email = $2 WHERE tagHash = $3", true, userEmail, tagHash)
 	if err != nil {
 		fmt.Print("Error when activating NFC tag (nfc.go)")
 		log.Fatal(err)

@@ -35,7 +35,7 @@ func Setup() {
 				password text NOT NULL,
 				university text NOT NULL,
 				profilePicture text,
-				profileLink text,
+				profileLink text
 			);
 		`)
 
@@ -46,13 +46,13 @@ func Setup() {
 
 	// Create the nfcTag table if not exist
 	err = DB.QueryRow("SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'nfcTag'").Scan(&count)
-	if err != nil{
+	if err != nil {
 		log.Fatal(err)
 	}
 
-	if count == 0{
+	if count == 0 {
 		fmt.Println("Creating nfcTag table")
-		
+
 		_, err = DB.Exec(`
 			CREATE TABLE nfcTag (
 				nfc_id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
