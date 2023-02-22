@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"database/sql"
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
+	"database/sql"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"log"
@@ -32,10 +32,10 @@ func LoadDashboard(c *fiber.Ctx) error {
 
 	if !profileLink.Valid {
 		profileLink.String = "Profile Link Not Set Yet, Go to Profile Page to Set"
-	}else{
+	} else {
 		// If the user has set their profile link, add the domain name to the link
 		domain := c.BaseURL()
-		profileLinkWithDomain := domain + "/" + profileLink.String
+		profileLinkWithDomain := domain + "/page/" + profileLink.String
 		profileLink.String = profileLinkWithDomain
 	}
 

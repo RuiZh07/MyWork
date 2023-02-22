@@ -36,6 +36,12 @@ func Setup() {
 	// Routes
 	app.Get("/", index)
 
+	//Todo
+	// Setup "/page/:profileLink" route
+	app.Get("/page/:profileLink", controller.LoadPublicProfile)
+	app.Get("/page/avatar/:filename", controller.ServeAvatar)
+
+
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
 

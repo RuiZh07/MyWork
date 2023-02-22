@@ -6,12 +6,13 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	"io/ioutil"
 	"log"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 // This function is used to load the profile page
@@ -300,4 +301,54 @@ func CreateProfileLink(c *fiber.Ctx) error {
 	}
 
 	return c.Redirect("/user/profilePage")
+}
+
+// Load public profile page of user
+func LoadPublicProfile(c *fiber.Ctx) error {
+
+	//Get URL path
+	path := c.Path()
+	// Splitting URL with "/"
+	segments := strings.Split(path, "/")
+	// Get the last segment in URL
+	profileLink := segments[len(segments)-1]
+
+	var profile model.Profile
+	var user model.User
+
+	err := database.DB.QueryRow(`SELECT name, email, university, profilePicture, profileLink FROM users WHERE profileLink = $1`, profileLink).Scan(&user.Name, &user.Email, &user.University, &user.ProfilePicture, &user.ProfileLink)
+	if err != nil {
+		log.Print("Error when getting data from db (profile.go/LoadPublicProfile() ) ")
+		log.Fatal(err)
+	}
+
+	err = database.DB.QueryRow(`SELECT * FROM profiles WHERE user_email = $1 and activation = $2 `, user.Email, true).Scan(&profile.ProfileID, &profile.UserID, &profile.UserEmail, &profile.Name, &profile.Activation, &profile.Link1, &profile.Link2, &profile.Link3,
+		&profile.Link4, &profile.Link5, &profile.Link6, &profile.Link7, &profile.Link8, &profile.Link9, &profile.Link10)
+
+	if err == sql.ErrNoRows {
+		return c.Render("publicProfile", fiber.Map{
+			"UserName":       user.Name,
+			"ProfilePicture": user.ProfilePicture,
+			"University":     user.University,
+			"Error":          "No public profile set yet, please contact user to set a public profile",
+		})
+	} else if err != nil {
+		log.Print("Error when getting profile from db (profile.go/LoadPublicProfile() ) ")
+		log.Fatal(err)
+	}
+
+	var linkArray []string
+	for i := 1; i <= 10; i++ {
+		link := reflect.ValueOf(profile).FieldByName("Link" + strconv.Itoa(i))
+		if link.FieldByName("Valid").Bool() && link.FieldByName("String").String() != "" {
+			linkArray = append(linkArray, link.FieldByName("String").String())
+		}
+	}
+
+	return c.Render("publicProfile", fiber.Map{
+		"UserName":       user.Name,
+		"ProfilePicture": user.ProfilePicture,
+		"University":     user.University,
+		"ProfileLinks":   linkArray,
+	})
 }

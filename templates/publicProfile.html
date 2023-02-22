@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{.UserName}}</title>
+    <style>
+     .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* aligns the items horizontally */
+        width: 50%;
+        /* width of the container is 50% of the screen */
+        margin: 0 auto;
+        /* center the container horizontally */
+        justify-content: center;
+        /* center the container vertically */
+        margin-top: 50px;
+      }
+      </style>
+  </head>
+  <body>
+    <a href="/user/profilePage"> Return </a> <br>
+    <div class="profile-container">
+    <img src="avatar/{{.ProfilePicture}}" alt="User profile photo" width="50" , height="50">
+    <h3 style="margin-top: 20px;"> {{.UserName}}</h1>
+    <h4 style="margin-top: 20px;"> {{.University}}</h2>
+    {{.Error}}
+    </div>
+
+    <br>
+    {{range .ProfileLinks}}
+    <a href="{{.}}">{{.}}</a>
+    <br>
+    {{end}}
+  </body>
+</html>
