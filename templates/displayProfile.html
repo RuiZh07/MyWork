@@ -15,5 +15,8 @@
       <input type="hidden" name="profileName" value="{{.ProfileName}}">
       <input type="submit" value="Delete Profile">
     </form>
+    <form action="/user/profile/setAsPrimary" method="post">
+      <input type="hidden" name="profileName" value="{{.ProfileName}}">
+      <input type="submit" value="Set as Primary">
   </body>
 </html>

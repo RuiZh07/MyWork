@@ -271,6 +271,28 @@ func DeleteProfile(c *fiber.Ctx) error {
 
 }
 
+func SetAsPrimaryProfile(c *fiber.Ctx) error{
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	userID := sess.Get(model.USER_ID)
+	profileName := c.FormValue("profileName")
+
+	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name = $3", true, userID, profileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name != $3", false, userID, profileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return c.Redirect("/user/profilePage")
+}
+
 func LoadCreateNewProfileLink(c *fiber.Ctx) error {
 	return c.Render("createProfileLink", nil)
 }

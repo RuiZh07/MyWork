@@ -99,6 +99,7 @@ func Setup() {
 	profilePost := adminPost.Group("/profile")
 	profilePost.Post("/createProfile", controller.CreateNewProfile)
 	profilePost.Post("/deleteProfile", controller.DeleteProfile)
+	profilePost.Post("/setAsPrimary", controller.SetAsPrimaryProfile)
 	profilePost.Post("/setProfileLink", controller.CreateProfileLink)
 
 	// Start server
