@@ -244,9 +244,15 @@ func DisplayProfile(c *fiber.Ctx) error {
 		}
 	}
 
+	NotPrimany := false
+	if !profile.Activation {
+		NotPrimany = true
+	}
+
 	profileInfo := model.ProfileData{
 		ProfileName:  profileName,
 		ProfileLinks: linkArray,
+		NotPrimary:   NotPrimany,
 	}
 
 	return c.Render("displayProfile", profileInfo)
@@ -271,7 +277,7 @@ func DeleteProfile(c *fiber.Ctx) error {
 
 }
 
-func SetAsPrimaryProfile(c *fiber.Ctx) error{
+func SetAsPrimaryProfile(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		log.Fatal(err)
