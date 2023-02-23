@@ -211,12 +211,8 @@ func profilePages(c *fiber.Ctx) []string {
 
 func DisplayProfile(c *fiber.Ctx) error {
 
-	//Get URL path
-	path := c.Path()
-	// Splitting URL with "/"
-	segments := strings.Split(path, "/")
-	// Get the last segment in URL
-	profileName := segments[len(segments)-1]
+	// Get the profile name from the url
+	profileName := c.Params("id")
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
@@ -306,12 +302,8 @@ func CreateProfileLink(c *fiber.Ctx) error {
 // Load public profile page of user
 func LoadPublicProfile(c *fiber.Ctx) error {
 
-	//Get URL path
-	path := c.Path()
-	// Splitting URL with "/"
-	segments := strings.Split(path, "/")
-	// Get the last segment in URL
-	profileLink := segments[len(segments)-1]
+	// Get the profile link from URL
+	profileLink := c.Params("publicProfileLink")
 
 	var profile model.Profile
 	var user model.User

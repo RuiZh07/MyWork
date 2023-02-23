@@ -7,11 +7,12 @@
     <h1>Activate Your Tag</h1>
     <span>Enter Your WaCave Email To Link This Tag</span><br><br>
     
-    <form action="/activate" method="post"> 
-      <label for="email">Email</label><br>
-      <input type="email" id="email" name="email" required> <br> <br>
-      <label for="email">Confirm Email</label><br>
-      <input type="email" id="email" name="email" required> <br> <br>
+    <form action="/activateTag" method="post"> 
+      <input type="hidden" name="tagHash" value="{{.tagHash}}">
+      <label for="userEmail">Email</label><br>
+      <input type="email" id="userEmail" name="userEmail" required> <br> <br>
+      <label for="confirmEmail">Confirm Email</label><br>
+      <input type="email" id="confirmEmail" name="confirmEmail" required> <br> <br>
       {{.ErrorMessage}} <br><br>
       <button type="submit">Activate</button>
     </form>

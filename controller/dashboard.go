@@ -8,7 +8,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"log"
 	"os"
-	"strings"
 )
 
 func LoadDashboard(c *fiber.Ctx) error {
@@ -59,12 +58,9 @@ func LoadDashboard(c *fiber.Ctx) error {
 }
 
 func ServeAvatar(c *fiber.Ctx) error {
-	//Get URL path
-	path := c.Path()
-	// Splitting URL with "/"
-	segments := strings.Split(path, "/")
-	// Get the last segment in URL
-	avatarPath := segments[len(segments)-1]
+
+	// Get the avatar path from the url
+	avatarPath := c.Params("filename")
 
 	return c.SendFile("avatar/" + avatarPath)
 }

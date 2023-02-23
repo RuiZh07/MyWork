@@ -36,10 +36,13 @@ func Setup() {
 	// Routes
 	app.Get("/", index)
 
-	//Todo
-	// Setup "/page/:profileLink" route
-	app.Get("/page/:profileLink", controller.LoadPublicProfile)
+	// This is Get request routes for user without authentication to view public profile
+	app.Get("/page/:publicProfileLink", controller.LoadPublicProfile)
 	app.Get("/page/avatar/:filename", controller.ServeAvatar)
+
+	// This is Get request routes for user without authentication to access public tag
+	app.Get("/tag/:tagHash", controller.LoadNFCPage)
+	app.Post("/activateTag",controller.ActivateNFC)
 
 
 	NoAuth := app.Group("/auth")

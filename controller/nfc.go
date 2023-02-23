@@ -4,8 +4,9 @@ import (
 	"NFC_Tag_UPoint/database"
 	//"NFC_Tag_UPoint/model"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	"log"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 /*
@@ -27,7 +28,9 @@ func LoadNFCPage(c *fiber.Ctx) error {
 	}
 
 	// Render the NFC page if the NFC tag is not activated
-	return c.Render("activateTag", nil)
+	return c.Render("activateTag", fiber.Map{
+		"tagHash": c.Params("tagHash"),
+	})
 }
 
 /*
@@ -79,13 +82,13 @@ func reditrecActivatedTag(c *fiber.Ctx) error {
 
 	// Get public profile's profile_link from database and redirect to the public profile page
 	var profileLink string
-	err = database.DB.QueryRow("SELECT profile_link FROM profiles WHERE user_email = $1 and activation = $2", userEmail, true).Scan(&profileLink)
+	err = database.DB.QueryRow("SELECT profileLink FROM users WHERE email = $1", userEmail).Scan(&profileLink)
 	if err != nil {
 		fmt.Print("Error when getting profile link from database (nfc.go)")
 		log.Fatal(err)
 	}
 
-	return c.Redirect("/profile/" + profileLink)
+	return c.Redirect("/page/" + profileLink)
 }
 
 /*
@@ -99,7 +102,7 @@ Return:
 */
 func ActivateNFC(c *fiber.Ctx) error {
 	// Get the tag hash from the URL
-	tagHash := c.Params("tagHash")
+	tagHash := c.FormValue("tagHash")
 	userEmail := c.FormValue("userEmail")
 	confirmEmail := c.FormValue("confirmEmail")
 
@@ -110,7 +113,7 @@ func ActivateNFC(c *fiber.Ctx) error {
 	}
 
 	// check if the user email is in the database
-	_, err := database.DB.Exec("SELECT user_email FROM users WHERE user_email = $1", userEmail)
+	_, err := database.DB.Exec("SELECT email FROM users WHERE email = $1", userEmail)
 	if err != nil {
 		return c.Render("activateTag", fiber.Map{
 			"ErrorMessage": "There is no account associated with this email, please check your email or create an account",
@@ -118,12 +121,12 @@ func ActivateNFC(c *fiber.Ctx) error {
 	}
 
 	// Activate the NFC tag
-	_, err = database.DB.Exec("UPDATE nfcTag SET activated = $1 and user_email = $2 WHERE tagHash = $3", true, userEmail, tagHash)
+	_, err = database.DB.Exec("UPDATE nfcTag SET activated = $1, user_email = $2 WHERE tagHash = $3", true, userEmail, tagHash)
 	if err != nil {
 		fmt.Print("Error when activating NFC tag (nfc.go)")
 		log.Fatal(err)
 	}
 
 	// Redirect to the NFC page
-	return c.Redirect("/nfc/" + tagHash)
+	return c.Redirect("/tag/" + tagHash)
 }
