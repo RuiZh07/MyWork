@@ -128,7 +128,7 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	// If no row exist, then create new profile
 	case err == sql.ErrNoRows:
 
-		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)", userID, userEmail, profileName, false)
+		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)", userID, userEmail, profileName, true)
 
 		if err != nil {
 			log.Fatal(err)
@@ -140,6 +140,12 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	default:
 		log.Print("Inserted new profile row into table")
 
+	}
+
+	// Set other existing profile to false
+	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name != $3", false, userID, profileName)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	// TODO: update the json file for social media into only 1
