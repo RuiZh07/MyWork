@@ -26,18 +26,29 @@ func generateHash() string {
 
 func GenerateNFC() {
 	// Define the filename for the JSON file.
-	filename := "database/nfctag.json"
+	nfcJson := "database/nfctag.json"
+	hashTxt := "database/hashForNFC.txt"
 
 	// Create an empty JSON file if it doesn't exist.
-	if _, err := os.Stat(filename); os.IsNotExist(err) {
-		_, err := os.Create(filename)
+	if _, err := os.Stat(nfcJson); os.IsNotExist(err) {
+		_, err := os.Create(nfcJson)
 		if err != nil {
 			panic(err)
 		}
 	}
 
+	// Create an empty text file if it doesn't exist.
+	if _, err := os.Stat(hashTxt); os.IsNotExist(err) {
+		_, err := os.Create(hashTxt)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	var hashSlice []string
+
 	// Read the existing JSON data from the file.
-	jsonFile, err := ioutil.ReadFile(filename)
+	jsonFile, err := ioutil.ReadFile(nfcJson)
 	if err != nil {
 		panic(err)
 	}
@@ -79,8 +90,23 @@ func GenerateNFC() {
 			Activation: false,
 		}
 
+		hashSlice = append(hashSlice, nfcHash)
+
 		// Append the new NFC tag to the slice.
 		nfcTags = append(nfcTags, nfcTag)
+
+	}
+
+	// Put hashSlice into a text file
+	hashFile, err := os.OpenFile(hashTxt, os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, hash := range hashSlice {
+		if _, err = hashFile.WriteString(hash + "\n"); err != nil {
+			panic(err)
+		}
 	}
 
 	// Encode the updated slice of NFCTag structs to JSON format.
@@ -90,17 +116,17 @@ func GenerateNFC() {
 	}
 
 	// Write the JSON data to the file.
-	err = ioutil.WriteFile(filename, jsonData, 0644)
+	err = ioutil.WriteFile(nfcJson, jsonData, 0644)
 	if err != nil {
 		panic(err)
 	}
 }
 
 func CheckNfcAmount() {
-	filename := "database/nfctag.json"
+	nfcJson := "database/nfctag.json"
 
 	// Read the existing JSON data from the file.
-	jsonFile, err := ioutil.ReadFile(filename)
+	jsonFile, err := ioutil.ReadFile(nfcJson)
 	if err != nil {
 		panic(err)
 	}

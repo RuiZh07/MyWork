@@ -9,7 +9,7 @@ func main() {
 
 	// Generate NFC tags
 	//database.GenerateNFC()
-
+	//database.CheckNfcAmount()
 	// Start dabase
 	database.Setup()
 
