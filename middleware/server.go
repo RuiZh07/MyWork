@@ -50,14 +50,14 @@ func Setup() {
 
 	// This is Get request routes for user without authentication
 
-	NoAuth.Get("/signup", controller.LoadRegister)
+	NoAuth.Get("/SelectUniversity", controller.LoadRegister)
 	NoAuth.Get("/login", controller.LoadLoginPage)
 
 	//Setup NoAuthPost to limit the request reducing server load
 	NoAuthPost := app.Group("/auth")
 	NoAuthPost.Use(limiter.New())
 	// This is Post request routes for user without authentication
-	NoAuthPost.Post("/selectU", controller.HandleUniversitySelection)
+	NoAuthPost.Post("/createAccount", controller.HandleUniversitySelection)
 	NoAuthPost.Post("/register", controller.HandleRegistration)
 	NoAuthPost.Post("/login", controller.HandleLogin)
 

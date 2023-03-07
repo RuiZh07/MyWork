@@ -5,6 +5,7 @@
   <body>
     <h1>User Registration</h1>
     <form method="POST" action="/auth/register">
+      <input type="hidden" name="UniversityName" value="{{.UniversityName}}">
       <span style="color: black"> {{.UniversityName}} </span>
       <br>
       <br>
@@ -17,7 +18,8 @@
       <br>
       <input type="text" id="email" name="email" value={{.Email}}>
       <br>
-      <span style="color: grey"> Please use example@{{.UniversityDomain}} to sign up your account</span>
+      <input type="hidden" name="UniversityDomain" value="{{.UniversityDomain}}">
+      <span style="color: grey"> Please use "{{.UniversityDomain}}" domain email to sign up your account</span>
       <br>
       <br>
       <label for="password">Password:</label>
