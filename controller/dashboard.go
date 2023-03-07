@@ -30,7 +30,7 @@ func LoadDashboard(c *fiber.Ctx) error {
 	}
 
 	if !profileLink.Valid {
-		profileLink.String = "Profile Link Not Set Yet, Go to Profile Page to Set"
+		profileLink.String = "Profile link not set yet, please set it in your profile page"
 	} else {
 		// If the user has set their profile link, add the domain name to the link
 		domain := c.BaseURL()

@@ -37,7 +37,9 @@ func Setup() {
 				password text NOT NULL,
 				university text NOT NULL,
 				profilePicture text,
-				profileLink text
+				profileLink text,
+				role text NOT NULL,
+				created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 			);
 		`)
 

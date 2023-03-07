@@ -4,9 +4,18 @@
   </head>
   <body>
     <h1>User Registration</h1>
+    <a href="/auth/SelectUniversity">Back</a>
     <form method="POST" action="/auth/register">
       <input type="hidden" name="UniversityName" value="{{.UniversityName}}">
       <span style="color: black"> {{.UniversityName}} </span>
+      <br>
+      <br>
+      <label for="role">Select Role:</label>
+		<select id="role" name="role">
+			<option value="student">Student</option>
+			<option value="alumni">Alumni</option>
+			<option value="staff">Staff/Professor</option>
+		</select>
       <br>
       <br>
       <label for="userName">Name:</label>

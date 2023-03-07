@@ -19,6 +19,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	confirmPassword := c.FormValue("confirmPassword")
 	university := c.FormValue("UniversityName")
 	domain := c.FormValue("UniversityDomain")
+	role := c.FormValue("role")
 	defultProfilePicture := "user.png"
 
 	// Check register input if its valid
@@ -57,7 +58,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	}
 
 	// Insert the new user into the database
-	_, err = database.DB.Exec("INSERT INTO users (name, email, password, university, profilePicture) VALUES ($1, $2, $3, $4, $5)", userName, email, hashedPassword, university, defultProfilePicture)
+	_, err = database.DB.Exec("INSERT INTO users (name, email, password, university, profilePicture, role, created_at) VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)", userName, email, hashedPassword, university, defultProfilePicture, role)
 	if err != nil {
 		return err
 	}
