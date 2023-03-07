@@ -11,8 +11,6 @@ import (
 	"strings"
 )
 
-var domain string
-
 func HandleRegistration(c *fiber.Ctx) error {
 	// Get the form values
 	userName := c.FormValue("userName")
@@ -60,6 +58,12 @@ func HandleRegistration(c *fiber.Ctx) error {
 
 	// Insert the new user into the database
 	_, err = database.DB.Exec("INSERT INTO users (name, email, password, university, profilePicture) VALUES ($1, $2, $3, $4, $5)", userName, email, hashedPassword, university, defultProfilePicture)
+	if err != nil {
+		return err
+	}
+
+	// Update user count in universities table
+	_, err = database.DB.Exec("UPDATE universities SET user_numbers = user_numbers + 1 WHERE name = $1", university)
 	if err != nil {
 		return err
 	}
