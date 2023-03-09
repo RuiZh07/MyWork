@@ -7,3 +7,9 @@ type UniversityData struct {
 	City     string `json:"City"`
 	Location string `json:"State"`
 }
+
+type University struct {
+	URL   string
+	City  string
+	State string
+}

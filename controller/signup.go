@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+var universityData = make(map[string]model.University)
+
 func HandleRegistration(c *fiber.Ctx) error {
 	// Get the form values
 	userName := c.FormValue("userName")
@@ -76,7 +78,7 @@ func HandleRegistration(c *fiber.Ctx) error {
 	return nil
 }
 
-func LoadRegister(c *fiber.Ctx) error {
+func LoadUniversitySelection(c *fiber.Ctx) error {
 
 	dataJSON, err := ioutil.ReadFile("database/universityData.json")
 	if err != nil {
@@ -91,6 +93,7 @@ func LoadRegister(c *fiber.Ctx) error {
 	}
 	var uName []string
 	for _, university := range data {
+		universityData[university.Name] = model.University{URL: university.Email, City: university.City, State: university.Location}
 		uName = append(uName, university.Name)
 	}
 
@@ -101,17 +104,15 @@ func LoadRegister(c *fiber.Ctx) error {
 func HandleUniversitySelection(c *fiber.Ctx) error {
 	universitySelected := c.FormValue("university")
 
-	// Get university info from universities table in database
-	var domain string
-	err := database.DB.QueryRow("SELECT domain FROM universities WHERE name = $1", universitySelected).Scan(&domain)
-	if err != nil {
-		log.Print(err)
-		log.Fatal("Error when getting university info from database")
+	// Look up the university data in the universityData map.
+	university, ok := universityData[universitySelected]
+	if !ok {
+		log.Fatalf("University data not found for %s", universitySelected)
 	}
 
 	return c.Render("signup", fiber.Map{
 		"UniversityName":   universitySelected,
-		"UniversityDomain": domain,
+		"UniversityDomain": university.URL,
 	})
 
 }

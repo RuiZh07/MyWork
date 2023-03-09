@@ -1,0 +1,538 @@
+ university_id |                             name                             |             domain             |           city            |        state        | user_numbers 
+---------------+--------------------------------------------------------------+--------------------------------+---------------------------+---------------------+--------------
+             1 | University of Alaska                                         | alaska.edu                     | Anchorage                 | AK                  |            0
+             2 | Alaska Christian College                                     | alaskacc.edu                   | Soldotna                  | AK                  |            0
+             3 | National Park Community College                              | npcc.edu                       | Hot Springs National Park | AK                  |            0
+             4 | University of Alaska Fairbanks                               | uaf.edu                        | Fairbanks                 | AK                  |            0
+             5 | University of Arkansas - Fort Smith                          | uafs.edu                       | Fort Smith                | AK                  |            0
+             6 | Alabama A&M University                                       | aamu.edu                       | Huntville                 | AL                  |            0
+             7 | Athens State University                                      | athens.edu                     | Athens                    | AL                  |            0
+             8 | Auburn University                                            | auburn.edu                     | Auburn                    | AL                  |            0
+             9 | Auburn University at Montgomery                              | aum.edu                        | Montgomery                | AL                  |            0
+            10 | Birmingham-Southern College                                  | bsc.edu                        | Birmingham                | AL                  |            0
+            11 | Calhoun Community College                                    | calhoun.edu                    | Decatur                   | AL                  |            0
+            12 | Enterprise State Community College                           | escc.edu                       | Enterprise                | AL                  |            0
+            13 | Faulkner State Community College                             | faulknerstate.edu              | Bay Minette               | AL                  |            0
+            14 | Gadsden State Community College                              | gadsdenstate.edu               | Gadsden                   | AL                  |            0
+            15 | Huntingdon College                                           | huntingdon.edu                 | Montgomery                | AL                  |            0
+            16 | Jacksonville State University                                | jsu.edu                        | Jacksonville              | AL                  |            0
+            17 | Lurleen B. Wallace Community College                         | lbwcc.edu                      | Andalusia                 | AL                  |            0
+            18 | University of Montevallo                                     | montevallo.edu                 | Montevallo                | AL                  |            0
+            19 | Northeast Alabama Community College                          | nacc.edu                       | Rainsville                | AL                  |            0
+            20 | Northwest-Shoals Community College                           | nwscc.edu                      | Muscle Shoals             | AL                  |            0
+            21 | Oakwood University                                           | oakwood.edu                    | Huntsville                | AL                  |            0
+            22 | Samford University                                           | samford.edu                    | Birmingham                | AL                  |            0
+            23 | Southeastern Bible College                                   | sebc.edu                       | Birmingham                | AL                  |            0
+            24 | University of South Alabama                                  | southalabama.edu               | Mobile                    | AL                  |            0
+            25 | Trenholm State Technical College                             | trenholmstate.edu              | Montgomery                | AL                  |            0
+            26 | Troy University                                              | troy.edu                       | Troy                      | AL                  |            0
+            27 | Tuskegee University                                          | tuskegee.edu                   | Tuskegee                  | AL                  |            0
+            28 | University of Alabama                                        | ua.edu                         | Tuscaloosa                | AL                  |            0
+            29 | University of Alabama at Birmingham                          | uab.edu                        | Birmingham                | AL                  |            0
+            30 | University of Alabama in Huntsville                          | uah.edu                        | Huntsville                | AL                  |            0
+            31 | University of North Alabama                                  | una.edu                        | Florence                  | AL                  |            0
+            32 | Snead State Community College                                | snead.edu                      | Boaz                      | AL                  |            0
+            33 | Arkansas Northeastern College                                | anc.edu                        | Blytheville               | AR                  |            0
+            34 | Arkansas State University                                    | astate.edu                     | Jonesboro                 | AR                  |            0
+            35 | Arkansas Tech University                                     | atu.edu                        | Russellville              | AR                  |            0
+            36 | Central Baptist College                                      | cbc.edu                        | Conway                    | AR                  |            0
+            37 | Harding University                                           | harding.edu                    | Searcy                    | AR                  |            0
+            38 | Hendrix College                                              | hendrix.edu                    | Conway                    | AR                  |            0
+            39 | Henderson State University                                   | hsu.edu                        | Arkadelphia               | AR                  |            0
+            40 | John Brown University                                        | jbu.edu                        | Siloam Springs            | AR                  |            0
+            41 | Lyon College                                                 | lyon.edu                       | Batesville                | AR                  |            0
+            42 | Mid-South Community College                                  | midsouthcc.edu                 | West Memphis              | AR                  |            0
+            43 | North Arkansas College                                       | northark.edu                   | Harrison                  | AR                  |            0
+            44 | Northwest Arkansas Community College                         | nwacc.edu                      | Bentonville               | AR                  |            0
+            45 | Northwest Technical Institute                                | nwti.edu                       | Springdale                | AR                  |            0
+            46 | Ouachita Baptist University                                  | obu.edu                        | Arkadelphia               | AR                  |            0
+            47 | University of the Ozarks                                     | ozarks.edu                     | Clarksville               | AR                  |            0
+            48 | Phillips Community College U of A                            | pccua.edu                      | Helena-West Helena        | AR                  |            0
+            49 | Pulaski Technical College                                    | pulaskitech.edu                | North Little Rock         | AR                  |            0
+            50 | Southern Arkansas University Magnolia                        | saumag.edu                     | Magnolia                  | AR                  |            0
+            51 | Southeast Arkansas College                                   | seark.edu                      | Pine Bluff                | AR                  |            0
+            52 | University of Arkansas Community College Batesville          | uaccb.edu                      | Batesville                | AR                  |            0
+            53 | University of Arkansas at Little Rock                        | ualr.edu                       | Little Rock               | AR                  |            0
+            54 | University of Arkansas for Medical Sciences                  | uams.edu                       | Little Rock               | AR                  |            0
+            55 | University of Arkansas at Pine Bluff                         | uapb.edu                       | Pine Bluff                | AR                  |            0
+            56 | University of Arkansas                                       | uark.edu                       | Fayetteville              | AR                  |            0
+            57 | University of Central Arkansas                               | uca.edu                        | Conway                    | AR                  |            0
+            58 | Williams Baptist College                                     | wbcoll.edu                     | Walnut Ridge              | AR                  |            0
+            59 | University of Arizona                                        | arizona.edu                    | Tucson                    | AZ                  |            0
+            60 | Arizona State University                                     | asu.edu                        | Tempe                     | AZ                  |            0
+            61 | Arizona Western College                                      | azwestern.edu                  | Yuma                      | AZ                  |            0
+            62 | Bryan University                                             | bryanuniversity.edu            | Tempe                     | AZ                  |            0
+            63 | Central Arizona College                                      | centralaz.edu                  | Coolidge                  | AZ                  |            0
+            64 | Glendale Community College                                   | gccaz.edu                      | Glendale                  | AZ                  |            0
+            65 | Grand Canyon University                                      | gcu.edu                        | Phoenix                   | AZ                  |            0
+            66 | Maricopa Community Colleges                                  | maricopa.edu                   | Phoenix                   | AZ                  |            0
+            67 | Mesa Community College                                       | mesacc.edu                     | Mesa                      | AZ                  |            0
+            68 | Northern Arizona University                                  | nau.edu                        | Flagstaff                 | AZ                  |            0
+            69 | Northland Pioneer College                                    | npc.edu                        | (multiple locations)      | AZ                  |            0
+            70 | University of Phoenix                                        | phoenix.edu                    | Tempe                     | AZ                  |            0
+            71 | Phoenix College                                              | phoenixcollege.edu             | Phoenix                   | AZ                  |            0
+            72 | Pima Community College                                       | pima.edu                       | Tucson                    | AZ                  |            0
+            73 | Prescott College                                             | prescott.edu                   | Prescott                  | AZ                  |            0
+            74 | Rio Salado College                                           | riosalado.edu                  | Tempe                     | AZ                  |            0
+            75 | South Mountain Community College                             | southmountaincc.edu            | Pheonix                   | AZ                  |            0
+            76 | University of Advancing Technology                           | uat.edu                        | Tempe                     | AZ                  |            0
+            77 | Yavapai College                                              | yc.edu                         | Prescott                  | AZ                  |            0
+            78 | Academy of Arts University                                   | academyart.edu                 | San Francisco             | CA                  |            0
+            79 | Adance Computing Institute                                   | advancedcomputinginstitute.edu | Los Angeles               | CA                  |            0
+            80 | Acupuncture & Integrative Medicine College                   | aimc.edu                       | Berkeley                  | CA                  |            0
+            81 | Alliant International University                             | alliant.edu                    | Alhambra                  | CA                  |            0
+            82 | Allied American University                                   | allied.edu                     | Laguna Hills              | CA                  |            0
+            83 | Anaheim University                                           | anaheim.edu                    | Anaheim                   | CA                  |            0
+            84 | Angeles College                                              | angelescollege.edu             | Los Angeles               | CA                  |            0
+            85 | Antioch University Los Angeles                               | antiochla.edu                  | Culver City               | CA                  |            0
+            86 | Argosy University                                            | argosy.edu                     | (multiple locations)      | CA                  |            0
+            87 | Art Center College of Design                                 | artcenter.edu                  | Pasadena                  | CA                  |            0
+            88 | The Art Institute                                            | artinstitutes.edu              | (multiple locations)      | CA                  |            0
+            89 | Ashford University                                           | ashford.edu                    | San Diego                 | CA                  |            0
+            90 | ATI College                                                  | ati.edu                        | Norwalk                   | CA                  |            0
+            91 | Antelope Valley College                                      | avc.edu                        | Lancaster                 | CA                  |            0
+            92 | Bakersfield College                                          | bakersfieldcollege.edu         | Bakersfield               | CA                  |            0
+            93 | Barstow Community College                                    | barstow.edu                    | Barstow                   | CA                  |            0
+            94 | Berkeley University of California                            | berkeley.edu                   | Berkeley                  | CA                  |            0
+            95 | Berkeley City College                                        | berkeleycitycollege.edu        | Berkeley                  | CA                  |            0
+            96 | Brandman University                                          | brandman.edu                   | Irvine                    | CA                  |            0
+            97 | Butte College                                                | butte.edu                      | Oroville                  | CA                  |            0
+            98 | Cabrillo College                                             | cabrillo.edu                   | Aptos                     | CA                  |            0
+            99 | California Institute of the Arts                             | calarts.edu                    | Valencie                  | CA                  |            0
+           100 | California Baptist University                                | calbaptist.edu                 | Riverside                 | CA                  |            0
+           101 | California Lutheran University                               | callutheran.edu                | Thousand Oaks             | CA                  |            0
+           102 | California Miramar University                                | calmu.edu                      | San Diego                 | CA                  |            0
+           103 | California Polytechnic State University                      | calpoly.edu                    | San Luis Obispo           | CA                  |            0
+           104 | California State University                                  | calstate.edu                   | Long Beach                | CA                  |            0
+           105 | California Institute of Technology                           | caltech.edu                    | Pasadena                  | CA                  |            0
+           106 | Canada College                                               | canadacollege.edu              | Redwood City              | CA                  |            0
+           107 | College of the Canyons                                       | canyons.edu                    | Santa Clarita             | CA                  |            0
+           108 | California College of the Arts                               | cca.edu                        | San Francisco             | CA                  |            0
+           109 | California Community Colleges Chanellor's Office             | cccco.edu                      | Sacramento                | CA                  |            0
+           110 | City College of San Francisco                                | ccsf.edu                       | San Francisco             | CA                  |            0
+           111 | Cerritos College                                             | cerritos.edu                   | Norwalk                   | CA                  |            0
+           112 | Cerro Coso Community College                                 | cerrocoso.edu                  | Ridgecrest                | CA                  |            0
+           113 | Claremont Graduate University                                | cgu.edu                        | Claremont                 | CA                  |            0
+           114 | Chaffey College                                              | chaffey.edu                    | Rancho Cucamonga          | CA                  |            0
+           115 | Chapman University                                           | chapman.edu                    | Orange                    | CA                  |            0
+           116 | California Institute of Integral Studies                     | ciis.edu                       | San Francisco             | CA                  |            0
+           117 | Citrus College                                               | citruscollege.edu              | Glendora                  | CA                  |            0
+           118 | The Claremont Colleges                                       | claremont.edu                  | Claremont                 | CA                  |            0
+           119 | Claremont McKenna College                                    | cmc.edu                        | Claremont                 | CA                  |            0
+           120 | Copper Mountain College                                      | cmccd.edu                      | (multiple locations)      | CA                  |            0
+           121 | Cogswell Polytechnical College                               | cogswell.edu                   | Sunnyvale                 | CA                  |            0
+           122 | College of San Mateo                                         | collegeofsanmateo.edu          | San Mateo                 | CA                  |            0
+           123 | College of the Desert                                        | collegeofthedesert.edu         | Palm Desert               | CA                  |            0
+           124 | El Camino College Compton Center                             | compton.edu                    | Compton                   | CA                  |            0
+           125 | Contra Costa College                                         | contracosta.edu                | San Pablo                 | CA                  |            0
+           126 | College of the Sequoias                                      | cos.edu                        | Visalia                   | CA                  |            0
+           127 | Crafton Hills College                                        | craftonhills.edu               | Yucaipa                   | CA                  |            0
+           128 | California State University Bakersfield                      | csub.edu                       | Bakersfield               | CA                  |            0
+           129 | California State University Channel Islands                  | csuci.edu                      | Camarillo                 | CA                  |            0
+           130 | California State University Dominguez Hills                  | csudh.edu                      | Carson                    | CA                  |            0
+           131 | California State University East Bay                         | csueastbay.edu                 | Hayward                   | CA                  |            0
+           132 | Fresno State                                                 | fresnostate.edu                | Fresno                    | CA                  |            0
+           133 | California State University Long Beach                       | csulb.edu                      | Long Beach                | CA                  |            0
+           134 | California State University Monterey Bay                     | csumb.edu                      | Seaside                   | CA                  |            0
+           135 | California State University Northridge                       | csun.edu                       | Northridge                | CA                  |            0
+           136 | California State Polytechnic University Pomona               | csupomona.edu                  | Pomona                    | CA                  |            0
+           137 | California State University Sacramento                       | csus.edu                       | Sacramento                | CA                  |            0
+           138 | California State University San Bernardino                   | csusb.edu                      | San Bernardino            | CA                  |            0
+           139 | California State University San Marcos                       | csusm.edu                      | San Marcos                | CA                  |            0
+           140 | California State University Stanislaus                       | csustan.edu                    | Stanislaus                | CA                  |            0
+           141 | Cuesta College                                               | cuesta.edu                     | San Luis Obispo           | CA                  |            0
+           142 | Cuyamaca College                                             | cuyamaca.edu                   | El Cajon                  | CA                  |            0
+           143 | California Western School of Law San Diego                   | cwsl.edu                       | San Diego                 | CA                  |            0
+           144 | Cypress College                                              | cypresscollege.edu             | Cypress                   | CA                  |            0
+           145 | DeAnza College                                               | deanza.edu                     | Cupertino                 | CA                  |            0
+           146 | San Joaquin Delta College                                    | deltacollege.edu               | Stockton                  | CA                  |            0
+           147 | Dominican University of California                           | dominican.edu                  | San Rafael                | CA                  |            0
+           148 | Dominican School of Philosophy and Theology                  | dspt.edu                       | Berkeley                  | CA                  |            0
+           149 | Diablo Valley College                                        | dvc.edu                        | Pleasant Hill             | CA                  |            0
+           150 | East Los Angeles College                                     | elac.edu                       | Monterey Park             | CA                  |            0
+           151 | El Camino College                                            | elcamino.edu                   | Torrance                  | CA                  |            0
+           152 | Ex'pression College                                          | expression.edu                 | San Jose                  | CA                  |            0
+           153 | Foothill-De Anza Community College District                  | fhda.edu                       | Los Altos Hills           | CA                  |            0
+           154 | Fashion Institute of Design & Merchandising                  | fidm.edu                       | San Francisco             | CA                  |            0
+           155 | Fielding Graduate University                                 | fielding.edu                   | Santa Barbara             | CA                  |            0
+           156 | Foothill College                                             | foothill.edu                   | Los Altos Hills           | CA                  |            0
+           157 | Fresno Pacific University                                    | fresno.edu                     | Fresno                    | CA                  |            0
+           158 | Fresno City College                                          | fresnocitycollege.edu          | Fresno                    | CA                  |            0
+           159 | Frederick Taylor University                                  | ftu.edu                        | Moraga                    | CA                  |            0
+           160 | Fullerton College                                            | fullcoll.edu                   | Fullerton                 | CA                  |            0
+           161 | Fuller Theological Seminary                                  | fuller.edu                     | Pasadena                  | CA                  |            0
+           162 | California State University Fullerton                        | fullerton.edu                  | Fullerton                 | CA                  |            0
+           163 | Gavilan College                                              | gavilan.edu                    | Gilroy                    | CA                  |            0
+           164 | Golden Gate Baptist Theological Seminary                     | ggbts.edu                      | Mill Valley               | CA                  |            0
+           165 | Glendale Community College                                   | glendale.edu                   | Glendale                  | CA                  |            0
+           166 | Gnomon School of Visual Effects                              | gnomon.edu                     | Hollywood                 | CA                  |            0
+           167 | Columbia College                                             | gocolumbia.edu                 | Sonora                    | CA                  |            0
+           168 | Golden West College                                          | goldenwestcollege.edu          | Huntington Beach          | CA                  |            0
+           169 | Grossmont College                                            | grossmont.edu                  | El Cajon                  | CA                  |            0
+           170 | Allan Hancock College                                        | hancockcollege.edu             | Santa Maria               | CA                  |            0
+           171 | Hartnell College                                             | hartnell.edu                   | Salinas                   | CA                  |            0
+           172 | Henley-Putnam University                                     | henley-putnam.edu              | Santa Clara               | CA                  |            0
+           173 | Harvey Mudd College                                          | hmc.edu                        | Claremont                 | CA                  |            0
+           174 | Holy Names University                                        | hnu.edu                        | Oakland                   | CA                  |            0
+           175 | Humboldt State University                                    | humboldt.edu                   | Arcata                    | CA                  |            0
+           176 | Humphreys College                                            | humphreys.edu                  | Stockton                  | CA                  |            0
+           177 | Imperial Valley College                                      | imperial.edu                   | Imperial                  | CA                  |            0
+           178 | International Sports Sciences Association                    | issaonline.edu                 | Carpinteria               | CA                  |            0
+           179 | International Technological University                       | itu.edu                        | San Jose                  | CA                  |            0
+           180 | Irvine Valley College                                        | ivc.edu                        | Irvine                    | CA                  |            0
+           181 | William Jessup University                                    | jessup.edu                     | Rocklin                   | CA                  |            0
+           182 | John F. Kennedy University                                   | jfku.edu                       | Pleasant Hill             | CA                  |            0
+           183 | Keck Graduate Institute                                      | kgi.edu                        | Claremont                 | CA                  |            0
+           184 | Mount Saint Mary's College                                   | la.edu                         | Los Angeles               | CA                  |            0
+           185 | Los Angeles Community College District                       | laccd.edu                      | Los Angeles               | CA                  |            0
+           186 | Los Angeles City College                                     | lacitycollege.edu              | Los Angeles               | CA                  |            0
+           187 | Los Angeles Harbor College                                   | lahc.edu                       | Wilmington                | CA                  |            0
+           188 | Los Angeles Mission College                                  | lamission.edu                  | Sylmar                    | CA                  |            0
+           189 | Laney College                                                | laney.edu                      | Oakland                   | CA                  |            0
+           190 | Los Angeles Southwest College                                | lasc.edu                       | Los Angeles               | CA                  |            0
+           191 | La Sierra University                                         | lasierra.edu                   | Riverside                 | CA                  |            0
+           192 | Las Positas College                                          | laspositascollege.edu          | Livermore                 | CA                  |            0
+           193 | Los Angeles Trade-Tech Community College                     | lattc.edu                      | Los Angeles               | CA                  |            0
+           194 | Laurus College                                               | lauruscollege.edu              | Santa Maria               | CA                  |            0
+           195 | Los Angeles Valley College                                   | lavc.edu                       | Valley Glen               | CA                  |            0
+           196 | University of La Verne                                       | laverne.edu                    | La Verne                  | CA                  |            0
+           197 | UCLA School of Law                                           | law.ucla.edu                   | Los Angeles               | CA                  |            0
+           198 | Long Beach City College                                      | lbcc.edu                       | Long Beach                | CA                  |            0
+           199 | Life Chiropractic College West                               | lifewest.edu                   | Hayward                   | CA                  |            0
+           200 | Loma Linda University                                        | llu.edu                        | Loma Linda                | CA                  |            0
+           201 | Loyola Marymount University                                  | lmu.edu                        | Los Angeles               | CA                  |            0
+           202 | Los Medanos College                                          | losmedanos.edu                 | Pittsburg                 | CA                  |            0
+           203 | Los Rios Community College District                          | losrios.edu                    | Sacramento                | CA                  |            0
+           204 | Lake Tahoe Community College                                 | ltcc.edu                       | South Lake Tahoe          | CA                  |            0
+           205 | College of Marin                                             | marin.edu                      | Kentfield                 | CA                  |            0
+           206 | Marymount California University                              | marymountcalifornia.edu        | Rancho Palos Verdes       | CA                  |            0
+           207 | The Master's College                                         | masters.edu                    | Santa Clarita             | CA                  |            0
+           208 | Merced Community College                                     | mccd.edu                       | Merced                    | CA                  |            0
+           209 | Mills College                                                | mills.edu                      | Oakland                   | CA                  |            0
+           210 | MiraCosta College                                            | miracosta.edu                  | Oceanside                 | CA                  |            0
+           211 | Modesto Junior College                                       | mjc.edu                        | Modesto                   | CA                  |            0
+           212 | Mount San Jacinto College                                    | msjc.edu                       | (multiple locations)      | CA                  |            0
+           213 | Mount San Antonio College                                    | mtsac.edu                      | Walnut                    | CA                  |            0
+           214 | Napa Valley College                                          | napavalley.edu                 | Napa                      | CA                  |            0
+           215 | Notre Dame de Namur University                               | ndnu.edu                       | Belmont                   | CA                  |            0
+           216 | NewSchool of Architecture and Design                         | newschoolarch.edu              | San Diego                 | CA                  |            0
+           217 | Norco College                                                | norcocollege.edu               | Norco                     | CA                  |            0
+           218 | Naval Postgraduate School                                    | nps.edu                        | Monterey                  | CA                  |            0
+           219 | Ohlone College                                               | ohlone.edu                     | Fremont                   | CA                  |            0
+           220 | Orange Coast College                                         | orangecoastcollege.edu         | Costa Mesa                | CA                  |            0
+           221 | Otis College of Art and Design                               | otis.edu                       | Los Angeles               | CA                  |            0
+           222 | Occidental College                                           | oxy.edu                        | Los Angeles               | CA                  |            0
+           223 | University of the Pacific                                    | pacific.edu                    | Stockton                  | CA                  |            0
+           224 | Pacific College of Oriental Medicine                         | pacificcollege.edu             | San Diego                 | CA                  |            0
+           225 | Palomar College                                              | palomar.edu                    | San Marcos                | CA                  |            0
+           226 | Pasadena City College                                        | pasadena.edu                   | Pasadena                  | CA                  |            0
+           227 | Pepperdine University                                        | pepperdine.edu                 | Malibu                    | CA                  |            0
+           228 | Peralta Community College District                           | peralta.edu                    | Oakland                   | CA                  |            0
+           229 | Pierce College                                               | piercecollege.edu              | Woodland Hills            | CA                  |            0
+           230 | Pitzer College                                               | pitzer.edu                     | Claremont                 | CA                  |            0
+           231 | Pacific Lutheran Theological Seminary                        | plts.edu                       | Berkeley                  | CA                  |            0
+           232 | Point Loma Nazarene University                               | pointloma.edu                  | San Diego                 | CA                  |            0
+           233 | Pomona College                                               | pomona.edu                     | Claremont                 | CA                  |            0
+           234 | Porterville College                                          | portervillecollege.edu         | Porterville               | CA                  |            0
+           235 | Pacific School of Religion                                   | psr.edu                        | Berkeley                  | CA                  |            0
+           236 | Riverside City College                                       | rcc.edu                        | Riverside                 | CA                  |            0
+           237 | Riverside Community College District                         | rccd.edu                       | Riverside                 | CA                  |            0
+           238 | University of Redlands                                       | redlands.edu                   | Redlands                  | CA                  |            0
+           239 | College of the Redwoods                                      | redwoods.edu                   | Eureka                    | CA                  |            0
+           240 | Rio Hondo College                                            | riohondo.edu                   | Whittier                  | CA                  |            0
+           241 | Rosemead College                                             | rosemeadcollege.edu            | Rosemead                  | CA                  |            0
+           242 | Santa Ana College                                            | sac.edu                        | Santa Ana                 | CA                  |            0
+           243 | Saddleback College                                           | saddleback.edu                 | Mission Viejo             | CA                  |            0
+           244 | University of San Diego                                      | sandiego.edu                   | San Diego                 | CA                  |            0
+           245 | Santa Rosa Junior College                                    | santarosa.edu                  | Santa Rosa                | CA                  |            0
+           246 | Santa Barbara City College                                   | sbcc.edu                       | Santa Barbara             | CA                  |            0
+           247 | School of Continuing Education                               | sce.edu                        | Anaheim                   | CA                  |            0
+           248 | Scripps College                                              | scrippscollege.edu             | Claremont                 | CA                  |            0
+           249 | Santa Clara University                                       | scu.edu                        | Santa Clara               | CA                  |            0
+           250 | Southern California University of Health Sciences            | scuhs.edu                      | Whittier                  | CA                  |            0
+           251 | San Diego City College                                       | sdcity.edu                     | San Diego                 | CA                  |            0
+           252 | San Diego Mesa College                                       | sdmesa.edu                     | San Diego                 | CA                  |            0
+           253 | San Diego State University                                   | sdsu.edu                       | San Diego                 | CA                  |            0
+           254 | San Francisco State University                               | sfsu.edu                       | San Francisco             | CA                  |            0
+           255 | Shasta College                                               | shastacollege.edu              | Redding                   | CA                  |            0
+           256 | The Institute of Buddhist Studies                            | shin-ibs.edu                   | Berkeley                  | CA                  |            0
+           257 | Sierra College                                               | sierracollege.edu              | Rocklin                   | CA                  |            0
+           258 | Simpson University                                           | simpsonu.edu                   | Redding                   | CA                  |            0
+           259 | College of the Siskiyous                                     | siskiyous.edu                  | Weed                      | CA                  |            0
+           260 | San Jose State University                                    | sjsu.edu                       | San Jose                  | CA                  |            0
+           261 | Starr King School for the Ministry                           | sksm.edu                       | Berkeley                  | CA                  |            0
+           262 | Skyline College                                              | skylinecollege.edu             | San Bruno                 | CA                  |            0
+           263 | Santa Monica College                                         | smc.edu                        | Santa Monica              | CA                  |            0
+           264 | San Mateo County Community College                           | smccd.edu                      | San Mateo                 | CA                  |            0
+           265 | Soka University of America                                   | soka.edu                       | Aliso Viejo               | CA                  |            0
+           266 | Solano Community College                                     | solano.edu                     | (multiple locations)      | CA                  |            0
+           267 | Sonoma State University                                      | sonoma.edu                     | Rohnert Park              | CA                  |            0
+           268 | Stanford University                                          | stanford.edu                   | Stanford                  | CA                  |            0
+           269 | Saint Mary's College                                         | stmarys-ca.edu                 | Moraga                    | CA                  |            0
+           270 | Taft College                                                 | taftcollege.edu                | Taft                      | CA                  |            0
+           271 | Touro University California                                  | tu.edu                         | Vallejo                   | CA                  |            0
+           272 | University of California Davis                               | ucdavis.edu                    | Davis                     | CA                  |            0
+           273 | University of California Hastings College of the Law         | uchastings.edu                 | San Francisco             | CA                  |            0
+           274 | University of California Irvine                              | uci.edu                        | Irvine                    | CA                  |            0
+           275 | University of California Los Angeles                         | ucla.edu                       | Los Angeles               | CA                  |            0
+           276 | University of California Los Angeles Extension               | uclaextension.edu              | Los Angeles               | CA                  |            0
+           277 | University of California Merced                              | ucmerced.edu                   | Merced                    | CA                  |            0
+           278 | University of California                                     | ucop.edu                       | Oakland                   | CA                  |            0
+           279 | University of California Press                               | ucpress.edu                    | (multiple locations)      | CA                  |            0
+           280 | University of California Riverside                           | ucr.edu                        | Riverside                 | CA                  |            0
+           281 | University of California Santa Barbara                       | ucsb.edu                       | Santa Barbara             | CA                  |            0
+           282 | University of California Santa Cruz                          | ucsc.edu                       | Santa Cruz                | CA                  |            0
+           283 | University of California Santa Cruz Silicon Valley Extension | ucsc-extension.edu             | Santa Clara               | CA                  |            0
+           284 | University of California San Diego                           | ucsd.edu                       | La Jolla                  | CA                  |            0
+           285 | University of California San Francisco                       | ucsf.edu                       | San Francisco             | CA                  |            0
+           286 | University of California                                     | universityofcalifornia.edu     | Berkeley                  | CA                  |            0
+           287 | University of the Pacific                                    | uop.edu                        | Stockton                  | CA                  |            0
+           288 | University of Southern California                            | usc.edu                        | Los Angeles               | CA                  |            0
+           289 | University of San Francisco                                  | usfca.edu                      | San Francisco             | CA                  |            0
+           290 | San Bernardino Valley College                                | valleycollege.edu              | San Bernardino            | CA                  |            0
+           291 | Ventura College                                              | venturacollege.edu             | Ventura                   | CA                  |            0
+           292 | Victor Valley College                                        | vvc.edu                        | Victorville               | CA                  |            0
+           293 | West Coast Baptist College                                   | wcbc.edu                       | Lancaster                 | CA                  |            0
+           294 | Western University of Health Sciences                        | westernu.edu                   | Pamona                    | CA                  |            0
+           295 | Westmont College                                             | westmont.edu                   | Santa Barbara             | CA                  |            0
+           296 | West Valley College                                          | westvalley.edu                 | Saratoga                  | CA                  |            0
+           297 | West Hills Community College District                        | whccd.edu                      | Coalinga                  | CA                  |            0
+           298 | Whittier College                                             | whittier.edu                   | Whittier                  | CA                  |            0
+           299 | West Los Angeles College                                     | wlac.edu                       | Culver City               | CA                  |            0
+           300 | Yuba Community College District                              | yccd.edu                       | Marysville                | CA                  |            0
+           301 | Yosemite Community College District                          | yosemite.edu                   | Modesto                   | CA                  |            0
+           302 | Unitek College                                               | unitekcollege.edu              | Fremont                   | CA                  |            0
+           303 | Vanguard University                                          | vanguard.edu                   | Costa Mesa                | CA                  |            0
+           304 | Southwestern College                                         | swcc.edu                       | Chula Vista               | CA                  |            0
+           305 | Monterey Institute of International Studies                  | miis.edu                       | Monterey                  | CA                  |            0
+           306 | Adams State University                                       | adams.edu                      | Alamosa                   | CO                  |            0
+           307 | Auraria Higher Education Center                              | ahec.edu                       | Denver                    | CO                  |            0
+           308 | Aims Community College                                       | aims.edu                       | Greeley                   | CO                  |            0
+           309 | Arapahoe Community College                                   | arapahoe.edu                   | Littleton                 | CO                  |            0
+           310 | Community College of Aurora                                  | ccaurora.edu                   | (multiple locations)      | CO                  |            0
+           311 | Community College of Denver                                  | ccd.edu                        | Denver                    | CO                  |            0
+           312 | Colorado Heights University                                  | chu.edu                        | Denver                    | CO                  |            0
+           313 | University of Colorado Boulder                               | colorado.edu                   | Boulder                   | CO                  |            0
+           314 | Colorado College                                             | coloradocollege.edu            | Colorado Springs          | CO                  |            0
+           315 | Colorado Mesa University                                     | coloradomesa.edu               | Grand Junction            | CO                  |            0
+           316 | Colorado State University                                    | colostate.edu                  | Fort Collins              | CO                  |            0
+           317 | Colorado State University-Pueblo                             | colostate-pueblo.edu           | Pueblo                    | CO                  |            0
+           318 | University of Denver                                         | du.edu                         | Denver                    | CO                  |            0
+           319 | Fort Lewis College                                           | fortlewis.edu                  | Durango                   | CO                  |            0
+           320 | Front Range Community College                                | frontrange.edu                 | Westminster               | CO                  |            0
+           321 | Jones International University                               | jiu.edu                        | Centennial                | CO                  |            0
+           322 | Colorado School of Mines                                     | mines.edu                      | Golden                    | CO                  |            0
+           323 | Metropolitan State University of Denver                      | msudenver.edu                  | Denver                    | CO                  |            0
+           324 | Naropa University                                            | naropa.edu                     | Boulder                   | CO                  |            0
+           325 | Pikes Peak Community College                                 | ppcc.edu                       | Colorado Springs          | CO                  |            0
+           326 | Pueblo Community College                                     | pueblocc.edu                   | (multiple locations)      | CO                  |            0
+           327 | Redstone College                                             | redstone.edu                   | Denver                    | CO                  |            0
+           328 | Regis University                                             | regis.edu                      | Denver                    | CO                  |            0
+           329 | University of the Rockies                                    | rockies.edu                    | Colorado Springs          | CO                  |            0
+           330 | Red Rocks Community College                                  | rrcc.edu                       | Lakewood                  | CO                  |            0
+           331 | William Howard Taft University                               | taft.edu                       | Denver                    | CO                  |            0
+           332 | University Corporation for Atmospheric Research              | ucar.edu                       | Boulder                   | CO                  |            0
+           333 | University of Colorado Colorado Springs                      | uccs.edu                       | Colorado Springs          | CO                  |            0
+           334 | University of Colorado Denver                                | ucdenver.edu                   | (multiple locations)      | CO                  |            0
+           335 | University of Northern Colorado                              | unco.edu                       | Greeley                   | CO                  |            0
+           336 | University of Colorado                                       | cu.edu                         | Denver                    | CO                  |            0
+           337 | Western State Colorado University                            | western.edu                    | Gunnison                  | CO                  |            0
+           338 | Albertus Magnus College                                      | albertus.edu                   | New Haven                 | CT                  |            0
+           339 | Asnuntuck Community College                                  | asnuntuck.edu                  | Enfield                   | CT                  |            0
+           340 | Connecticut College                                          | conncoll.edu                   | New London                | CT                  |            0
+           341 | Eastern Connecticut State University                         | easternct.edu                  | Willimantic               | CT                  |            0
+           342 | Fairfield University                                         | fairfield.edu                  | Fairfield                 | CT                  |            0
+           343 | Goodwin College                                              | goodwin.edu                    | East Hartfod              | CT                  |            0
+           344 | University of Hartford                                       | hartford.edu                   | West Hartford             | CT                  |            0
+           345 | Hartford Seminary                                            | hartsem.edu                    | Hartford                  | CT                  |            0
+           346 | University of New Haven                                      | newhaven.edu                   | West Haven                | CT                  |            0
+           347 | Queens University of Charlotte                               | quinnipiac.edu                 | Hamden                    | CT                  |            0
+           348 | Quinebaug Valley Community College                           | qvcc.edu                       | Danielson                 | CT                  |            0
+           349 | Sacred Heart University                                      | sacredheart.edu                | Fairfield                 | CT                  |            0
+           350 | Southern Connecticut State University                        | southernct.edu                 | New Haven                 | CT                  |            0
+           351 | Three Rivers Community College                               | threerivers.edu                | Norwich                   | CT                  |            0
+           352 | Trinity College                                              | trincoll.edu                   | Hartford                  | CT                  |            0
+           353 | Tunxis Community College                                     | tunxis.edu                     | Farmington                | CT                  |            0
+           354 | University of Connecticut Health Center                      | uchc.edu                       | Farmington                | CT                  |            0
+           355 | University of Connecticut                                    | uconn.edu                      | Storrs                    | CT                  |            0
+           356 | University of Saint Joseph Connecticut                       | usj.edu                        | West Hartford             | CT                  |            0
+           357 | Western Connecticut State University                         | wcsu.edu                       | Danbury                   | CT                  |            0
+           358 | Wesleyan University                                          | wesleyan.edu                   | Middletown                | CT                  |            0
+           359 | Yale University                                              | yale.edu                       | New Haven                 | CT                  |            0
+           360 | American University                                          | american.edu                   | Washington                | DC                  |            0
+           361 | Carnegie Institution for Science                             | carnegiescience.edu            | Washington                | DC                  |            0
+           362 | The Catholic University of America                           | cua.edu                        | Washington                | DC                  |            0
+           363 | Gallaudet University                                         | gallaudet.edu                  | Washington                | DC                  |            0
+           364 | Georgetown University                                        | georgetown.edu                 | Washington                | DC                  |            0
+           365 | The George Washington University                             | gwu.edu                        | Washington                | DC                  |            0
+           366 | Howard University                                            | howard.edu                     | Washington                | DC                  |            0
+           367 | Johns Hopkins School of Advanced International Studies       | sais-jhu.edu                   | Washington                | DC                  |            0
+           368 | University of California Washington Center                   | ucdc.edu                       | Washington                | DC                  |            0
+           369 | University of the District of Columbia                       | udc.edu                        | Washington                | DC                  |            0
+           370 | Delaware State University                                    | desu.edu                       | Dover                     | DE                  |            0
+           371 | Delaware Technical Community College                         | dtcc.edu                       | Dover                     | DE                  |            0
+           372 | Goldey-Beacom College                                        | gbc.edu                        | Wilmington                | DE                  |            0
+           373 | University of Delaware                                       | udel.edu                       | Newark                    | DE                  |            0
+           374 | Wesley College                                               | wesley.edu                     | Dover                     | DE                  |            0
+           375 | Wilmington University                                        | wilmu.edu                      | New Castle                | DE                  |            0
+           376 | Carlos Albizu University                                     | albizu.edu                     | Miami                     | FL                  |            0
+           377 | Acupuncture Massage College                                  | amcollege.edu                  | Miami                     | FL                  |            0
+           378 | Atlantic Institute of Oriental Medicine                      | atom.edu                       | Fort Lauderdale           | FL                  |            0
+           379 | Barry University                                             | barry.edu                      | Miami Shores              | FL                  |            0
+           380 | Broward College                                              | broward.edu                    | Fort Lauderdale           | FL                  |            0
+           381 | College of Central Florida                                   | cf.edu                         | Ocala                     | FL                  |            0
+           382 | Chipola College                                              | chipola.edu                    | Marianna                  | FL                  |            0
+           383 | Bethune-Cookman University                                   | cookman.edu                    | Daytona Beach             | FL                  |            0
+           384 | Dade Medical College                                         | dadmedical.edu                 | Miami                     | FL                  |            0
+           385 | Daytona State College                                        | daytonastate.edu               | Daytona Beach             | FL                  |            0
+           386 | Eckerd College                                               | eckerd.edu                     | Saint Petersburg          | FL                  |            0
+           387 | Edison State College                                         | edison.edu                     | Fort Myers                | FL                  |            0
+           388 | Embry-Riddle Aeronautical University                         | erau.edu                       | Daytona Beach             | FL                  |            0
+           389 | Everglades University                                        | evergladesuniversity.edu       | Boca Raton                | FL                  |            0
+           390 | Florida Atlantic University                                  | fau.edu                        | Boca Raton                | FL                  |            0
+           391 | Florida Gulf Coast University                                | fgcu.edu                       | Fort Myers                | FL                  |            0
+           392 | Florida Institute of Technology                              | fit.edu                        | Melbourne                 | FL                  |            0
+           393 | Florida International University                             | fiu.edu                        | Miami                     | FL                  |            0
+           394 | Flagler College                                              | flagler.edu                    | Saint Augustine           | FL                  |            0
+           395 | Florida Southern College                                     | flsouthern.edu                 | Lakeland                  | FL                  |            0
+           396 | Florida National University                                  | fnu.edu                        | Hialeah                   | FL                  |            0
+           397 | Florida State College at Jacksonville                        | fscj.edu                       | Jacksonville              | FL                  |            0
+           398 | Florida State University                                     | fsu.edu                        | Tallahassee               | FL                  |            0
+           399 | Gulf Coast State College                                     | gulfcoast.edu                  | Panama City               | FL                  |            0
+           400 | Hillsborough Community College                               | hccfl.edu                      | Tampa                     | FL                  |            0
+           401 | Jacksonville University                                      | ju.edu                         | Jacksonville              | FL                  |            0
+           402 | Keiser University                                            | keiseruniversity.edu           | Fort Lauderdale           | FL                  |            0
+           403 | Loraines Academy Incorporated                                | lorainesacademy.edu            | Saint Petersburg          | FL                  |            0
+           404 | Lake Sumter State College                                    | lssc.edu                       | Leesburg                  | FL                  |            0
+           405 | Lynn University                                              | lynn.edu                       | Boca Raton                | FL                  |            0
+           406 | Millennia Atlantic University                                | maufl.edu                      | Doral                     | FL                  |            0
+           407 | Miami Dade College                                           | mdc.edu                        | Miami                     | FL                  |            0
+           408 | University of Miami                                          | miami.edu                      | Coral Gables              | FL                  |            0
+           409 | Miami International University of Art and Design             | mymiu.edu                      | Miami                     | FL                  |            0
+           410 | New College of Florida                                       | ncf.edu                        | Sarasota                  | FL                  |            0
+           411 | North Florida Community College                              | nfcc.edu                       | Madison                   | FL                  |            0
+           412 | Nova Southeastern University                                 | nova.edu                       | Fort Lauderdale           | FL                  |            0
+           413 | National University of Health Sciences                       | nuhs.edu                       | (multiple locations)      | FL                  |            0
+           414 | Northwest Florida State College                              | nwfsc.edu                      | Niceville                 | FL                  |            0
+           415 | Palm Beach State College                                     | palmbeachstate.edu             | Lake Worth                | FL                  |            0
+           416 | Palm Beach Atlantic University                               | pba.edu                        | West Palm Beach           | FL                  |            0
+           417 | Pensacola State College                                      | pensacolastate.edu             | Pensacola                 | FL                  |            0
+           418 | Pasco-Hernando State College                                 | phsc.edu                       | New Port Richey           | FL                  |            0
+           419 | Ringling College of Art and Design                           | ringling.edu                   | Sarasota                  | FL                  |            0
+           420 | Rollins College                                              | rollins.edu                    | Winter Park               | FL                  |            0
+           421 | Saint Leo University                                         | saintleo.edu                   | Saint Leo                 | FL                  |            0
+           422 | State College of Florida                                     | scf.edu                        | Bradenton                 | FL                  |            0
+           423 | Seminole State College of Florida                            | seminolestate.edu              | Sanford                   | FL                  |            0
+           424 | Santa Fe College                                             | sfcollege.edu                  | Gainesville               | FL                  |            0
+           425 | South Florida State College                                  | southflorida.edu               | Avon Park                 | FL                  |            0
+           426 | Space Coast Health Institute                                 | spacecoast.edu                 | Melbourne                 | FL                  |            0
+           427 | Saint Petersburg College                                     | spcollege.edu                  | Saint Petersburg          | FL                  |            0
+           428 | Stetson University                                           | stetson.edu                    | DeLand                    | FL                  |            0
+           429 | Saint Thomas University                                      | stu.edu                        | Miami Gardens             | FL                  |            0
+           430 | Saint Vincent de Paul Regional Seminary                      | svdp.edu                       | Boynton Beach             | FL                  |            0
+           431 | Traviss Career Center                                        | traviss.edu                    | Lakeland                  | FL                  |            0
+           432 | University of Central Florida                                | ucf.edu                        | Orlando                   | FL                  |            0
+           433 | University of Florida                                        | ufl.edu                        | Gainesville               | FL                  |            0
+           434 | University of North Florida                                  | unf.edu                        | Jacksonville              | FL                  |            0
+           435 | University of South Florida                                  | usf.edu                        | Fowler Avenue             | FL                  |            0
+           436 | University of South Florida Sarasota-Manatee                 | usfsm.edu                      | Sarasota                  | FL                  |            0
+           437 | University of South Florida Saint Petersburg                 | usfsp.edu                      | Saint Petersburg          | FL                  |            0
+           438 | University of Tampa                                          | ut.edu                         | Tampa                     | FL                  |            0
+           439 | University of West Florida                                   | uwf.edu                        | Pensacola                 | FL                  |            0
+           440 | Valencia College                                             | valenciacollege.edu            | Orlando                   | FL                  |            0
+           441 | Warner University                                            | warner.edu                     | Lake Wales                | FL                  |            0
+           442 | Webber International University                              | webber.edu                     | Babson Park               | FL                  |            0
+           443 | Agnes Scott College                                          | agnesscott.edu                 | Decatur                   | GA                  |            0
+           444 | Albany Technical College                                     | albanytech.edu                 | Albany                    | GA                  |            0
+           445 | Armstrong Atlantic State University                          | armstrong.edu                  | Savannah                  | GA                  |            0
+           446 | Atlanta Technical College                                    | atlantatech.edu                | Atlanta                   | GA                  |            0
+           447 | Atlanta Metropolitan State College                           | atlm.edu                       | Atlanta                   | GA                  |            0
+           448 | Berry College                                                | berry.edu                      | Mount Berry               | GA                  |            0
+           449 | Carver College                                               | carver.edu                     | Atlanta                   | GA                  |            0
+           450 | Child Care Education Institute                               | cceionline.edu                 | Duluth                    | GA                  |            0
+           451 | Central Georgia Technical College                            | centralgatech.edu              | Macon                     | GA                  |            0
+           452 | Clayton State University                                     | clayton.edu                    | Morrow                    | GA                  |            0
+           453 | Columbus State University                                    | columbusstate.edu              | Columbus                  | GA                  |            0
+           454 | Columbus Technical College                                   | columbustech.edu               | Columbus                  | GA                  |            0
+           455 | Covenant College                                             | covenant.edu                   | Lookout Mountain          | GA                  |            0
+           456 | Dalton State                                                 | daltonstate.edu                | Dalton                    | GA                  |            0
+           457 | Darton State College                                         | darton.edu                     | Albany                    | GA                  |            0
+           458 | East Georgia State College                                   | ega.edu                        | Swainsboro                | GA                  |            0
+           459 | Emory University                                             | emory.edu                      | Atlanta                   | GA                  |            0
+           460 | Georgia Institute of Technology                              | gatech.edu                     | Atlanta                   | GA                  |            0
+           461 | Georgia College                                              | gcsu.edu                       | Milledgeville             | GA                  |            0
+           462 | Georgia Southern University                                  | georgiasouthern.edu            | Statesboro                | GA                  |            0
+           463 | Georgia Gwinnett College                                     | ggc.edu                        | Lawrenceville             | GA                  |            0
+           464 | Georgia Perimeter College                                    | gpc.edu                        | Decatur                   | GA                  |            0
+           465 | Georgia Regents University Augusta                           | gru.edu                        | Augusta                   | GA                  |            0
+           466 | Georgia State University                                     | gsu.edu                        | Atlanta                   | GA                  |            0
+           467 | Georgia South Western State University                       | gsw.edu                        | Americus                  | GA                  |            0
+           468 | Interactive College of Technology                            | ict.edu                        | Morrow                    | GA                  |            0
+           469 | Atlanta's John Marshall Law School                           | johnmarshall.edu               | Atlanta                   | GA                  |            0
+           470 | Kennesaw State University                                    | kennesaw.edu                   | Kennesaw                  | GA                  |            0
+           471 | Lanier Technical College                                     | laniertech.edu                 | Oakwood                   | GA                  |            0
+           472 | Life University                                              | life.edu                       | Marietta                  | GA                  |            0
+           473 | Mercer University                                            | mercer.edu                     | Macon                     | GA                  |            0
+           474 | Middle Georgia State College                                 | mga.edu                        | Macon                     | GA                  |            0
+           475 | Morehouse College                                            | morehouse.edu                  | Atlanta                   | GA                  |            0
+           476 | Morehouse School of Medicine                                 | msm.edu                        | Atlanta                   | GA                  |            0
+           477 | North Georgia Technical College                              | northgatech.edu                | (multiple locations)      | GA                  |            0
+           478 | Oglethorpe University                                        | oglethorpe.edu                 | Atlanta                   | GA                  |            0
+           479 | Okefenokee Technical College                                 | okefenokeetech.edu             | Waycross                  | GA                  |            0
+           480 | Paine College                                                | paine.edu                      | Augusta                   | GA                  |            0
+           481 | Pfeiffer University                                          | pfeiffer.edu                   | Decatur                   | GA                  |            0
+           482 | Piedmont College                                             | piedmont.edu                   | Demorest                  | GA                  |            0
+           483 | Reinhardt University                                         | reinhardt.edu                  | Waleska                   | GA                  |            0
+           484 | Savannah State University                                    | savannahstate.edu              | Savannah                  | GA                  |            0
+           485 | Savannah College of Art and Design                           | scad.edu                       | Savannah                  | GA                  |            0
+           486 | Shorter University                                           | shorter.edu                    | (multiple locations)      | GA                  |            0
+           487 | Southeastern Technical College                               | southeasterntech.edu           | Vidalia                   | GA                  |            0
+           488 | Spelman College                                              | spelman.edu                    | Atlanta                   | GA                  |            0
+           489 | Southern Polytechnic State University                        | spsu.edu                       | Marietta                  | GA                  |            0
+           490 | Thomas University                                            | thomasu.edu                    | Thomasville               | GA                  |            0
+           491 | University of Georgia                                        | uga.edu                        | Athens                    | GA                  |            0
+           492 | University of North Georgia                                  | ung.edu                        | Dahlonega                 | GA                  |            0
+           493 | University System of Georgia                                 | usg.edu                        | Atlanta                   | GA                  |            0
+           494 | Valdosta State University                                    | valdosta.edu                   | Valdosta                  | GA                  |            0
+           495 | University of West Georgia                                   | westga.edu                     | Carrollton                | GA                  |            0
+           496 | Wiregrass Georgia Technical College                          | wiregrass.edu                  | Valdosta                  | GA                  |            0
+           497 | Brigham Young University Hawaii                              | byuh.edu                       | Laie                      | HI                  |            0
+           498 | Chaminade University                                         | chaminade.edu                  | Honolulu                  | HI                  |            0
+           499 | University of Hawaii at Manoa                                | hawaii.edu                     | Honolulu                  | HI                  |            0
+           500 | Mid-Pacific Institute                                        | midpac.edu                     | Honolulu                  | HI                  |            0
+           501 | AIB College of Business                                      | aib.edu                        | Des Moines                | IA                  |            0
+           502 | Central College                                              | central.edu                    | Pella                     | IA                  |            0
+           503 | Coe College                                                  | coe.edu                        | Cedar Rapids              | IA                  |            0
+           504 | Cornell College                                              | cornellcollege.edu             | Mount Vernon              | IA                  |            0
+           505 | Des Moines Area Community College                            | dmacc.edu                      | Boone                     | IA                  |            0
+           506 | Dordt College                                                | dordt.edu                      | Sioux Center              | IA                  |            0
+           507 | Drake University                                             | drake.edu                      | Des Moines                | IA                  |            0
+           508 | Divine Word College                                          | dwci.edu                       | Epworth                   | IA                  |            0
+           509 | Eastern Iowa Community Colleges                              | eicc.edu                       | Davenport                 | IA                  |            0
+           510 | Grinnell College                                             | grinnell.edu                   | Grinnell                  | IA                  |            0
+           511 | Hawkeye Community College                                    | hawkeyecollege.edu             | Waterloo                  | IA                  |            0
+           512 | Iowa State University                                        | iastate.edu                    | Ames                      | IA                  |            0
+           513 | Iowa Central Community College                               | iowacentral.edu                | Fort Dodge                | IA                  |            0
+           514 | Iowa Wesleyan College                                        | iwc.edu                        | Mount Pleasant            | IA                  |            0
+           515 | Iowa Western Community College                               | iwcc.edu                       | Council Bluffs            | IA                  |            0
+           516 | Kaplan University                                            | kaplanuniversity.edu           | (multiple locations)      | IA                  |            0
+           517 | Kirkwood Community College                                   | kirkwood.edu                   | Cedar Rapids              | IA                  |            0
+           518 | La' James College                                            | lajames.edu                    | Mason City                | IA                  |            0
+           519 | Loras College                                                | loras.edu                      | Dubuque                   | IA                  |            0
+           520 | Luther College                                               | luther.edu                     | Decorah                   | IA                  |            0
+           521 | Maharishi University of Management                           | mum.edu                        | Fairfield                 | IA                  |            0
+           522 | Northeast Iowa Community College                             | nicc.edu                       | Calmar                    | IA                  |            0
+           523 | Palmer College of Chiropractic                               | palmer.edu                     | Davenport                 | IA                  |            0
+           524 | Saint Ambrose University                                     | sau.edu                        | Davenport                 | IA                  |            0
+           525 | Simpson College                                              | simpson.edu                    | Indianola                 | IA                  |            0
+           526 | Southwestern Community College                               | swcciowa.edu                   | (multiple locations)      | IA                  |            0
+           527 | Univeristy of Iowa                                           | uiowa.edu                      | Iowa City                 | IA                  |            0
+           528 | Upper Iowa University                                        | uiu.edu                        | Fayette                   | IA                  |            0
+           529 | University of Northern Iowa                                  | uni.edu                        | Cedar Falls               | IA                  |            0
+           530 | Wartburg College                                             | wartburg.edu                   | Waverly                   | IA                  |            0
+           531 | Waldorf College                                              | waldorf.edu                    | Forest City               | IA                  |            0
+           532 | Boise State University                                       | boisestate.edu                 | Boise                     | ID                  |            0
+           533 | Brigham Young University Idaho                               | byui.edu                       | Rexburg                   | ID                  |            0
+           534 | The College of Idaho                                         | collegeofidaho.edu             | Caldwell                  | ID                  |            0
+
+Interrupted
