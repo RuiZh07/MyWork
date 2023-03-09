@@ -4,9 +4,9 @@ import (
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
 	"fmt"
-	"log"
-
 	"github.com/gofiber/fiber/v2"
+	"log"
+	"time"
 )
 
 /*
@@ -131,9 +131,8 @@ func ActivateNFC(c *fiber.Ctx) error {
 	return c.Redirect("/tag/" + tagHash)
 }
 
-
 // Display the NFC tag associated with the user in settings page
-func LoadNFCSetting(c *fiber.Ctx) error{
+func LoadNFCSetting(c *fiber.Ctx) error {
 	// Get the user email from the session
 	sess, err := model.Store.Get(c)
 	if err != nil {
@@ -143,26 +142,57 @@ func LoadNFCSetting(c *fiber.Ctx) error{
 	userEmail := sess.Get(model.USER_EMAIL)
 
 	// Create a slice to store the NFC tag name associated with the user from the database
-	var nfcTag []string
-	rows, err := database.DB.Query("SELECT tag_name FROM nfcTag WHERE user_email = $1", userEmail)
+	var nfcTags []model.NFCTag
+	rows, err := database.DB.Query("SELECT nfc_id, name, activated, created_at FROM nfcTag WHERE user_email = $1", userEmail)
 	if err != nil {
 		fmt.Print("Error when getting NFC tag name from database (nfc.go)")
 		log.Fatal(err)
 	}
 	// Store the NFC tag name in the slice
 	for rows.Next() {
-		var tag string
-		err = rows.Scan(&tag)
+		var tempTag model.NFCTag
+		err = rows.Scan(&tempTag.ID, &tempTag.Name, &tempTag.Activation, &tempTag.CreatedAt)
 		if err != nil {
 			fmt.Print("Error when scanning NFC tag name from database (nfc.go)")
 			log.Fatal(err)
 		}
-		nfcTag = append(nfcTag, tag)
+		// Parse the timestamp string into a time.Time value
+		timestamp, err := time.Parse(time.RFC3339Nano, tempTag.CreatedAt)
+		if err != nil {
+			fmt.Print("Error when parsing timestamp (nfc.go)")
+			log.Fatal(err)
+		}
+		// Format the timestamp
+		tempTag.CreatedAt = timestamp.Format("Jan 2006")
+		nfcTags = append(nfcTags, tempTag)
 	}
 
 	// Render the NFC setting page
-	return c.Render("NFCSetting", fiber.Map{
-		"TagNames": nfcTag,
+	return c.Render("NFCsetting", fiber.Map{
+		"Tags": nfcTags,
 	})
 
+}
+
+// Deactivate the NFC tag
+func DeactivateNFC(c *fiber.Ctx) error {
+	tagID := c.FormValue("tagID")
+	activation := c.FormValue("tagActivation")
+
+	// Get the user email from the session
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal("Error when getting session info in nfc.go (DeactivateNFC)")
+	}
+	userEmail := sess.Get(model.USER_EMAIL)
+
+	// Update the activation status of the NFC tag in the database
+	_, err = database.DB.Exec("UPDATE nfcTag SET activated = $1 WHERE nfc_id = $2 AND user_email = $3", activation, tagID, userEmail)
+	if err != nil {
+		fmt.Print("Error when deactivating NFC tag (nfc.go)")
+		log.Fatal(err)
+	}
+
+	// Redirect to the NFC setting page
+	return c.Redirect("/user/manageTag")
 }

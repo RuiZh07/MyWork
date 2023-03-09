@@ -1,12 +1,12 @@
 package database
 
 import (
-	"database/sql"
-	"log"
-	_ "github.com/lib/pq"
-	"encoding/json"
-	"io/ioutil"
 	"NFC_Tag_UPoint/model"
+	"database/sql"
+	"encoding/json"
+	_ "github.com/lib/pq"
+	"io/ioutil"
+	"log"
 )
 
 var DB *sql.DB
@@ -63,7 +63,8 @@ func Setup() {
 				name text,
 				tagHash VARCHAR(255),
 				user_email text,
-				activated BOOLEAN NOT NULL
+				activated BOOLEAN NOT NULL,
+				created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 			);
 		`)
 	}

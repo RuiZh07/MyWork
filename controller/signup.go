@@ -100,7 +100,7 @@ func LoadRegister(c *fiber.Ctx) error {
 
 func HandleUniversitySelection(c *fiber.Ctx) error {
 	universitySelected := c.FormValue("university")
-	
+
 	// Get university info from universities table in database
 	var domain string
 	err := database.DB.QueryRow("SELECT domain FROM universities WHERE name = $1", universitySelected).Scan(&domain)
@@ -123,7 +123,7 @@ func checkInputValidation(userName string, email string, password string, confir
 	}
 
 	if password == "" {
-		return"Password can't be empty"
+		return "Password can't be empty"
 	}
 
 	if password != confirmPassword {

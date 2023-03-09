@@ -4,9 +4,33 @@
     <title>Edit NFC Tag</title>
   </head>
   <body>
-  <h1>NFC Tag</h1>
-  {{range .TagNames}}
-    <a href="editNFC.html">{{.}}</a>
-  {{end}}
+    <a href="/user/dashboard">Back</a>
+    <h1>NFC Tags</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Activation</th>
+          <th>Created At</th>
+          <th>Deactivate Tag</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .Tags}}
+        <tr>
+          <td>{{.Name}}</td>
+          <td>{{if .Activation}}Active{{else}}Inactive{{end}}</td>
+          <td>{{.CreatedAt}}</td>
+          <td>
+            <form id="updatedActivation" action="/user/manageTag/updateTagActivation" method="POST">
+              <input type="hidden" name="tagID" value="{{.ID}}">
+              <input type="hidden" name="tagActivation" value="{{if .Activation}}false{{else}}true{{end}}">
+                <input type="checkbox" name="toggleButton" onchange="document.getElementById('updatedActivation').submit()" {{if .Activation}}checked{{end}}>
+            </form>
+          </td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
   </body>
 </html>

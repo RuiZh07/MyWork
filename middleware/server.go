@@ -42,8 +42,7 @@ func Setup() {
 
 	// This is Get request routes for user without authentication to access public tag
 	app.Get("/tag/:tagHash", controller.LoadNFCPage)
-	app.Post("/activateTag",controller.ActivateNFC)
-
+	app.Post("/activateTag", controller.ActivateNFC)
 
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
@@ -69,7 +68,7 @@ func Setup() {
 	// Complete each of the get request setup
 	admin.Get("/profilePage", controller.LoadProfilePage)
 	admin.Get("/createProfileLink", controller.LoadCreateNewProfileLink)
-	admin.Get("/manageTag", controller.ManageTag)
+	admin.Get("/manageTag", controller.LoadNFCSetting)
 	admin.Get("/requestTag", controller.RequestTag)
 	admin.Get("/setting", controller.LoadSettingPage)
 
@@ -101,6 +100,10 @@ func Setup() {
 	profilePost.Post("/deleteProfile", controller.DeleteProfile)
 	profilePost.Post("/setAsPrimary", controller.SetAsPrimaryProfile)
 	profilePost.Post("/setProfileLink", controller.CreateProfileLink)
+
+	// Post for tag
+	tagPost := adminPost.Group("/manageTag")
+	tagPost.Post("/updateTagActivation", controller.DeactivateNFC)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))
