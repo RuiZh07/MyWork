@@ -2,7 +2,7 @@ package controller
 
 import (
 	"NFC_Tag_UPoint/database"
-	//"NFC_Tag_UPoint/model"
+	"NFC_Tag_UPoint/model"
 	"fmt"
 	"log"
 
@@ -129,4 +129,40 @@ func ActivateNFC(c *fiber.Ctx) error {
 
 	// Redirect to the NFC page
 	return c.Redirect("/tag/" + tagHash)
+}
+
+
+// Display the NFC tag associated with the user in settings page
+func LoadNFCSetting(c *fiber.Ctx) error{
+	// Get the user email from the session
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal("Error when getting session info in dashboard")
+	}
+
+	userEmail := sess.Get(model.USER_EMAIL)
+
+	// Create a slice to store the NFC tag name associated with the user from the database
+	var nfcTag []string
+	rows, err := database.DB.Query("SELECT tag_name FROM nfcTag WHERE user_email = $1", userEmail)
+	if err != nil {
+		fmt.Print("Error when getting NFC tag name from database (nfc.go)")
+		log.Fatal(err)
+	}
+	// Store the NFC tag name in the slice
+	for rows.Next() {
+		var tag string
+		err = rows.Scan(&tag)
+		if err != nil {
+			fmt.Print("Error when scanning NFC tag name from database (nfc.go)")
+			log.Fatal(err)
+		}
+		nfcTag = append(nfcTag, tag)
+	}
+
+	// Render the NFC setting page
+	return c.Render("NFCSetting", fiber.Map{
+		"TagNames": nfcTag,
+	})
+
 }
