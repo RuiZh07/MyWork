@@ -4,7 +4,6 @@ import (
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
 	"database/sql"
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"log"
 	"os"
@@ -13,7 +12,8 @@ import (
 func LoadDashboard(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in dashboard")
+		log.Print("Error when getting session info in dashboard")
+		UnexpectedError(c, err, "LoadDashboard (dashboard.go)")
 	}
 
 	userEmail := sess.Get(model.USER_EMAIL)
@@ -25,8 +25,9 @@ func LoadDashboard(c *fiber.Ctx) error {
 	// Get user name and university from database based on user's email
 	err = database.DB.QueryRow("SELECT name, university, COALESCE(profilePicture, ''), profileLink FROM users WHERE email = $1", userEmail).Scan(&userName, &userUniversity, &profilePicture, &profileLink)
 	if err != nil {
-		fmt.Print("Error when getting user name and university from database (dashboard.go)")
-		log.Fatal(err)
+		log.Print("Error when getting user name and university from database (dashboard.go)")
+		UnexpectedError(c, err, "LoadDashboard (dashboard.go)")
+		return nil
 	}
 
 	if !profileLink.Valid {

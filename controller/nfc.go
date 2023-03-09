@@ -50,7 +50,7 @@ func checkActivate(c *fiber.Ctx) bool {
 	err := database.DB.QueryRow("SELECT activated FROM nfcTag WHERE tagHash = $1", tagHash).Scan(&activated)
 	if err != nil {
 		fmt.Print("Error when getting tag activation status from database (nfc.go)")
-		log.Fatal(err)
+		UnexpectedError(c, err, "checkActivate (nfc.go)")
 	}
 
 	return activated
@@ -77,7 +77,7 @@ func reditrecActivatedTag(c *fiber.Ctx) error {
 	err := database.DB.QueryRow("SELECT user_email FROM nfcTag WHERE tagHash = $1", tagHash).Scan(&userEmail)
 	if err != nil {
 		fmt.Print("Error when getting user email from database (nfc.go)")
-		log.Fatal(err)
+		UnexpectedError(c, err, "redirectActivatedTag (nfc.go)")
 	}
 
 	// Get public profile's profile_link from database and redirect to the public profile page
@@ -85,7 +85,7 @@ func reditrecActivatedTag(c *fiber.Ctx) error {
 	err = database.DB.QueryRow("SELECT profileLink FROM users WHERE email = $1", userEmail).Scan(&profileLink)
 	if err != nil {
 		fmt.Print("Error when getting profile link from database (nfc.go)")
-		log.Fatal(err)
+		UnexpectedError(c, err, "redirectActivatedTag (nfc.go)")
 	}
 
 	return c.Redirect("/page/" + profileLink)
@@ -124,7 +124,7 @@ func ActivateNFC(c *fiber.Ctx) error {
 	_, err = database.DB.Exec("UPDATE nfcTag SET activated = $1, user_email = $2 WHERE tagHash = $3", true, userEmail, tagHash)
 	if err != nil {
 		fmt.Print("Error when activating NFC tag (nfc.go)")
-		log.Fatal(err)
+		UnexpectedError(c, err, "ActivateNFC(nfc.go)")
 	}
 
 	// Redirect to the NFC page
@@ -136,7 +136,8 @@ func LoadNFCSetting(c *fiber.Ctx) error {
 	// Get the user email from the session
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in dashboard")
+		log.Print("Error when getting session info in dashboard")
+		UnexpectedError(c, err, "LoadNFCSetting(nfc.go)")
 	}
 
 	userEmail := sess.Get(model.USER_EMAIL)
@@ -146,7 +147,7 @@ func LoadNFCSetting(c *fiber.Ctx) error {
 	rows, err := database.DB.Query("SELECT nfc_id, name, activated, created_at FROM nfcTag WHERE user_email = $1", userEmail)
 	if err != nil {
 		fmt.Print("Error when getting NFC tag name from database (nfc.go)")
-		log.Fatal(err)
+		UnexpectedError(c, err, "LoadNFCSetting(nfc.go)")
 	}
 	// Store the NFC tag name in the slice
 	for rows.Next() {
@@ -154,13 +155,13 @@ func LoadNFCSetting(c *fiber.Ctx) error {
 		err = rows.Scan(&tempTag.ID, &tempTag.Name, &tempTag.Activation, &tempTag.CreatedAt)
 		if err != nil {
 			fmt.Print("Error when scanning NFC tag name from database (nfc.go)")
-			log.Fatal(err)
+			UnexpectedError(c, err, "LoadNFCSetting(nfc.go)")
 		}
 		// Parse the timestamp string into a time.Time value
 		timestamp, err := time.Parse(time.RFC3339Nano, tempTag.CreatedAt)
 		if err != nil {
 			fmt.Print("Error when parsing timestamp (nfc.go)")
-			log.Fatal(err)
+			UnexpectedError(c, err, "LoadNFCSetting(nfc.go)")
 		}
 		// Format the timestamp
 		tempTag.CreatedAt = timestamp.Format("Jan 2006")
@@ -182,7 +183,7 @@ func DeactivateNFC(c *fiber.Ctx) error {
 	// Get the user email from the session
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in nfc.go (DeactivateNFC)")
+		UnexpectedError(c, err, "DeactivateNFC (nfc.go)")
 	}
 	userEmail := sess.Get(model.USER_EMAIL)
 
@@ -190,7 +191,7 @@ func DeactivateNFC(c *fiber.Ctx) error {
 	_, err = database.DB.Exec("UPDATE nfcTag SET activated = $1 WHERE nfc_id = $2 AND user_email = $3", activation, tagID, userEmail)
 	if err != nil {
 		fmt.Print("Error when deactivating NFC tag (nfc.go)")
-		log.Fatal(err)
+		UnexpectedError(c, err, "DeactivateNFC (nfc.go)")
 	}
 
 	// Redirect to the NFC setting page

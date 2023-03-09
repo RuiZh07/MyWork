@@ -22,7 +22,8 @@ func LoadSettingPage(c *fiber.Ctx) error {
 func LoadEditInfo(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in dashboard")
+		log.Print("Error when getting session info in dashboard")
+		UnexpectedError(c, err, "LoadEditInfo(editInfo.go)")
 	}
 
 	userID := sess.Get(model.USER_ID)
@@ -34,7 +35,7 @@ func LoadEditInfo(c *fiber.Ctx) error {
 	err = database.DB.QueryRow("SELECT name, university, profilePicture FROM users WHERE user_id = $1", userID).Scan(&userName, &userUniversity, &profilePicture)
 	if err != nil {
 		log.Print("Error from db, LoadEditInfo")
-		log.Print(err)
+		UnexpectedError(c, err, "LoadEditInfo(editInfo.go)")
 	}
 	// Access to user's profile picture in the filesystem
 	profilePicture = "avatar/" + profilePicture
@@ -50,7 +51,8 @@ func LoadEditInfo(c *fiber.Ctx) error {
 func EditPersonalInfo(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in dashboard")
+		log.Print("Error when getting session info in dashboard")
+		UnexpectedError(c, err, "EditPersonalInfo(editInfo.go)")
 	}
 
 	userID := sess.Get(model.USER_ID)
@@ -62,7 +64,7 @@ func EditPersonalInfo(c *fiber.Ctx) error {
 	err = database.DB.QueryRow("SELECT name, university, profilePicture FROM users WHERE user_id = $1", userID).Scan(&userName, &userUniversity, &profilePicture)
 	if err != nil {
 		log.Print("Error from db, LoadEditInfo")
-		log.Print(err)
+		UnexpectedError(c, err, "EditPersonalInfo(editInfo.go)")
 	}
 	// Access to user's profile picture in the filesystem
 	profilePicture = "avatar/" + profilePicture
@@ -109,7 +111,8 @@ func EditPersonalInfo(c *fiber.Ctx) error {
 func changeImage(c *fiber.Ctx) string {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in dashboard")
+		log.Print("Error when getting session info in dashboard")
+		UnexpectedError(c, err, "ChangeImage(editInfo.go)")
 	}
 
 	// Get userId, userEmail from session
@@ -123,7 +126,7 @@ func changeImage(c *fiber.Ctx) string {
 		return ""
 	}
 	if err != nil {
-		log.Print(err)
+		UnexpectedError(c, err, "ChangeImage(editInfo.go)")
 	}
 
 	src, err := file.Open()
@@ -136,6 +139,7 @@ func changeImage(c *fiber.Ctx) string {
 	err = database.DB.QueryRow("SELECT profilePicture FROM users WHERE email = $1", userEmail).Scan(&profilePicture)
 	if err != nil {
 		log.Print("Error when getting user name and university from database (editInfo.go, updateImage)")
+		UnexpectedError(c, err, "ChangeImage(editInfo.go)")
 	}
 
 	// Check if the format is supported
@@ -147,7 +151,7 @@ func changeImage(c *fiber.Ctx) string {
 	// Decode the image
 	img, format, err := image.Decode(src)
 	if err != nil {
-		log.Print(err)
+		UnexpectedError(c, err, "ChangeImage(editInfo.go)")
 	}
 
 	// Compress the image
@@ -174,12 +178,15 @@ func changeImage(c *fiber.Ctx) string {
 	// Remove current profile picture from filesystem
 	if profilePicture != "user.png" {
 		err = os.Remove("avatar/" + profilePicture)
+		if err != nil {
+			UnexpectedError(c, err, "ChangeImage (editInfo.go)")
+		}
 	}
 
 	// Create the destination file
 	dstFile, err := os.Create("avatar/" + fileName)
 	if err != nil {
-		log.Print(err)
+		UnexpectedError(c, err, "ChangeImage (editInfo.go)")
 	}
 	defer dstFile.Close()
 
@@ -193,22 +200,22 @@ func changeImage(c *fiber.Ctx) string {
 	switch format {
 	case "jpeg":
 		if err = jpeg.Encode(dstFile, resizedImg, nil); err != nil {
-			log.Print(err)
+			UnexpectedError(c, err, "ChangeImage (editInfo.go)")
 		}
 		break
 	case "jpg":
 		if err = jpeg.Encode(dstFile, resizedImg, nil); err != nil {
-			log.Print(err)
+			UnexpectedError(c, err, "ChangeImage (editInfo.go)")
 		}
 		break
 	case "png":
 		if err = png.Encode(dstFile, resizedImg); err != nil {
-			log.Print(err)
+			UnexpectedError(c, err, "ChangeImage (editInfo.go)")
 		}
 		break
 	default:
 		if err = jpeg.Encode(dstFile, resizedImg, nil); err != nil {
-			log.Print(err)
+			UnexpectedError(c, err, "ChangeImage (editInfo.go)")
 		}
 		break
 	}
@@ -219,16 +226,16 @@ func changeImage(c *fiber.Ctx) string {
 func changeUsername(c *fiber.Ctx) string {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in dashboard")
+		log.Print("Error when getting session info in dashboard")
+		UnexpectedError(c, err, "ChangeUsername (editInfo.go)")
 	}
 	userID := sess.Get(model.USER_ID)
 
 	userName := c.FormValue("userName")
 	_, err = database.DB.Exec("UPDATE users SET name = $1 WHERE user_id = $2", userName, userID)
 	if err != nil {
-		log.Print(err)
 		log.Print("Error when changing user name, changeUsername()")
-		return "error when changing username"
+		UnexpectedError(c, err, "ChangeUsername (editInfo.go)")
 	}
 
 	return ""
@@ -239,7 +246,8 @@ func changePassword(c *fiber.Ctx) string {
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		log.Fatal("Error when getting session info in dashboard")
+		log.Print("Error when getting session info in dashboard")
+		UnexpectedError(c, err, "ChangePassword(editInfo.go)")
 	}
 
 	userID := sess.Get(model.USER_ID)
@@ -264,14 +272,13 @@ func changePassword(c *fiber.Ctx) string {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), bcrypt.DefaultCost)
 	if err != nil {
 		log.Print("Error when hasing password")
-		return "err when hashing password"
+		UnexpectedError(c, err, "ChangePassword(editInfo.go)")
 	}
 
 	_, err = database.DB.Exec("UPDATE users SET password = $1 WHERE user_id = $2", hashedPassword, userID)
 	if err != nil {
-		log.Print(err)
 		log.Print("Error when changing user name, changeUsername()")
-		return "error when changing username"
+		UnexpectedError(c, err, "ChangePassword(editInfo.go)")
 	}
 
 	return ""

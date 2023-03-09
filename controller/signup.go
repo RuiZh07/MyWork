@@ -4,11 +4,12 @@ import (
 	"NFC_Tag_UPoint/database"
 	"NFC_Tag_UPoint/model"
 	"encoding/json"
+	"errors"
+	"io/ioutil"
+	"strings"
+
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
-	"io/ioutil"
-	"log"
-	"strings"
 )
 
 var universityData = make(map[string]model.University)
@@ -39,14 +40,14 @@ func HandleRegistration(c *fiber.Ctx) error {
 	// Hash the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		return err
+		UnexpectedError(c, err, "HandleRegisteration(signup.go)")
 	}
 
 	// Check if the email is already in use
 	var count int
 	err = database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE email = $1", email).Scan(&count)
 	if err != nil {
-		return err
+		UnexpectedError(c, err, "HandleRegisteration(signup.go)")
 	}
 	if count > 0 {
 		// Email is already in use, return an error
@@ -62,13 +63,13 @@ func HandleRegistration(c *fiber.Ctx) error {
 	// Insert the new user into the database
 	_, err = database.DB.Exec("INSERT INTO users (name, email, password, university, profilePicture, role, created_at) VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)", userName, email, hashedPassword, university, defultProfilePicture, role)
 	if err != nil {
-		return err
+		UnexpectedError(c, err, "HandleRegisteration(signup.go)")
 	}
 
 	// Update user count in universities table
 	_, err = database.DB.Exec("UPDATE universities SET user_numbers = user_numbers + 1 WHERE name = $1", university)
 	if err != nil {
-		return err
+		UnexpectedError(c, err, "HandleRegisteration(signup.go)")
 	}
 
 	c.Render("login", fiber.Map{
@@ -82,14 +83,14 @@ func LoadUniversitySelection(c *fiber.Ctx) error {
 
 	dataJSON, err := ioutil.ReadFile("database/universityData.json")
 	if err != nil {
-		log.Fatal(err)
+		UnexpectedError(c, err, "LoadUniversitySelection (signup.go)")
 	}
 
 	// Unmarshal the JSON data into a slice of UniversityData structs.
 	var data []model.UniversityData
 	err = json.Unmarshal(dataJSON, &data)
 	if err != nil {
-		log.Fatal(err)
+		UnexpectedError(c, err, "LoadUniversitySelection (signup.go)")
 	}
 	var uName []string
 	for _, university := range data {
@@ -107,7 +108,8 @@ func HandleUniversitySelection(c *fiber.Ctx) error {
 	// Look up the university data in the universityData map.
 	university, ok := universityData[universitySelected]
 	if !ok {
-		log.Fatalf("University data not found for %s", universitySelected)
+		err := errors.New("university not found")
+		UnexpectedError(c, err, "HandleUniversitySelection (signup.go)")
 	}
 
 	return c.Render("signup", fiber.Map{
