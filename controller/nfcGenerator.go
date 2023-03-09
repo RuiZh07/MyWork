@@ -1,4 +1,4 @@
-package database
+package controller
 
 import (
 	"crypto/rand"
@@ -33,7 +33,7 @@ func GenerateNFC() {
 	if _, err := os.Stat(nfcJson); os.IsNotExist(err) {
 		_, err := os.Create(nfcJson)
 		if err != nil {
-			panic(err)
+			UnexpectedErrorForFunction(err)
 		}
 	}
 
@@ -41,7 +41,7 @@ func GenerateNFC() {
 	if _, err := os.Stat(hashTxt); os.IsNotExist(err) {
 		_, err := os.Create(hashTxt)
 		if err != nil {
-			panic(err)
+			UnexpectedErrorForFunction(err)
 		}
 	}
 
@@ -50,7 +50,7 @@ func GenerateNFC() {
 	// Read the existing JSON data from the file.
 	jsonFile, err := ioutil.ReadFile(nfcJson)
 	if err != nil {
-		panic(err)
+		UnexpectedErrorForFunction(err)
 	}
 
 	// Decode the JSON data into a slice of NFCTag structs.
@@ -58,7 +58,7 @@ func GenerateNFC() {
 	if len(jsonFile) > 0 {
 		err = json.Unmarshal(jsonFile, &nfcTags)
 		if err != nil {
-			panic(err)
+			UnexpectedErrorForFunction(err)
 		}
 	}
 
@@ -100,25 +100,25 @@ func GenerateNFC() {
 	// Put hashSlice into a text file
 	hashFile, err := os.OpenFile(hashTxt, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		panic(err)
+		UnexpectedErrorForFunction(err)
 	}
 
 	for _, hash := range hashSlice {
 		if _, err = hashFile.WriteString(hash + "\n"); err != nil {
-			panic(err)
+			UnexpectedErrorForFunction(err)
 		}
 	}
 
 	// Encode the updated slice of NFCTag structs to JSON format.
 	jsonData, err := json.MarshalIndent(nfcTags, "", "  ")
 	if err != nil {
-		panic(err)
+		UnexpectedErrorForFunction(err)
 	}
 
 	// Write the JSON data to the file.
 	err = ioutil.WriteFile(nfcJson, jsonData, 0644)
 	if err != nil {
-		panic(err)
+		UnexpectedErrorForFunction(err)
 	}
 }
 
@@ -128,7 +128,7 @@ func CheckNfcAmount() {
 	// Read the existing JSON data from the file.
 	jsonFile, err := ioutil.ReadFile(nfcJson)
 	if err != nil {
-		panic(err)
+		UnexpectedErrorForFunction(err)
 	}
 
 	// Decode the JSON data into a slice of NFCTag structs.
@@ -136,7 +136,7 @@ func CheckNfcAmount() {
 	if len(jsonFile) > 0 {
 		err = json.Unmarshal(jsonFile, &nfcTags)
 		if err != nil {
-			panic(err)
+			UnexpectedErrorForFunction(err)
 		}
 	} else {
 		fmt.Println("No NFC generated")

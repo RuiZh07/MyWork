@@ -30,7 +30,7 @@ func HandleLogin(c *fiber.Ctx) error {
 		return c.Render("login", fiber.Map{"ErrorMessage": "No account associated with email: " + email})
 	}
 	if err != nil {
-		return err
+		UnexpectedError(c, err, "HandleLogin (login.go)")
 	}
 
 	// Compare the provided password with the hashed password
@@ -42,13 +42,14 @@ func HandleLogin(c *fiber.Ctx) error {
 		})
 	}
 	if err != nil {
-		return err
+		UnexpectedError(c, err, "HandleLogin (login.go)")
 	}
 
 	// The email and password are correct, log the user in
 	sess, sessErr := model.Store.Get(c)
 	if sessErr != nil {
-		log.Fatal("Error when getting session info")
+		log.Print("Error when getting session info")
+		UnexpectedError(c, err, "HandleLogin (login.go)")
 	}
 
 	userIDStr := fmt.Sprintf("%d", userID)
@@ -58,7 +59,8 @@ func HandleLogin(c *fiber.Ctx) error {
 
 	sessErr = sess.Save()
 	if sessErr != nil {
-		log.Fatal("Error when saving session info")
+		log.Print("Error when saving session info")
+		UnexpectedError(c, err, "HandleLogin (login.go)")
 	}
 
 	// The email and password are correct, log the user in
