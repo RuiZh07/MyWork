@@ -36,19 +36,27 @@ func Setup() {
 	// Routes
 	app.Get("/", index)
 
+	// This is Get request routes for user without authentication to view public profile
+	app.Get("/page/:publicProfileLink", controller.LoadPublicProfile)
+	app.Get("/page/avatar/:filename", controller.ServeAvatar)
+
+	// This is Get request routes for user without authentication to access public tag
+	app.Get("/tag/:tagHash", controller.LoadNFCPage)
+	app.Post("/activateTag", controller.ActivateNFC)
+
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
 
 	// This is Get request routes for user without authentication
 
-	NoAuth.Get("/signup", controller.LoadRegister)
+	NoAuth.Get("/SelectUniversity", controller.LoadRegister)
 	NoAuth.Get("/login", controller.LoadLoginPage)
 
 	//Setup NoAuthPost to limit the request reducing server load
 	NoAuthPost := app.Group("/auth")
 	NoAuthPost.Use(limiter.New())
 	// This is Post request routes for user without authentication
-	NoAuthPost.Post("/selectU", controller.HandleUniversitySelection)
+	NoAuthPost.Post("/createAccount", controller.HandleUniversitySelection)
 	NoAuthPost.Post("/register", controller.HandleRegistration)
 	NoAuthPost.Post("/login", controller.HandleLogin)
 
@@ -59,7 +67,8 @@ func Setup() {
 	// Todo
 	// Complete each of the get request setup
 	admin.Get("/profilePage", controller.LoadProfilePage)
-	admin.Get("/manageTag", controller.ManageTag)
+	admin.Get("/createProfileLink", controller.LoadCreateNewProfileLink)
+	admin.Get("/manageTag", controller.LoadNFCSetting)
 	admin.Get("/requestTag", controller.RequestTag)
 	admin.Get("/setting", controller.LoadSettingPage)
 
@@ -89,6 +98,12 @@ func Setup() {
 	profilePost := adminPost.Group("/profile")
 	profilePost.Post("/createProfile", controller.CreateNewProfile)
 	profilePost.Post("/deleteProfile", controller.DeleteProfile)
+	profilePost.Post("/setAsPrimary", controller.SetAsPrimaryProfile)
+	profilePost.Post("/setProfileLink", controller.CreateProfileLink)
+
+	// Post for tag
+	tagPost := adminPost.Group("/manageTag")
+	tagPost.Post("/updateTagActivation", controller.DeactivateNFC)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))

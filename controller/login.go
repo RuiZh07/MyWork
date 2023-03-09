@@ -45,7 +45,7 @@ func HandleLogin(c *fiber.Ctx) error {
 		return err
 	}
 
-	log.Print("Get session info")
+	// The email and password are correct, log the user in
 	sess, sessErr := model.Store.Get(c)
 	if sessErr != nil {
 		log.Fatal("Error when getting session info")
@@ -56,8 +56,6 @@ func HandleLogin(c *fiber.Ctx) error {
 	sess.Set(model.AUTH_KEY, true)
 	sess.Set(model.USER_EMAIL, email)
 
-	log.Print("Session email")
-	log.Print(sess.Get(model.USER_EMAIL))
 	sessErr = sess.Save()
 	if sessErr != nil {
 		log.Fatal("Error when saving session info")

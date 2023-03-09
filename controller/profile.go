@@ -6,15 +6,37 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	"io/ioutil"
 	"log"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/gofiber/fiber/v2"
 )
 
+// This function is used to load the profile page
+// if the user has a profile link then it will load the profile page
+// otherwise it will redirect to the create profile link page
 func LoadProfilePage(c *fiber.Ctx) error {
+
+	// Get the user id from the session
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var profileLink sql.NullString
+
+	// Check if user already has user profile link
+	err = database.DB.QueryRow("SELECT profileLink FROM users WHERE user_id = $1", sess.Get(model.USER_ID)).Scan(&profileLink)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if !profileLink.Valid {
+		return c.Redirect("/user/createProfileLink")
+	}
+
 	profile := model.ProfileMenu{
 		ShowCreateProfileButton: canCreateNewProfile(c),
 		ProfilePages:            profilePages(c),
@@ -65,9 +87,9 @@ func CreateNewProfile(c *fiber.Ctx) error {
 		itemIndex++
 		idIndex++
 	}
-
 	profileName := c.FormValue("profileName")
 
+	// Get the media platform URL from the json file
 	dataJson, err := ioutil.ReadFile("database/platformLinks.json")
 	if err != nil {
 		log.Fatal(err)
@@ -106,7 +128,7 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	// If no row exist, then create new profile
 	case err == sql.ErrNoRows:
 
-		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)", userID, userEmail, profileName, false)
+		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)", userID, userEmail, profileName, true)
 
 		if err != nil {
 			log.Fatal(err)
@@ -118,6 +140,12 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	default:
 		log.Print("Inserted new profile row into table")
 
+	}
+
+	// Set other existing profile to false
+	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name != $3", false, userID, profileName)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	// TODO: update the json file for social media into only 1
@@ -189,12 +217,8 @@ func profilePages(c *fiber.Ctx) []string {
 
 func DisplayProfile(c *fiber.Ctx) error {
 
-	//Get URL path
-	path := c.Path()
-	// Splitting URL with "/"
-	segments := strings.Split(path, "/")
-	// Get the last segment in URL
-	profileName := segments[len(segments)-1]
+	// Get the profile name from the url
+	profileName := c.Params("id")
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
@@ -220,9 +244,15 @@ func DisplayProfile(c *fiber.Ctx) error {
 		}
 	}
 
+	NotPrimany := false
+	if !profile.Activation {
+		NotPrimany = true
+	}
+
 	profileInfo := model.ProfileData{
 		ProfileName:  profileName,
 		ProfileLinks: linkArray,
+		NotPrimary:   NotPrimany,
 	}
 
 	return c.Render("displayProfile", profileInfo)
@@ -245,4 +275,106 @@ func DeleteProfile(c *fiber.Ctx) error {
 
 	return c.Redirect("/user/profilePage")
 
+}
+
+func SetAsPrimaryProfile(c *fiber.Ctx) error {
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	userID := sess.Get(model.USER_ID)
+	profileName := c.FormValue("profileName")
+
+	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name = $3", true, userID, profileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name != $3", false, userID, profileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return c.Redirect("/user/profilePage")
+}
+
+func LoadCreateNewProfileLink(c *fiber.Ctx) error {
+	return c.Render("createProfileLink", nil)
+}
+
+// create profile link for user's profile page
+func CreateProfileLink(c *fiber.Ctx) error {
+	sess, err := model.Store.Get(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var count int
+	userEmail := sess.Get(model.USER_EMAIL)
+	userID := sess.Get(model.USER_ID)
+	profileLink := c.FormValue("profileLink")
+
+	err = database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE profileLink = $1", profileLink).Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if count > 0 {
+		return c.Render("createProfileLink", fiber.Map{
+			"LinkMessage": "Cannot create link, link already exist",
+		})
+	}
+
+	_, err = database.DB.Exec("UPDATE users SET profileLink = $1 WHERE user_id = $2 and email = $3", profileLink, userID, userEmail)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return c.Redirect("/user/profilePage")
+}
+
+// Load public profile page of user
+func LoadPublicProfile(c *fiber.Ctx) error {
+
+	// Get the profile link from URL
+	profileLink := c.Params("publicProfileLink")
+
+	var profile model.Profile
+	var user model.User
+
+	err := database.DB.QueryRow(`SELECT name, email, university, profilePicture, profileLink FROM users WHERE profileLink = $1`, profileLink).Scan(&user.Name, &user.Email, &user.University, &user.ProfilePicture, &user.ProfileLink)
+	if err != nil {
+		log.Print("Error when getting data from db (profile.go/LoadPublicProfile() ) ")
+		log.Fatal(err)
+	}
+
+	err = database.DB.QueryRow(`SELECT * FROM profiles WHERE user_email = $1 and activation = $2 `, user.Email, true).Scan(&profile.ProfileID, &profile.UserID, &profile.UserEmail, &profile.Name, &profile.Activation, &profile.Link1, &profile.Link2, &profile.Link3,
+		&profile.Link4, &profile.Link5, &profile.Link6, &profile.Link7, &profile.Link8, &profile.Link9, &profile.Link10)
+
+	if err == sql.ErrNoRows {
+		return c.Render("publicProfile", fiber.Map{
+			"UserName":       user.Name,
+			"ProfilePicture": user.ProfilePicture,
+			"University":     user.University,
+			"Error":          "No public profile set yet, please contact user to set a public profile",
+		})
+	} else if err != nil {
+		log.Print("Error when getting profile from db (profile.go/LoadPublicProfile() ) ")
+		log.Fatal(err)
+	}
+
+	var linkArray []string
+	for i := 1; i <= 10; i++ {
+		link := reflect.ValueOf(profile).FieldByName("Link" + strconv.Itoa(i))
+		if link.FieldByName("Valid").Bool() && link.FieldByName("String").String() != "" {
+			linkArray = append(linkArray, link.FieldByName("String").String())
+		}
+	}
+
+	return c.Render("publicProfile", fiber.Map{
+		"UserName":       user.Name,
+		"ProfilePicture": user.ProfilePicture,
+		"University":     user.University,
+		"ProfileLinks":   linkArray,
+	})
 }

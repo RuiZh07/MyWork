@@ -22,7 +22,6 @@ func noAuth(c *fiber.Ctx) error {
 	}
 
 	if strings.Split(c.Path(), "/")[1] == "auth" && sess.Get(model.AUTH_KEY) == nil {
-		log.Print("No auth key in cookie")
 		return c.Next()
 	}
 
