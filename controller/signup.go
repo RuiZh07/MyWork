@@ -7,7 +7,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"strings"
-
+	"html/template"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -16,7 +16,7 @@ var universityData = make(map[string]model.University)
 
 func HandleRegistration(c *fiber.Ctx) error {
 	// Get the form values
-	userName := c.FormValue("userName")
+	userName := template.HTMLEscapeString(c.FormValue("userName"))
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 	confirmPassword := c.FormValue("confirmPassword")
@@ -138,5 +138,9 @@ func checkInputValidation(userName string, email string, password string, confir
 		return "Please use your university email " + domain
 	}
 
+	//check if email is ending with .edu
+	if !strings.HasSuffix(email, ".edu") {
+		return "Please use your university email " + domain
+	}
 	return ""
 }

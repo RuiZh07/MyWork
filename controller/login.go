@@ -6,18 +6,33 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	//"github.com/gofiber/fiber/v2/middleware/csrf"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 )
 
 func LoadLoginPage(c *fiber.Ctx) error {
-	// Render login.html template
-	return c.Render("login", nil)
+	// Get the CSRF token from the context
+	csrfToken := c.Cookies("_csrf")
+	log.Print(csrfToken)
+
+	// Add the CSRF token to the template data
+	data := fiber.Map{
+		"csrf": csrfToken,
+	}
+
+	// Render login.html template with CSRF token included
+	return c.Render("login", data)
 }
 
 // HandleLogin handles user login requests
 func HandleLogin(c *fiber.Ctx) error {
-	// Get the form values
+
+	csrfToken := c.FormValue("_csrf")
+	trueCsrfToken := c.Cookies("_csrf")
+	if csrfToken != trueCsrfToken {
+		return c.Render("login", fiber.Map{"ErrorMessage": "Invalid CSRF token"})
+	}
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
@@ -64,5 +79,7 @@ func HandleLogin(c *fiber.Ctx) error {
 	}
 
 	// The email and password are correct, log the user in
-	return c.Redirect("/user/dashboard")
+	return c.Render("dashboard", fiber.Map{
+		"csrf": trueCsrfToken,
+	})
 }

@@ -11,6 +11,7 @@ import (
 	"image/png"
 	"log"
 	"os"
+	"html/template"
 )
 
 // Render setting.html template
@@ -231,7 +232,7 @@ func changeUsername(c *fiber.Ctx) string {
 	}
 	userID := sess.Get(model.USER_ID)
 
-	userName := c.FormValue("userName")
+	userName := template.HTMLEscapeString(c.FormValue("userName"))
 	_, err = database.DB.Exec("UPDATE users SET name = $1 WHERE user_id = $2", userName, userID)
 	if err != nil {
 		log.Print("Error when changing user name, changeUsername()")

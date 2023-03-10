@@ -4,16 +4,41 @@ import (
 	"NFC_Tag_UPoint/controller"
 	"NFC_Tag_UPoint/model"
 	"github.com/gofiber/fiber/v2"
-	// "github.com/gofiber/fiber/v2/middleware/cors"
-	"log"
-	"time"
-
+	"github.com/gofiber/fiber/v2/middleware/csrf"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/gofiber/fiber/v2/utils"
+
 	"github.com/gofiber/template/html"
+	"log"
+	"time"
+	"os"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func Setup() {
+	csrfConfig := csrf.Config{
+		KeyLookup:      "header:X-CSRF-Token",
+		KeyGenerator:  utils.UUIDv4,
+		CookieName:     "_csrf",
+		CookieSameSite: "Strict",
+		CookieSecure:   true,
+		CookieHTTPOnly: true,
+
+	}
+	limiterConfig := limiter.Config{
+		Max: 20,
+	}
+	file, err2 := os.OpenFile("database/log.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err2 != nil {
+		log.Print(err2)
+	}
+	defer file.Close()
+
+	// Set config for logger
+	loggerConfig := logger.Config{
+		Output: file, // add file to save output
+	}
 
 	// Initialize standard go html template engine
 	engine := html.New("templates", ".html")
@@ -22,6 +47,12 @@ func Setup() {
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
+
+	// Use middlewares for each route
+	app.Use(
+		logger.New(loggerConfig), // add Logger middleware with config
+		
+	)
 
 	// Setup session cookie
 	log.Print("Setting up session cookie")
@@ -42,7 +73,14 @@ func Setup() {
 
 	// This is Get request routes for user without authentication to access public tag
 	app.Get("/tag/:tagHash", controller.LoadNFCPage)
-	app.Post("/activateTag", controller.ActivateNFC)
+
+	appPost := fiber.New(fiber.Config{
+		Views: engine,
+	})
+	appPost.Use(limiter.New(limiterConfig),csrf.New(csrfConfig))
+
+	// This is Post request routes for user without authentication to access public tag
+	appPost.Post("/activateTag", controller.ActivateNFC)
 
 	NoAuth := app.Group("/auth")
 	NoAuth.Use(setAuth())
@@ -54,7 +92,8 @@ func Setup() {
 
 	//Setup NoAuthPost to limit the request reducing server load
 	NoAuthPost := app.Group("/auth")
-	NoAuthPost.Use(limiter.New())
+	NoAuthPost.Use(csrf.New(csrfConfig), limiter.New(limiterConfig))
+
 	// This is Post request routes for user without authentication
 	NoAuthPost.Post("/createAccount", controller.HandleUniversitySelection)
 	NoAuthPost.Post("/register", controller.HandleRegistration)
@@ -85,17 +124,20 @@ func Setup() {
 	setting.Get("/editInfo", controller.LoadEditInfo)
 	setting.Get("/avatar/:filename", controller.ServeAvatar)
 
-	setting.Post("/editInfo", controller.EditPersonalInfo)
+	settingPost := admin.Group("/setting")
+	settingPost.Use(limiter.New(limiterConfig), csrf.New(csrfConfig))
+
+	settingPost.Post("/editInfo", controller.EditPersonalInfo)
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
-	adminPost.Use(limiter.New(limiter.Config{
-		Max: 20,
-	}))
+	adminPost.Use(limiter.New(limiterConfig),
+		csrf.New(csrfConfig))
 
 	admin.Post("/logout", controller.Logout)
 
 	profilePost := adminPost.Group("/profile")
+	profilePost.Use(csrf.New(csrfConfig))
 	profilePost.Post("/createProfile", controller.CreateNewProfile)
 	profilePost.Post("/deleteProfile", controller.DeleteProfile)
 	profilePost.Post("/setAsPrimary", controller.SetAsPrimaryProfile)
@@ -103,6 +145,8 @@ func Setup() {
 
 	// Post for tag
 	tagPost := adminPost.Group("/manageTag")
+	tagPost.Use(limiter.New(limiterConfig), csrf.New(csrfConfig))
+
 	tagPost.Post("/updateTagActivation", controller.DeactivateNFC)
 
 	// Start server
