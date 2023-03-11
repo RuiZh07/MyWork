@@ -32,14 +32,14 @@ func HandleDeleteAccount(c *fiber.Ctx) error {
 
 	// Check if the user has an nfc tag, if no, skip this step
 	var nfcTagCount int
-	err = database.DB.QueryRow("SELECT COUNT(*) FROM nfc_tags WHERE email = $1", email).Scan(&nfcTagCount)
+	err = database.DB.QueryRow("SELECT COUNT(*) FROM nfcTag WHERE user_email = $1", email).Scan(&nfcTagCount)
 	if err != nil {
 		return UnexpectedError(c, err, "HandleDeleteAccount (deleteAccount.go)")
 	}
 	// If the user has an nfc tag, deactivate the nfc tag by setting the email to null,
 	//	 change activated to false remove created_at and set name as first 5 character of tagHash
 	if nfcTagCount > 0 {
-		_, err = database.DB.Exec("UPDATE nfcTag SET email = null, activated = false, created_at = null, name = substring(tagHash from 1 for 5) WHERE email = $1", email)
+		_, err = database.DB.Exec("UPDATE nfcTag SET user_email = null, activated = false, created_at = null, name = substring(tagHash from 1 for 5) WHERE email = $1", email)
 		if err != nil {
 			return UnexpectedError(c, err, "HandleDeleteAccount (deleteAccount.go)")
 		}
