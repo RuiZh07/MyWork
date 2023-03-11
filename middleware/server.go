@@ -82,10 +82,8 @@ func Setup() {
 	// This is Get request routes for user without authentication to access public tag
 	app.Get("/tag/:tagHash", controller.LoadNFCPage)
 
-	appPost := fiber.New(fiber.Config{
-		Views: engine,
-	})
-	appPost.Use(limiter.New(limiterConfig), csrf.New(csrfConfig))
+	appPost := app.Group("/")
+	appPost.Use(limiter.New(limiterConfig))
 
 	// This is Post request routes for user without authentication to access public tag
 	appPost.Post("/activateTag", controller.ActivateNFC)
