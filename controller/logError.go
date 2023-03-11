@@ -18,7 +18,8 @@ func UnexpectedError(c *fiber.Ctx, err error, source string) error {
 	logger.Printf("Error in %s: %v", source, err)
 
 	return c.Render("unexpectedError", fiber.Map{
-		"Error": err,
+		"Error":       err,
+		"SystemError": true,
 	})
 }
 
@@ -33,4 +34,11 @@ func UnexpectedErrorForFunction(err error) error {
 	logger.Println(err)
 
 	return err
+}
+
+func ProfileNotExist(c *fiber.Ctx) error {
+	return c.Render("unexpectedError", fiber.Map{
+		"Error":       "Profile Link does not exist",
+		"SystemError": false,
+	})
 }

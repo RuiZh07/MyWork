@@ -13,7 +13,7 @@ func LoadDashboard(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
 		log.Print("Error when getting session info in dashboard")
-		UnexpectedError(c, err, "LoadDashboard (dashboard.go)")
+		return UnexpectedError(c, err, "LoadDashboard (dashboard.go)")
 	}
 
 	userEmail := sess.Get(model.USER_EMAIL)
@@ -26,8 +26,8 @@ func LoadDashboard(c *fiber.Ctx) error {
 	err = database.DB.QueryRow("SELECT name, university, COALESCE(profilePicture, ''), profileLink FROM users WHERE email = $1", userEmail).Scan(&userName, &userUniversity, &profilePicture, &profileLink)
 	if err != nil {
 		log.Print("Error when getting user name and university from database (dashboard.go)")
-		UnexpectedError(c, err, "LoadDashboard (dashboard.go)")
-		return nil
+		return UnexpectedError(c, err, "LoadDashboard (dashboard.go)")
+
 	}
 
 	if !profileLink.Valid {
