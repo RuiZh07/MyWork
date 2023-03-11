@@ -6,12 +6,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/nfnt/resize"
 	"golang.org/x/crypto/bcrypt"
+	"html/template"
 	"image"
 	"image/jpeg"
 	"image/png"
 	"log"
 	"os"
-	"html/template"
 )
 
 // Render setting.html template

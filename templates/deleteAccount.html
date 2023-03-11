@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Confirm Account Deletion</title>
+	<style>
+		input[type="submit"] {
+			background-color: red;
+			color: white;
+			padding: 5px;
+			border-radius: 5px;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Are you sure you want to delete your account?</h1>
+	<p>Please enter your email address to confirm the action:</p>
+	<form action="/user/setting/deleteAccount" method = "POST" >
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" required>
+		<br><br>
+		<input type="submit" value="Delete Account">
+	</form>
+</body>
+</html>

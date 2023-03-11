@@ -64,7 +64,7 @@ func Setup() {
 				tagHash VARCHAR(255),
 				user_email text,
 				activated BOOLEAN NOT NULL,
-				created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+				created_at TIMESTAMP NULL DEFAULT NULL
 			);
 		`)
 	}

@@ -23,14 +23,14 @@ func LoadProfilePage(c *fiber.Ctx) error {
 	// Get the user id from the session
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		UnexpectedError(c, err, "LoadProfilePage (profile.go)")
+		return UnexpectedError(c, err, "LoadProfilePage (profile.go)")
 	}
 	var profileLink sql.NullString
 
 	// Check if user already has user profile link
 	err = database.DB.QueryRow("SELECT profileLink FROM users WHERE user_id = $1", sess.Get(model.USER_ID)).Scan(&profileLink)
 	if err != nil {
-		UnexpectedError(c, err, "LoadProfilePage (profile.go)")
+		return UnexpectedError(c, err, "LoadProfilePage (profile.go)")
 	}
 
 	if !profileLink.Valid {
@@ -50,13 +50,13 @@ func LoadCreateNewProfile(c *fiber.Ctx) error {
 
 	dataJson, err := ioutil.ReadFile("database/socialMedia.json")
 	if err != nil {
-		UnexpectedError(c, err, "LoadCreateNewProfile (profile.go)")
+		return UnexpectedError(c, err, "LoadCreateNewProfile (profile.go)")
 	}
 
 	var data []model.SocialMedia
 	err = json.Unmarshal(dataJson, &data)
 	if err != nil {
-		UnexpectedError(c, err, "LoadCreateNewProfile (profile.go)")
+		return UnexpectedError(c, err, "LoadCreateNewProfile (profile.go)")
 	}
 	var mediaName []string
 	for _, socialMedia := range data {
@@ -92,7 +92,7 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	// Get the media platform URL from the json file
 	dataJson, err := ioutil.ReadFile("database/platformLinks.json")
 	if err != nil {
-		UnexpectedError(c, err, "CreateNewProfile (profile.go)")
+		return UnexpectedError(c, err, "CreateNewProfile (profile.go)")
 	}
 
 	// Unmarshal JSON into a map of media platforms to URLs
@@ -101,7 +101,7 @@ func CreateNewProfile(c *fiber.Ctx) error {
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		UnexpectedError(c, err, "CreateNewProfile (profile.go)")
+		return UnexpectedError(c, err, "CreateNewProfile (profile.go)")
 	}
 
 	userEmail := sess.Get(model.USER_EMAIL)
@@ -131,11 +131,11 @@ func CreateNewProfile(c *fiber.Ctx) error {
 		_, err = database.DB.Exec("INSERT INTO profiles (user_id, user_email, name, activation) VALUES ($1, $2, $3, $4)", userID, userEmail, profileName, true)
 
 		if err != nil {
-			UnexpectedError(c, err, "CreateNewProfile (profile.go)")
+			return UnexpectedError(c, err, "CreateNewProfile (profile.go)")
 		}
 
 	case err != nil:
-		UnexpectedError(c, err, "CreateNewProfile (profile.go)")
+		return UnexpectedError(c, err, "CreateNewProfile (profile.go)")
 
 	default:
 		log.Print("Inserted new profile row into table")
@@ -145,7 +145,7 @@ func CreateNewProfile(c *fiber.Ctx) error {
 	// Set other existing profile to false
 	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name != $3", false, userID, profileName)
 	if err != nil {
-		UnexpectedError(c, err, "CreateNewProfile (profile.go)")
+		return UnexpectedError(c, err, "CreateNewProfile (profile.go)")
 	}
 
 	// TODO: update the json file for social media into only 1
@@ -154,7 +154,7 @@ func CreateNewProfile(c *fiber.Ctx) error {
 		_, err = database.DB.Exec((fmt.Sprintf("UPDATE profiles SET %s = $1 WHERE user_id = $2 AND name = $3", column)), link, userID, profileName)
 
 		if err != nil {
-			UnexpectedError(c, err, "CreateNewProfile (profile.go)")
+			return UnexpectedError(c, err, "CreateNewProfile (profile.go)")
 		}
 	}
 
@@ -222,7 +222,7 @@ func DisplayProfile(c *fiber.Ctx) error {
 
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		UnexpectedError(c, err, "DisplayProfile (profile.go)")
+		return UnexpectedError(c, err, "DisplayProfile (profile.go)")
 	}
 
 	userEmail := sess.Get(model.USER_EMAIL)
@@ -234,7 +234,7 @@ func DisplayProfile(c *fiber.Ctx) error {
 		&profile.Link4, &profile.Link5, &profile.Link6, &profile.Link7, &profile.Link8, &profile.Link9, &profile.Link10)
 
 	if err != nil {
-		UnexpectedError(c, err, "DisplayProfile (profile.go)")
+		return UnexpectedError(c, err, "DisplayProfile (profile.go)")
 	}
 	var linkArray []string
 	for i := 1; i <= 10; i++ {
@@ -261,7 +261,7 @@ func DisplayProfile(c *fiber.Ctx) error {
 func DeleteProfile(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		UnexpectedError(c, err, "DeleteProfile (profile.go)")
+		return UnexpectedError(c, err, "DeleteProfile (profile.go)")
 	}
 
 	userEmail := sess.Get(model.USER_EMAIL)
@@ -270,7 +270,7 @@ func DeleteProfile(c *fiber.Ctx) error {
 
 	_, err = database.DB.Exec("DELETE FROM profiles WHERE user_id = $1 and user_email = $2 and name = $3", userID, userEmail, profileName)
 	if err != nil {
-		UnexpectedError(c, err, "DeleteProfile (profile.go)")
+		return UnexpectedError(c, err, "DeleteProfile (profile.go)")
 	}
 
 	return c.Redirect("/user/profilePage")
@@ -280,7 +280,7 @@ func DeleteProfile(c *fiber.Ctx) error {
 func SetAsPrimaryProfile(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		UnexpectedError(c, err, "SetAsPrimaryProfile (profile.go)")
+		return UnexpectedError(c, err, "SetAsPrimaryProfile (profile.go)")
 	}
 
 	userID := sess.Get(model.USER_ID)
@@ -288,12 +288,12 @@ func SetAsPrimaryProfile(c *fiber.Ctx) error {
 
 	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name = $3", true, userID, profileName)
 	if err != nil {
-		UnexpectedError(c, err, "SetAsPrimaryProfile (profile.go)")
+		return UnexpectedError(c, err, "SetAsPrimaryProfile (profile.go)")
 	}
 
 	_, err = database.DB.Exec("UPDATE profiles SET activation = $1 WHERE user_id = $2 AND name != $3", false, userID, profileName)
 	if err != nil {
-		UnexpectedError(c, err, "SetAsPrimaryProfile (profile.go)")
+		return UnexpectedError(c, err, "SetAsPrimaryProfile (profile.go)")
 	}
 
 	return c.Redirect("/user/profilePage")
@@ -307,7 +307,7 @@ func LoadCreateNewProfileLink(c *fiber.Ctx) error {
 func CreateProfileLink(c *fiber.Ctx) error {
 	sess, err := model.Store.Get(c)
 	if err != nil {
-		UnexpectedError(c, err, "CreateProfileLink (profile.go)")
+		return UnexpectedError(c, err, "CreateProfileLink (profile.go)")
 	}
 
 	var count int
@@ -317,7 +317,7 @@ func CreateProfileLink(c *fiber.Ctx) error {
 
 	err = database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE profileLink = $1", profileLink).Scan(&count)
 	if err != nil {
-		UnexpectedError(c, err, "CreateProfileLink (profile.go)")
+		return UnexpectedError(c, err, "CreateProfileLink (profile.go)")
 	}
 	if count > 0 {
 		return c.Render("createProfileLink", fiber.Map{
@@ -327,7 +327,7 @@ func CreateProfileLink(c *fiber.Ctx) error {
 
 	_, err = database.DB.Exec("UPDATE users SET profileLink = $1 WHERE user_id = $2 and email = $3", profileLink, userID, userEmail)
 	if err != nil {
-		UnexpectedError(c, err, "CreateProfileLink (profile.go)")
+		return UnexpectedError(c, err, "CreateProfileLink (profile.go)")
 	}
 
 	return c.Redirect("/user/profilePage")
@@ -342,10 +342,21 @@ func LoadPublicProfile(c *fiber.Ctx) error {
 	var profile model.Profile
 	var user model.User
 
-	err := database.DB.QueryRow(`SELECT name, email, university, profilePicture, profileLink FROM users WHERE profileLink = $1`, profileLink).Scan(&user.Name, &user.Email, &user.University, &user.ProfilePicture, &user.ProfileLink)
+	//check if profile link exist
+	var count int
+	err := database.DB.QueryRow("SELECT COUNT(*) FROM users WHERE profileLink = $1", profileLink).Scan(&count)
+	if err != nil {
+		return UnexpectedError(c, err, "LoadPublicProfile (profile.go)")
+	}
+
+	if count == 0 {
+		return ProfileNotExist(c)
+	}
+
+	err = database.DB.QueryRow(`SELECT name, email, university, profilePicture, profileLink FROM users WHERE profileLink = $1`, profileLink).Scan(&user.Name, &user.Email, &user.University, &user.ProfilePicture, &user.ProfileLink)
 	if err != nil {
 		log.Print("Error when getting data from db (profile.go/LoadPublicProfile() ) ")
-		UnexpectedError(c, err, "LoadPublicProfile (profile.go)")
+		return UnexpectedError(c, err, "LoadPublicProfile (profile.go)")
 	}
 
 	err = database.DB.QueryRow(`SELECT * FROM profiles WHERE user_email = $1 and activation = $2 `, user.Email, true).Scan(&profile.ProfileID, &profile.UserID, &profile.UserEmail, &profile.Name, &profile.Activation, &profile.Link1, &profile.Link2, &profile.Link3,
@@ -360,7 +371,7 @@ func LoadPublicProfile(c *fiber.Ctx) error {
 		})
 	} else if err != nil {
 		log.Print("Error when getting profile from db (profile.go/LoadPublicProfile() ) ")
-		UnexpectedError(c, err, "LoadPublicProfile (profile.go)")
+		return UnexpectedError(c, err, "LoadPublicProfile (profile.go)")
 	}
 
 	var linkArray []string
