@@ -21,7 +21,8 @@ import (
 func Setup() {
 
 	limiterConfig := limiter.Config{
-		Max: 20,
+		Max: 200,
+		Expiration: 1 * time.Minute,
 	}
 	file, err2 := os.OpenFile("database/log.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err2 != nil {
@@ -53,13 +54,14 @@ func Setup() {
 	model.Store = session.New(session.Config{
 		CookieHTTPOnly: true,
 		Expiration:     time.Hour * 24,
+		CookieSecure:  true,
 	})
 
 	csrfConfig := csrf.Config{
-		Next: func(c *fiber.Ctx) bool {
-			return true
-		},
-		KeyLookup:         "header:X-CSRF-Token",
+		// Next: func(c *fiber.Ctx) bool {
+		// 	return true
+		// },
+		KeyLookup:         "cookie:_csrf",
 		KeyGenerator:      utils.UUIDv4,
 		CookieName:        "_csrf",
 		CookieSameSite:    "Strict",
@@ -107,7 +109,7 @@ func Setup() {
 
 	admin := app.Group("/user")
 	admin.Use(checkAuth())
-	admin.Get("/dashboard", csrfProtection, controller.LoadDashboard)
+	admin.Get("/dashboard", controller.LoadDashboard)
 
 	// Todo
 	// Complete each of the get request setup
@@ -132,30 +134,29 @@ func Setup() {
 	setting.Get("/avatar/:filename", controller.ServeAvatar)
 
 	settingPost := admin.Group("/setting")
-	settingPost.Use(limiter.New(limiterConfig), csrf.New(csrfConfig))
+	settingPost.Use(limiter.New(limiterConfig))
 
-	settingPost.Post("/deleteAccount", controller.HandleDeleteAccount)
-	settingPost.Post("/editInfo", controller.EditPersonalInfo)
+	settingPost.Post("/deleteAccount", csrfProtection, controller.HandleDeleteAccount)
+	settingPost.Post("/editInfo", csrfProtection, controller.EditPersonalInfo)
 
 	//Setup adminPost to limit the request reducing server load
 	adminPost := app.Group("/user")
-	adminPost.Use(limiter.New(limiterConfig),
-		csrf.New(csrfConfig))
+	adminPost.Use(limiter.New(limiterConfig))
 
 	admin.Post("/logout", controller.Logout)
 
 	profilePost := adminPost.Group("/profile")
-	profilePost.Use(csrf.New(csrfConfig))
-	profilePost.Post("/createProfile", controller.CreateNewProfile)
-	profilePost.Post("/deleteProfile", controller.DeleteProfile)
-	profilePost.Post("/setAsPrimary", controller.SetAsPrimaryProfile)
-	profilePost.Post("/setProfileLink", controller.CreateProfileLink)
+	profilePost.Use(limiter.New(limiterConfig))
+	profilePost.Post("/createProfile", csrfProtection, controller.CreateNewProfile)
+	profilePost.Post("/deleteProfile", csrfProtection, controller.DeleteProfile)
+	profilePost.Post("/setAsPrimary", csrfProtection, controller.SetAsPrimaryProfile)
+	profilePost.Post("/setProfileLink", csrfProtection, controller.CreateProfileLink)
 
 	// Post for tag
 	tagPost := adminPost.Group("/manageTag")
-	tagPost.Use(limiter.New(limiterConfig), csrf.New(csrfConfig))
+	tagPost.Use(limiter.New(limiterConfig))
 
-	tagPost.Post("/updateTagActivation", controller.DeactivateNFC)
+	tagPost.Post("/updateTagActivation", csrfProtection, controller.DeactivateNFC)
 
 	// Start server
 	log.Fatal(app.Listen(":8080"))
