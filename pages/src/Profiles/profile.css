@@ -1,0 +1,136 @@
+
+/*
+.main-profile {
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.all-profile
+{
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+}
+
+.back-icon {
+    color:#000000;
+    margin-right: 50px;
+}
+
+.title-profile {
+   margin-right: 50px;
+   
+}
+
+.all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px 5px 5px 5px;
+}
+
+
+.all button {
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px;
+    margin-top: 10px; 
+
+}
+
+.plus {
+    padding-top: 20px;
+
+}
+
+.add-new {
+    margin-left: 15px;
+}
+
+.add {
+    padding-top:15px;
+}
+*/
+
+
+
+.main-profile {
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.all-profile {
+    display: flex;   
+    align-items:center;
+    border-bottom: 2px solid black;
+    padding: 20px 20px;
+    margin-bottom: 25px;
+}
+
+.back-icon {
+    color:#000000;
+    font-size: 30px;
+
+}
+
+.title-profile {
+    font-size: 25px;
+    font-family: 'Quando';
+    margin-left: 31%;
+}
+
+.all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px 5px 5px 5px;
+}
+
+
+.all button {
+    font-size: 25px;
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px;
+    margin-top: 40px; 
+    font-family: 'Quando';
+
+}
+
+.plus {
+    padding-top: 20px;
+
+}
+
+.add-new {
+    margin-left: 15px;
+    color:#FFFFFF;
+}
+
+.add {
+    padding-top:30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+

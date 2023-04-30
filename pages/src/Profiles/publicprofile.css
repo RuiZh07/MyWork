@@ -1,0 +1,102 @@
+.public-profile {
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-container {
+    position: relative;
+    display: flex;
+    flex-direction: center;
+}
+
+.profileImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.avatar-container {
+    position: absolute;
+    top: calc(130% - 60px);
+    left: calc(53% - 10px);
+    transform: translate(-50%, -50%);
+}
+.backboard {
+    display:flex;
+    flex-direction: center;
+    width: 300px;
+    height: 150px;
+    background-color: lightgray;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.all {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lists button {
+    padding: 3px 20px 3px 15px;
+    margin: 4px;
+    border-radius: 15px;
+    width:50vw;
+    height: 8vh;
+    border: 2px solid #962629;
+
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 50%;
+
+}
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+}
+  
+.social-id {
+    padding-left: 20px;
+    font-size: 15px;
+}
+
+.name-university {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 60px;
+    margin-bottom: 70px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color:#FFFFFF;
+}
+
+.univeristy {
+    font-size: 5px;
+    color:#FFFFFF;
+}
+
+
+

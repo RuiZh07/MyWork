@@ -1,0 +1,125 @@
+.main-profile {
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+}
+
+.all-profile {
+    display: flex;   
+    align-items:center;
+    border-bottom: 2px solid black;
+    padding: 20px 20px;
+    margin-bottom: 45px;
+}
+
+.back-icon {
+    color:#000000;
+    font-size: 30px;
+
+}
+
+.title-profile {
+    font-size: 25px;
+    font-family: 'Quando';
+    margin-left: 31%;
+}
+
+.setting-profileImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 37%;
+    border: 2px solid white;
+}
+
+.settings-portion {
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px 0 50px;
+
+}
+.settings-portion button {
+    border: 2px solid black;
+    border-right: none;
+    border-left: none;
+    background-color: transparent;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.settings-portion button span {
+    margin-right: auto;
+    color:#FFFFFF;
+    font-size:20px;
+    font-family: 'Quando';
+    font-style: normal; 
+  }
+  
+.settings-portion a {
+    text-decoration: none;
+}
+
+
+.settings-portion button svg {
+    margin-left: auto;
+  }
+.subscription button {
+    border: none;
+}
+
+.help-feedback button {
+    border: 2px solid A9A9A9;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.delete-account span{
+    margin-left: 23%;
+  }
+  
+.modal-setting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content-setting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .modal-buttons-setting {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .modal-buttons-setting button {
+    margin: 0 10px;
+  }
+  

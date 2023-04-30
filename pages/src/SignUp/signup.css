@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rosario&family=Signika+Negative&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inika:wght@700&family=Rosario&family=Signika+Negative&display=swap');
+.signup{
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.bottom{
+    display: flex;
+    position: relative;
+    top: -40px;
+}
+
+.container{
+    display:inline;
+    text-align: center;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 15px;
+}
+
+.signup span {
+    font-size: 13px;
+    color: #FFFFFF;
+}
+
+.signup a {
+    color: #54C0FD;
+    font-size: 13px;
+    margin-left: 12px;
+}
+
+.signup form
+{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.signup button {
+    width: 50%;
+    padding: 10px;
+    border: 2px solid #962629;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    margin-top: 5px;
+    margin-left: 24%;
+    font-size: 16px;
+}
+
+.signup label {
+    font-family: 'Rosario', sans-serif;
+    font-size: 15px;
+    color: white;
+    margin-top: 5px;
+}
+
+.signup input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    padding: 2px 3px;  
+}
+
+.signup p {
+    font-family: 'Inika', serif;
+    font-size: 25px;
+    margin-bottom: 10px;
+
+}
+
+.social-media-container {
+    height: 300px;
+    overflow-y: auto; 
+} 
