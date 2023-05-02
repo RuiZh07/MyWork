@@ -42,20 +42,20 @@ const Setting = () => {
     return (
         <div className="main-profile">
             <div className="top">
-                <div className="all-profile">
+                <div className="all-setting">
                     <Link to="/home.jsx">
                         <IoMdArrowRoundBack className="back-icon" />
                     </Link>
-                    <span className="title-profile">Setting</span>
+                    <span className="setting-title-profile">Setting</span>
                 </div>
                 
-                <div className="avatar">
-                    <img src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="avatar" className="setting-profileImage" />
+                <div className="avatar-setting">
+                    <img src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="avatar" className="setting-profile-Image" />
                 </div>
 
-                <div className="name-university">
-                    <span className="name">Jason Cromner</span>
-                    <span className="university">Missouri University of Science and Technology</span>
+                <div className="name-university-setting">
+                    <span className="name-settings">Jason J. Cromner</span>
+                    <span className="university-settings">Missouri University of Science and Technology</span>
                     
                 </div>
 
@@ -100,7 +100,7 @@ const Setting = () => {
                         <h3>Are you sure you want to delete your account?</h3>
                         <p>Please enter your email address to confirm the action:</p>
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <div className="modal-buttons-setting">
+                        <div className="modal-buttons-account">
                             <button onClick={() => setShowModal(false)}>Cancel</button>
                             <button onClick={confirmDeleteAccount}>Delete Account</button>
                         </div>

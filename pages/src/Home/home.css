@@ -22,16 +22,16 @@
     border: 2px solid white;
 }
 
-.name-university {
+.name-university-home {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     margin-top: 15px;
-    margin-bottom: 60px;
+    margin-bottom: 45px;
 }
 
-.name {
+.name-home {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 13px;
@@ -40,11 +40,20 @@
     font-style: normal;
 }
 
-.university {
+.university-home {
     font-size: 17px;
     color:#FFFFFF;
     font-family: 'Quando';
     font-style: normal; 
+}
+
+.link-home {
+    padding-top: 10px;
+    font-size: 14px;
+    color:#FFFFFF;
+    font-family: 'Quando';
+    font-style: normal;
+    text-decoration: underline;
 }
 
 .lists {
@@ -59,23 +68,44 @@
     align-items: center;
     
 }
-
+/*
 .home-button button {
-    margin: 6px;
+    margin: 15px;
     border-radius: 15px;
-    width: 170px;
-    height: 60px;
+    width: 190px;
+    height: 55px;
     border: 2px solid #962629;  
 }
+*/
+.home-button button {
+  color: #fff;
+  padding: 15px 25px;
+  background-color: #ffffff;
+  background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 16px;
+
+  border: 0;
+  margin: 10px;
+  width: 190px;
+  height: 55px;
+  cursor: pointer;
+}
 .home-button button:hover {
-    background-color: #3e8e41;
+    background-color: #c5d8c5;
 }
 .home-button button:active {
-    background-color: #3e8e41;
+    background-color: #b0c3b1;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
-  }
+}
 .home-button p {
-    margin-top: 17px;
-    font-size: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 23px;
+    color: black;
+    font-family: 'Bitter', serif;
+    font-weight: lighter;
 }

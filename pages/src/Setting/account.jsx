@@ -49,7 +49,7 @@ const Account = () => {
 
                     <div className="account-username">
                             <button>
-                                <span>Change Username</span>
+                                <span>Username</span>
                                 <span>JasonC </span>   
                         </button>
                        
@@ -64,7 +64,7 @@ const Account = () => {
                 </div>
             </div>
             <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Change Password" className="modal" overlayClassName="modal-overlay">
-                <div className="modal-content">
+                <div className="modal-content-account">
                     <h2>Change Password</h2>
                     <form>
                         <label className="modal-label" htmlFor="current-password">Current Password</label>
@@ -76,7 +76,7 @@ const Account = () => {
                         <label className="modal-label" htmlFor="confirm-password">Confirm Password</label>
                         <input type="password" id="confirm-password" name="confirm-password" />
 
-                        <div className="modal-buttons">
+                        <div className="modal-buttons-account">
                             <button onClick={closeModal}>Cancel</button>
                             <button type="submit">Save</button>
                         </div>

@@ -16,7 +16,7 @@ const Profile = () => {
                 </div>
                 
                 <div className="all">
-                    <Link to="/signup.jsx">
+                    <Link to="/publicprofile.jsx">
                         <button>For party</button>
                     </Link>
 
@@ -28,8 +28,9 @@ const Profile = () => {
                 <div className="add">
                     <Link to="/addprofile.jsx">
                         <AddCircleOutlinedIcon clasName="plus" />
+                        <p className="add-new">Add new Profile</p>
                     </Link>
-                    <span className="add-new">Add new Profile</span>
+                    
                 </div>
                 
             </div>

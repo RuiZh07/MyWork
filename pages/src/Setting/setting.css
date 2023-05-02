@@ -10,7 +10,7 @@
     flex-direction: column;
 }
 
-.all-profile {
+.all-setting {
     display: flex;   
     align-items:center;
     border-bottom: 2px solid black;
@@ -24,20 +24,28 @@
 
 }
 
-.title-profile {
-    font-size: 25px;
+.setting-title-profile {
+    font-size: 24px;
     font-family: 'Quando';
-    margin-left: 31%;
+    padding-left: 20px;
 }
 
-.setting-profileImage {
+.avatar-setting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.setting-profile-Image {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin-left: 37%;
+    margin-right: auto;
+    margin-left: auto;
     border: 2px solid white;
 }
+
 
 .settings-portion {
     display: flex;
@@ -122,4 +130,35 @@
   .modal-buttons-setting button {
     margin: 0 10px;
   }
+
+  .delete-account span{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+.name-university-setting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+
+.name-settings {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color:#FFFFFF;
+    font-family: 'Quando';
+    font-style: normal;
+}
+
+.university-settings {
+    font-size: 17px;
+    color:#FFFFFF;
+    font-family: 'Quando';
+    font-style: normal; 
+}
   

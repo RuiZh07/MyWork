@@ -1,7 +1,9 @@
 .main-help {
-    
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
     display: flex;
     flex-direction: column;
+
 }
 
 .top {
@@ -26,7 +28,7 @@
 .title-help {
     font-size: 25px;
     font-family: 'Quando';
-    margin-left: 20%;
+    padding-left: 20px;
 }
 
 .question {

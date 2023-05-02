@@ -8,7 +8,7 @@ const Login = () => {
             <div className="bottom">
                 <form>
                     <div className="avatar">
-                    <img src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="avatar" className="profileImage" />
+                    <img src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="avatar" className="login-profile-Image" />
                     </div>
                     <label for="email">Email</label>
                     <input type="text" size= "35" placeholder="" />

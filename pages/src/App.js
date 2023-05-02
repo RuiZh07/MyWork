@@ -15,6 +15,7 @@ import {
   createBrowserRouter,
   RouterProvider,
   Route,
+  Routes,
   Link,
 } from "react-router-dom";
 
@@ -36,6 +37,10 @@ function App() {
   */
   const router = createBrowserRouter([
 
+    {
+      path: "/",
+      element: <Login/>,
+    },
     {
       path: "/login.jsx",
       element: <Login/>,
@@ -79,13 +84,34 @@ function App() {
     {
       path: "NFCtags.jsx",
       element:<NFCTags/>,
+    },
+    {
+      path: "navbar.jsx",
+      element: <Navbar/>,
     }
 
   ]);
 
   return (
+
     <div>
-      <RouterProvider router={router} />
+      <RouterProvider router={router}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/publicprofile" element={<PublicProfile />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/addprofile" element={<AddProfile />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/activateTag" element={<ActivateTag />} />
+          <Route path="/NFCtags" element={<NFCTags />} />
+          <Route path="/navbar" element={<Navbar />} />
+        </Routes>
+      </RouterProvider>
     </div>
   );
 }

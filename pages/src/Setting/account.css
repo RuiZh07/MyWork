@@ -25,9 +25,9 @@
 }
 
 .title-account {
-    font-size: 25px;
+    font-size: 24px;
     font-family: 'Quando';
-    margin-left: 20%;
+    padding-left: 20px;
 }
 
 .setting-profileImage {
@@ -93,7 +93,7 @@
     border-bottom: none;
 }
 
-.modal-content {
+.modal-content-account {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -105,11 +105,11 @@
     font-size: 16px;
 }
 
-.model-content input {
+.model-content form input {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 20px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
@@ -129,32 +129,47 @@
 }
   
   
-.modal-content{
+.modal-content-account{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 80%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.modal-content form{
+.modal-content-account form{
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.modal-buttons button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    background-color: #1E90FF;
-    cursor: pointer;
-}
 
-.modal-buttons button:hover {
-    background-color: #0077B6;
+
+.modal-buttons-account button {
+    background-color: #d9e9e8;
+    border-radius: 100px;
+    box-shadow: rgba(139, 139, 139, .2) 0 -25px 18px -14px inset,rgba(186, 186, 186, .15) 0 1px 2px,rgba(186, 186, 186, .15) 0 2px 4px,rgba(186, 186, 186, .15) 0 4px 8px,rgba(186, 186, 186, .15) 0 8px 16px,rgba(186, 186, 186, .15) 0 16px 32px;
+    color: rgb(42, 42, 42);
+    cursor: pointer;
+    display: inline-block;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 15px 15px 5px 5px;
 }
   
+.modal-buttons-account button:hover {
+    box-shadow: rgba(139, 139, 139, 0.35) 0 -25px 18px -14px inset,rgba(186, 186, 186, 0.25) 0 1px 2px,rgba(186, 186, 186, 0.25) 0 2px 4px,rgba(186, 186, 186, 0.25) 0 4px 8px,rgba(186,186,186,.25) 0 8px 16px,rgba(186,186,186,.25) 0 16px 32px;
+    transform: scale(1.05);
+}
   

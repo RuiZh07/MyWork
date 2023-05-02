@@ -11,9 +11,10 @@ const Home = () => {
                 </div>
 
                 <div className="list">
-                    <div className="name-university">
-                        <span className="name">Jason Cromner</span>
-                        <span className="university">Missouri University of Science and Technology</span>
+                    <div className="name-university-home">
+                        <span className="name-home">Jason J. Cromner</span>
+                        <span className="university-home">Missouri University of Science and Technology</span>
+                        <span className="link-home">Profile Link: 127.0.0.1:8000/JJCromer</span>
                     </div>
 
                     <div className="home-button">
