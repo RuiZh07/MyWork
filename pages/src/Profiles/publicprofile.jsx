@@ -1,9 +1,24 @@
 import React from "react";
+import { useState } from "react";
+import { Navigate } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import "./publicprofile.css"
 import { SocialIcon } from 'react-social-icons';
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import { BsFillTrashFill } from 'react-icons/bs';
 const PublicProfile = () => {
+    const [deleted, setDeleted] = useState(false);
+
+    const handleDelete = () => {
+    // Call the backend API to delete the profile here
+    // Once the profile is deleted, set the deleted state to true
+        setDeleted(true);
+    };
+
+    if (deleted) {
+        return <Navigate to="/profile.jsx" />;
+    }
+
     return (
         <div className="main-profile">
             <div className="top">
@@ -12,6 +27,9 @@ const PublicProfile = () => {
                         <IoMdArrowRoundBack className="back-icon" />
                     </Link>
                     <span className="title-profile">Party Profile</span>
+                    <button onClick={handleDelete} style={{ marginLeft: "auto"}}>
+                        <BsFillTrashFill className="trash" />
+                    </button>
                 </div>
             
             <div className="all">
