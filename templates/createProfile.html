@@ -2,9 +2,14 @@
 <html>
   <head>
     <title>Create Profile</title>
+    <link rel="stylesheet" href="../styles/createProfile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <a href="/user/profilePage"> Return </a>
+    <br>
+    <a href="/user/profilePage" class="back">
+      <i class="fa fa-arrow-left"></i><span> Return </span>
+     </a>
     <form method="POST" action="/user/profile/createProfile">
       <label id="profileName">Profile Name</label>
       <input type="text" id="profileName" name="profileName">
@@ -74,51 +79,6 @@
         {{end}}
       </select>
       <input type="text" id="mediaID-6" name="mediaID-6">
-      <br>
-      <br>
-      <label for="mediaID-7">Social Media 7</label>
-      <br>
-      <select id="platform-7" name="platform-7">
-        <option value="">Select The Platform</option>
-        {{range .}}
-        <option value="{{.}}">{{.}}</option>
-        {{end}}
-      </select>
-      <input type="text" id="mediaID-7" name="mediaID-7">
-      <br>
-      <br>
-      <label for="mediaID-8">Social Media 8</label>
-      <br>
-      <select id="platform-8" name="platform-8">
-        <option value="">Select The Platform</option>
-        {{range .}}
-        <option value="{{.}}">{{.}}</option>
-        {{end}}
-      </select>
-      <input type="text" id="mediaID-8" name="mediaID-8">
-      <br>
-      <br>
-      <label for="mediaID-9">Social Media 9</label>
-      <br>
-      <select id="platform-9" name="platform-9">
-        <option value="">Select The Platform</option>
-        {{range .}}
-        <option value="{{.}}">{{.}}</option>
-        {{end}}
-      </select>
-      <input type="text" id="mediaID-9" name="mediaID-9">
-      <br>
-      <br>
-      <label for="mediaID-10">Social Media 10</label>
-      <br>
-      <select id="platform-10" name="platform-10">
-        <option value="">Select The Platform</option>
-        {{range .}}
-        <option value="{{.}}">{{.}}</option>
-        {{end}}
-      </select>
-      <input type="text" id="mediaID-10" name="mediaID-10">
-      <br>
       <br>
       <input type="submit" value="Submit">
     </form>
