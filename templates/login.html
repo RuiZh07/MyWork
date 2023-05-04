@@ -2,27 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles/login.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
   </head>
   <body>
-    <h1>User Login</h1>
-    <form method="POST" action="/auth/login">
-      <span style="color: black"> {{.SuccessfullyRegistered}}</span>
-      <br>
-      <label for="email"> Email </label>
-      <br>
-      <input type="email" name="email">
-      <br>
-      <label for="password"> Password </label>
-      <br>
-      <input type="password" name="password">
-      <br>
-      <span style="color: red">{{.ErrorMessage}}</span>
-      <br>
-      <input type="submit" value="Log in">
-      <br>
-      <a href="/auth/SelectUniversity" style="color: blue"> Create Account </a>
-    </form>
+    <div class="login">
+      <h1>User Login</h1>
+      <form method="POST" action="/auth/login">
+        <span style="color: black"> {{.SuccessfullyRegistered}}</span>
+        <br>
+        <label for="email"> Email </label>
+        <br>
+        <input type="email" name="email">
+        <br>
+        <label for="password"> Password </label>
+        <br>
+        <input type="password" name="password">
+        <br>
+        <span style="color: red">{{.ErrorMessage}}</span>
+        <br>
+        <input type="submit" value="Log in">
+        <br>
+        <div class="login-sign-up">
+          <span>Don't have an account?   </span>
+          <a href="/auth/SelectUniversity" style="color: aquamarine"> Sign up </a>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
