@@ -1,0 +1,77 @@
+html, body {
+    height: 100%;
+}
+
+body{
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+  }
+
+.button, input[type="submit"] {
+    color: rgb(0, 0, 0);
+    padding: 15px 25px;
+    background-color: #ffffff;
+    background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 66% at 26% 20%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
+    box-shadow: inset -3px -3px 9px rgba(255, 255, 255, 0.25), inset 0px 3px 9px rgba(255, 255, 255, 0.3), inset 0px 1px 1px rgba(255, 255, 255, 0.6), inset 0px -8px 36px rgba(0, 0, 0, 0.3), inset 0px 1px 5px rgba(255, 255, 255, 0.6), 2px 19px 31px rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+    font-family: 'Bitter', serif;
+    font-weight: lighter;
+    border: 0;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 190px;
+    /* Make the width of each button the same */
+    height: 45px;
+    /* Make the height of each button the same */
+    line-height: 50px;
+    /* align the text vertically to the center */
+}
+
+.button:hover, input[type="submit"]:hover {
+    background-color: #c5d8c5;
+}
+.button:active, input[type="submit"]:active {
+    background-color: #b0c3b1;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* aligns the items horizontally */
+    width: 50%;
+    /* width of the container is 50% of the screen */
+    margin: 0 auto;
+    /* center the container horizontally */
+    justify-content: center;
+    /* center the container vertically */
+
+}
+
+
+input[value="Logout"] {
+    padding-top: 2px;
+    font-family: 'Bitter', serif;
+    font-weight: lighter;
+}
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* aligns the items horizontally */
+    width: 50%;
+    /* width of the container is 50% of the screen */
+    margin: 0 auto;
+    /* center the container horizontally */
+    justify-content: center;
+    /* center the container vertically */
+    margin-top: 50px;
+}

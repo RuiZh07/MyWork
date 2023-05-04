@@ -1,0 +1,59 @@
+html, body {
+    height: 100%;
+}
+
+body{
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+h1{
+    font-family: 'Inter';
+    font-style: normal;
+}
+button {
+    width: 100px;
+    padding: 10px;
+    border: 2px solid #962629;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+
+}
+#userEmail, #confirmEmail {
+    margin-top: -10px;
+    border-bottom: 4px;
+    height: 22px; 
+    width: 190px;
+    border-radius: 5px;
+    background: whitesmoke;
+    margin-bottom: -5px;
+}
+
+label[for="userEmail"], label[for="confirmEmail"] {
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 18px;
+}
+
+.sign-up-link {
+    text-decoration: none;
+    color:aquamarine;
+    margin-left: 5px;
+}
+
+p {
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,0 +1,59 @@
+html, body {
+    height: 100%;
+}
+
+body{
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login label {
+    font-size: 17px;
+    color: white;
+    font-style: normal;
+}
+.login form {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    align-items: flex-start;
+}
+
+input[type="email"], input[type="password"] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    padding: 2px 5px;
+    width: 220px;
+}
+
+input[type="submit"] {
+    width: 50%;
+    padding: 10px;
+    border: 2px solid #962629;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-sign-up span {
+    margin-right: 5px;
+    color:#FFFFFF;
+  }
+  
+.login-sign-up a {
+    padding-left: 5px;
+}
+  
+

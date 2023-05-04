@@ -1,0 +1,9 @@
+html, body {
+    height: 100%;
+}
+
+body{
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+  }

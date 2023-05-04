@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+body{
+    height:100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    display: flex;
+    flex-direction: column;
+    
+}
+.back  {
+    font-size: 20px;
+    padding-bottom: 20px;
+    text-decoration: none;
+}
+
+span {
+    margin-left: 5px;
+}
+
+label {
+  font-family: 'Signika';
+  font-size: 18px;
+}
+input[type="submit"] {
+    width: 50%;
+    padding: 10px;
+    border: 2px solid #962629;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+i {
+    color: black;
+}
+
+
