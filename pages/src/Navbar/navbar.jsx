@@ -7,8 +7,13 @@ const Navbar = () => {
     return (
         <div className='background'>
             <div className="navbar">
+                {/* User Account Icon */}
                 <AccountCircleOutlinedIcon className="icons" />
+
+                {/* Contact Page Icon */}
                 <ContactPageOutlinedIcon className="icons" />
+
+                {/* Settings Icon */}
                 <SettingsOutlinedIcon className="icons"/>
             </div>    
         </div>

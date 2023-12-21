@@ -1,5 +1,5 @@
 .background {
-    height: 100vh; /* you can adjust the height as per your requirement */
+    height: 100vh; /* adjust the height as per requirement */
     background: linear-gradient(180deg, #FFFFFF 0%, #000000 98%);
 }
 .navbar {

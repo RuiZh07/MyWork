@@ -108,7 +108,7 @@
     background-color: rgba(0, 0, 0, 0.5);
   }
   
-  .modal-content-setting {
+.modal-content-setting {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -119,23 +119,22 @@
     width: 400px;
     margin-left: 20px;
     margin-right: 20px;
-  }
+}
   
-  .modal-buttons-setting {
+.modal-buttons-setting {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-  }
+}
   
-  .modal-buttons-setting button {
+.modal-buttons-setting button {
     margin: 0 10px;
-  }
+}
 
-  .delete-account span{
+.delete-account span{
     margin-left: auto;
     margin-right: auto;
-  }
-
+}
 
 .name-university-setting {
     display: flex;

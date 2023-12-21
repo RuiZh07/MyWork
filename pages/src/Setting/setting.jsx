@@ -4,7 +4,9 @@ import {Link} from 'react-router-dom';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { IoIosArrowForward } from 'react-icons/io';
+
 const Setting = () => {
+    // Function to delete the account based on the provided email address.
     const deleteAccount = (email) => {
         fetch('/delete-account', {
             method: 'DELETE',
@@ -26,13 +28,16 @@ const Setting = () => {
         });
     }
 
+    // State for managing the modal's visibility and email input.
     const [showModal, setShowModal] = useState(false);
     const [email, setEmail] = useState("");
-  
+    
+    // Function to handle the initiation of account deletion.
     const handleDeleteAccount = () => {
       setShowModal(true);
     }
   
+    // Function to confirm and execute the account deletion.
     const confirmDeleteAccount = () => {
       // Call a function to delete the account with the provided email address
       deleteAccount(email);
@@ -53,22 +58,24 @@ const Setting = () => {
                     <img src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="avatar" className="setting-profile-Image" />
                 </div>
 
+                {/* User Information Section */}
                 <div className="name-university-setting">
                     <span className="name-settings">Jason J. Cromner</span>
-                    <span className="university-settings">Missouri University of Science and Technology</span>
-                    
+                    <span className="university-settings">Missouri University of Science and Technology</span>  
                 </div>
 
+                {/* Settings Options Section */}
                 <div className="settings-portion">
                     <div className="account-setting">
                         <Link to="/account.jsx">
                             <button>
                                 <span>Account Security</span>
                                 <IoIosArrowForward className="back-icon" />   
-                        </button>
+                            </button>
                         </Link>
                     </div>
-
+                    
+                    {/* Subscription */}
                     <div className="subscription">
                         <Link to="/home.jsx">
                             <button>
@@ -78,22 +85,26 @@ const Setting = () => {
                         </Link>
                     </div>
 
+                    {/* Help & Feedback */}
                     <div className="help-feedback">
                         <Link to="/help.jsx">
                             <button>
                                 <span>Help & Feedback</span>
                                 <IoIosArrowForward className="back-icon" />  
-                        </button>
+                            </button>
                         </Link>
                     </div>
+
+                    {/* Delete Account */}
                     <div className="delete-account">
-                            <button onClick={handleDeleteAccount}>
-                                <span>Delete Account</span>
+                        <button onClick={handleDeleteAccount}>
+                            <span>Delete Account</span>
                         </button>
                     </div>
                 </div>
             </div>
 
+            {/* Delete Account Modal */}
             {showModal && (
                 <div className="modal-setting">
                     <div className="modal-content-setting">
